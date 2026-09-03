@@ -664,26 +664,30 @@
     }
     .city-chips-list {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 6px;
       margin-top: auto;
       padding-top: 12px;
       border-top: 1px dashed rgba(255, 255, 255, 0.1);
     }
     .city-chip {
       background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: #e2e8f0;
-      font-size: 10.5px;
+      font-size: 11.5px;
       font-weight: 600;
-      padding: 4px 2px;
-      border-radius: 3px;
+      padding: 6px 8px;
+      border-radius: 4px;
       white-space: nowrap;
       text-align: center;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      transition: background var(--transition);
+    }
+    .city-chip:hover {
+      background: rgba(255, 255, 255, 0.14);
+      color: var(--gold-400);
     }
 
     /* ==========================================================================
