@@ -254,10 +254,17 @@
       font-size: 40px;
       font-weight: 900;
       color: var(--obsidian-950);
-      line-height: 1.2;
+      line-height: 1.18;
+    }
+    .hero-headline .headline-lead {
+      display: block;
+      color: var(--obsidian-950);
     }
     .hero-headline span.gold-text {
+      display: block;
       color: var(--gold-600);
+      font-size: 0.82em;
+      margin-top: 6px;
     }
     .hero-desc {
       font-size: 16.5px;
@@ -1087,6 +1094,13 @@
     .footer-brand-info p {
       color: #94a3b8;
       font-size: 13px;
+      line-height: 1.5;
+    }
+    .footer-brand-info p .foot-desc-item {
+      display: block;
+    }
+    .footer-brand-info p .foot-desc-item + .foot-desc-item {
+      margin-top: 2px;
     }
     .footer-links {
       display: flex;
@@ -1192,7 +1206,12 @@
         display: block;
       }
       .hero-headline {
-        font-size: 28px;
+        font-size: 30px;
+        line-height: 1.2;
+      }
+      .hero-headline span.gold-text {
+        font-size: 0.82em;
+        margin-top: 4px;
       }
       .hero-actions {
         display: grid;
@@ -1317,7 +1336,7 @@
     <div class="container hero-grid">
       <div class="hero-text-col">
         <h1 class="hero-headline" data-i18n="h_title">
-          إنجاز <span class="gold-text">للتوريدات ونقل البضائع</span>
+          <span class="headline-lead">إنجاز</span><span class="gold-text">للتوريدات ونقل البضائع</span>
         </h1>
         <p class="hero-desc" data-i18n="h_desc">
           منظومة تجارية متكاملة تلبي متطلبات كبرى الشركات والمصانع في مصر: توريدات عمومية متكاملة لخامات ومستلزمات التشغيل، وشحن بري مباشر يغطي كافة محافظات الجمهورية بأعلى معايير الانضباط والموثوقية.
@@ -1685,7 +1704,10 @@
           <img src="enjaz_official_emblem.jpg" alt="ختم شركة إنجاز الرسمي" class="footer-seal-img">
           <div class="footer-brand-info">
             <h4 data-i18n="foot_title">إنجاز للتوريدات ونقل البضائع</h4>
-            <p data-i18n="foot_desc">توريدات عمومية وخامات تشغيل • نقل بضائع وشحن بري لكافة المحافظات</p>
+            <p data-i18n="foot_desc">
+              <span class="foot-desc-item">توريدات عمومية وخامات تشغيل</span>
+              <span class="foot-desc-item">نقل بضائع وشحن بري لكافة المحافظات</span>
+            </p>
           </div>
         </div>
         <div class="footer-links">
@@ -1763,7 +1785,7 @@
           n_services: "مجالات العمل",
           n_network: "نطاق التغطية",
           n_contact: "اتصل بنا",
-          h_title: "إنجاز للتوريدات ونقل البضائع",
+          h_title: '<span class="headline-lead">إنجاز</span><span class="gold-text">للتوريدات ونقل البضائع</span>',
           h_desc: "منظومة تجارية متكاملة تلبي متطلبات كبرى الشركات والمصانع في مصر: توريدات عمومية متكاملة لخامات ومستلزمات التشغيل، وشحن بري مباشر يغطي كافة محافظات الجمهورية بأعلى معايير الانضباط والموثوقية.",
           h_btn_quote: "طلب تسعير مباشر",
           h_btn_wa: "محادثة واتساب",
@@ -1864,7 +1886,7 @@
           f_notes_ph: "اكتب بياناً مختصراً بالمواد المطلوبة أو وزن ونوع الحمولة وموعد التسليم...",
           f_btn: "إرسال تفاصيل الطلب عبر واتساب",
           foot_title: "إنجاز للتوريدات ونقل البضائع",
-          foot_desc: "توريدات عمومية وخامات تشغيل • نقل بضائع وشحن بري لكافة المحافظات",
+          foot_desc: '<span class="foot-desc-item">توريدات عمومية وخامات تشغيل</span><span class="foot-desc-item">نقل بضائع وشحن بري لكافة المحافظات</span>',
           foot_call: "هاتفياً: 01000000000",
           foot_wa: "محادثة واتساب",
           foot_legal_lead: "رئيس مجلس الإدارة: أ. محمد غلاب — سجل تجاري رقم: 130907",
@@ -1878,7 +1900,7 @@
           n_services: "Core Divisions",
           n_network: "Coverage",
           n_contact: "Contact Us",
-          h_title: "ENJAZ for General Supplies & Freight Transport",
+          h_title: '<span class="headline-lead">ENJAZ</span><span class="gold-text">for General Supplies & Freight Transport</span>',
           h_desc: "An integrated commercial enterprise serving major companies and factories across Egypt: wholesale operational supplies, and direct road freight connecting Cairo to all 27 governorates.",
           h_btn_quote: "Request a Quote",
           h_btn_wa: "WhatsApp Chat",
@@ -1979,7 +2001,7 @@
           f_notes_ph: "Provide an item summary, estimated volume/tonnage, and desired delivery date...",
           f_btn: "Send Details via WhatsApp",
           foot_title: "ENJAZ for General Supplies & Freight Transport",
-          foot_desc: "Wholesale Supplies • Domestic Road Freight Across Egypt",
+          foot_desc: '<span class="foot-desc-item">Wholesale Supplies</span><span class="foot-desc-item">Domestic Road Freight Across Egypt</span>',
           foot_call: "Call: 01000000000",
           foot_wa: "Chat on WhatsApp",
           foot_legal_lead: "Chairman: Mohamed Ghlab — Commercial Reg: 130907",
@@ -2008,7 +2030,13 @@
         // Texts
         document.querySelectorAll('[data-i18n]').forEach(function (el) {
           const k = el.getAttribute('data-i18n');
-          if (dict[k]) el.textContent = dict[k];
+          if (dict[k]) {
+            if (dict[k].indexOf('<') !== -1) {
+              el.innerHTML = dict[k];
+            } else {
+              el.textContent = dict[k];
+            }
+          }
         });
 
         // Placeholders
