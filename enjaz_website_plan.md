@@ -11,7 +11,7 @@ Company profile site for **إنجاز للمقاولات والتوريدات و
 |---|---|
 | Trade name | إنجاز للمقاولات والتوريدات ونقل البضائع |
 | Brand name | إنجاز (Enjaz) |
-| Owner | Mohamed Sayed Ahmed Ghallab |
+| Owner | Mohamed Sayed Ahmed Ghlab |
 | Core activity | Other unclassified wholesale trade (code 469099) |
 | Activity detail | General supplies (توريدات عمومية); domestic goods transport & shipping (نقل بضائع وشحن داخلي) — excludes computer supply/import-export, advertising materials, labor supply |
 | Registered capital | 100,000 EGP |
