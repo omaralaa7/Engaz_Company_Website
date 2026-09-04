@@ -120,17 +120,19 @@
       gap: 12px;
     }
     .brand-logo-img {
-      width: 54px;
-      height: 54px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid var(--gold-border);
+      height: 52px;
+      width: auto;
+      max-width: 85px;
+      border-radius: 6px;
+      object-fit: contain;
+      border: 1.5px solid var(--gold-border);
       box-shadow: 0 3px 12px rgba(0, 0, 0, 0.45);
       flex-shrink: 0;
       transition: transform var(--transition), border-color var(--transition);
+      background: var(--obsidian-950);
     }
     .brand-logo-img:hover {
-      transform: scale(1.05);
+      transform: scale(1.04);
       border-color: var(--gold-400);
     }
     .brand-info {
@@ -151,6 +153,10 @@
     }
     html[dir="ltr"] .brand-title-ar {
       display: none;
+    }
+    .brand-title-en {
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .brand-sub {
       font-size: 11px;
@@ -406,6 +412,108 @@
       font-size: 12px;
       color: var(--slate-600);
       line-height: 1.45;
+    }
+
+    /* ==========================================================================
+       Official Commercial Accreditation & Emblem Showcase
+       ========================================================================== */
+    .emblem-showcase-section {
+      padding: 56px 0;
+      background: linear-gradient(180deg, var(--obsidian-950) 0%, var(--obsidian-900) 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .emblem-showcase-card {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 46px;
+      align-items: center;
+      background: rgba(16, 25, 38, 0.75);
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 34px 42px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
+    }
+    .emblem-img-wrap {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(197, 155, 39, 0.3);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+      background: #000000;
+    }
+    .emblem-poster-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform var(--transition);
+    }
+    .emblem-poster-img:hover {
+      transform: scale(1.02);
+    }
+    .emblem-text-content {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .emblem-badge {
+      display: inline-block;
+      align-self: flex-start;
+      padding: 5px 14px;
+      background: rgba(197, 155, 39, 0.15);
+      border: 1px solid var(--gold-500);
+      color: var(--gold-300);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 20px;
+      letter-spacing: 0.3px;
+    }
+    .emblem-title {
+      font-family: var(--font-title);
+      font-size: 25px;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.3;
+    }
+    .emblem-desc {
+      color: #94a3b8;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+    .emblem-meta-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .meta-pill {
+      font-size: 13px;
+      font-weight: 600;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 6px 14px;
+      border-radius: 6px;
+    }
+    @media (max-width: 980px) {
+      .emblem-showcase-card {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 28px 20px;
+        text-align: center;
+      }
+      .emblem-img-wrap {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+      .emblem-badge {
+        align-self: center;
+      }
+      .emblem-meta-pills {
+        justify-content: center;
+      }
     }
 
     /* ==========================================================================
@@ -1039,11 +1147,12 @@
 
     @media (max-width: 680px) {
       .brand-block {
-        gap: 10px;
+        gap: 8px;
       }
       .brand-logo-img {
-        width: 46px;
-        height: 46px;
+        height: 44px;
+        width: auto;
+        max-width: 72px;
       }
       .brand-title {
         font-size: 18px;
@@ -1166,13 +1275,13 @@
   <header class="site-header">
     <div class="container header-inner">
       <div class="brand-block">
-        <img src="navbar_icon.jpg" alt="شعار إنجاز" class="brand-logo-img">
+        <img src="enjaz_official_emblem.jpg" alt="شعار إنجاز الرسمي" class="brand-logo-img">
         <div class="brand-info">
           <a href="#" class="brand-title">
             <span class="brand-title-ar">إنجاز</span>
-            <span class="brand-title-en">Enjaz</span>
+            <span class="brand-title-en">ENJAZ</span>
           </a>
-          <span class="brand-sub" data-i18n="b_sub">توريدات • شحن</span>
+          <span class="brand-sub" data-i18n="b_sub">توريدات • مقاولات • شحن</span>
         </div>
       </div>
 
@@ -1201,8 +1310,6 @@
   <section class="hero-wrap" id="about">
     <div class="container hero-grid">
       <div class="hero-text-col">
-        <span class="hero-tag-line" data-i18n="h_meta_1">كيان تجاري رسمي معتمد — سجل 130907</span>
-
         <h1 class="hero-headline" data-i18n="h_title">
           إنجاز <span class="gold-text">للتوريدات ونقل البضائع</span>
         </h1>
@@ -1279,6 +1386,31 @@
         <div class="trust-content">
           <h4 data-i18n="tr4_h">تأمين وسلامة الحمولات</h4>
           <p data-i18n="tr4_p">التزام صارم بالجداول الزمنية وتأمين كامل للبضائع والمهمات أثناء النقل.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Official Commercial Accreditation & Emblem Showcase
+       ======================================================================== -->
+  <section class="emblem-showcase-section">
+    <div class="container">
+      <div class="emblem-showcase-card">
+        <div class="emblem-img-wrap">
+          <img src="enjaz_official_emblem.jpg" alt="الهوية والاعتماد المؤسسي لشركة إنجاز" class="emblem-poster-img">
+        </div>
+        <div class="emblem-text-content">
+          <span class="emblem-badge" data-i18n="emb_badge">الاعتماد التجاري الرسمي</span>
+          <h3 class="emblem-title" data-i18n="emb_title">الهوية والاعتماد المؤسسي لشركة إنجاز</h3>
+          <p class="emblem-desc" data-i18n="emb_desc">
+            كيان تجاري رسمي مسجل برقم سجل تجاري 130907، معتمد لتنفيذ التوريدات العمومية، نقل البضائع والشحن البري الداخلي، وتجهيز المواقع والمقاولات وفق أعلى معايير الجودة والالتزام في جمهورية مصر العربية.
+          </p>
+          <div class="emblem-meta-pills">
+            <span class="meta-pill" data-i18n="emb_p1">سجل تجاري: 130907</span>
+            <span class="meta-pill" data-i18n="emb_p2">بطاقة ضريبية معتمدة</span>
+            <span class="meta-pill" data-i18n="emb_p3">رئاسة مجلس الإدارة: أ. محمد غلاب</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1544,7 +1676,7 @@
     <div class="container">
       <div class="footer-main-row">
         <div class="footer-brand-wrap">
-          <img src="official_emblem.jpg" alt="ختم شركة إنجاز الرسمي" class="footer-seal-img">
+          <img src="enjaz_official_emblem.jpg" alt="ختم شركة إنجاز الرسمي" class="footer-seal-img">
           <div class="footer-brand-info">
             <h4 data-i18n="foot_title">إنجاز للتوريدات ونقل البضائع</h4>
             <p data-i18n="foot_desc">توريدات عمومية وخامات تشغيل • نقل بضائع وشحن بري لكافة المحافظات</p>
@@ -1619,13 +1751,12 @@
       // Bilingual dictionary
       const i18n = {
         ar: {
-          b_sub: "توريدات • شحن",
+          b_sub: "توريدات • مقاولات • شحن",
           lang_btn: "English",
           n_about: "عن الشركة",
           n_services: "مجالات العمل",
           n_network: "نطاق التغطية",
           n_contact: "اتصل بنا",
-          h_meta_1: "كيان تجاري رسمي معتمد — سجل 130907",
           h_title: "إنجاز للتوريدات ونقل البضائع",
           h_desc: "منظومة تجارية متكاملة تلبي متطلبات كبرى الشركات والمصانع في مصر: توريدات عمومية متكاملة لخامات ومستلزمات التشغيل، وشحن بري مباشر يغطي كافة محافظات الجمهورية بأعلى معايير الانضباط والموثوقية.",
           h_btn_quote: "طلب تسعير مباشر",
@@ -1641,6 +1772,12 @@
           tr3_p: "شبكة خطوط تربط القاهرة الكبرى بكافة محافظات الوجهين البحري والقبلي.",
           tr4_h: "تأمين وسلامة الحمولات",
           tr4_p: "التزام صارم بالجداول الزمنية وتأمين كامل للبضائع والمهمات أثناء النقل.",
+          emb_badge: "الاعتماد التجاري الرسمي",
+          emb_title: "الهوية والاعتماد المؤسسي لشركة إنجاز",
+          emb_desc: "كيان تجاري رسمي مسجل برقم سجل تجاري 130907، معتمد لتنفيذ التوريدات العمومية، نقل البضائع والشحن البري الداخلي، وتجهيز المواقع والمقاولات وفق أعلى معايير الجودة والالتزام في جمهورية مصر العربية.",
+          emb_p1: "سجل تجاري: 130907",
+          emb_p2: "بطاقة ضريبية معتمدة",
+          emb_p3: "رئاسة مجلس الإدارة: أ. محمد غلاب",
           srv_eyebrow: "القطاعات والأنشطة الرئيسية",
           srv_title: "مجالات العمل المعتمدة",
           srv_desc: "تغطي إنجاز قطاعين رئيسيين متكاملين لخدمة التوريدات التجارية ونقل البضائع للشركات والمصانع في مصر.",
@@ -1729,14 +1866,13 @@
           foot_copy: "إنجاز. جميع الحقوق محفوظة."
         },
         en: {
-          b_sub: "Supplies • Freight",
+          b_sub: "Supplies • Contracting • Freight",
           lang_btn: "العربية",
           n_about: "About Us",
           n_services: "Core Divisions",
           n_network: "Coverage",
           n_contact: "Contact Us",
-          h_meta_1: "Certified Commercial Entity — Reg. 130907",
-          h_title: "Enjaz for General Supplies & Freight Transport",
+          h_title: "ENJAZ for General Supplies & Freight Transport",
           h_desc: "An integrated commercial enterprise serving major companies and factories across Egypt: wholesale operational supplies, and direct road freight connecting Cairo to all 27 governorates.",
           h_btn_quote: "Request a Quote",
           h_btn_wa: "WhatsApp Chat",
@@ -1751,9 +1887,15 @@
           tr3_p: "Daily linehaul connecting Cairo to lower and upper Egypt.",
           tr4_h: "Cargo Safety & Care",
           tr4_p: "Strict schedule adherence and comprehensive safety for goods and equipment in transit.",
+          emb_badge: "Official Commercial Accreditation",
+          emb_title: "Corporate Identity & Commercial Certification",
+          emb_desc: "An officially registered commercial entity under Commercial Registration No. 130907, licensed for wholesale commercial supplies, domestic road freight transport, and site staging across the Arab Republic of Egypt.",
+          emb_p1: "Commercial Reg: 130907",
+          emb_p2: "Certified Tax Entity",
+          emb_p3: "Chairman: Mohamed Ghallab",
           srv_eyebrow: "Core Business Sectors",
           srv_title: "Our Two Certified Divisions",
-          srv_desc: "Enjaz provides an integrated ecosystem covering General Supplies and Commercial Road Freight.",
+          srv_desc: "ENJAZ provides an integrated ecosystem covering General Supplies and Commercial Road Freight.",
           p2_badge: "Supplies Division",
           p2_title: "General Supplies & Site Provisions",
           p2_desc: "Procuring operational consumables and wholesale materials for companies, corporate headquarters, and commercial facilities at competitive wholesale rates.",
@@ -1830,13 +1972,13 @@
           f_notes: "Details (Items needed or Cargo weight/type) *",
           f_notes_ph: "Provide an item summary, estimated volume/tonnage, and desired delivery date...",
           f_btn: "Send Details via WhatsApp",
-          foot_title: "Enjaz for General Supplies & Freight Transport",
+          foot_title: "ENJAZ for General Supplies & Freight Transport",
           foot_desc: "Wholesale Supplies • Domestic Road Freight Across Egypt",
           foot_call: "Call: 01000000000",
           foot_wa: "Chat on WhatsApp",
           foot_legal_lead: "Chairman: Mohamed Ghallab — Commercial Reg: 130907",
           foot_legal_addr: "4 El-Tayaran St., Nasr City, Cairo.",
-          foot_copy: "Enjaz. All rights reserved."
+          foot_copy: "ENJAZ. All rights reserved."
         }
       };
 
@@ -1898,7 +2040,7 @@
               `• نوع الخدمة: ${srv}\n` +
               `• الوجهة: ${city || 'غير محدد'}\n` +
               `• تفاصيل الطلب: ${notes}`
-            : `*Quotation Request - Enjaz*\n` +
+            : `*Quotation Request - ENJAZ*\n` +
               `• Client / Org: ${name}\n` +
               `• Phone: ${phone}\n` +
               `• Service: ${srv}\n` +
