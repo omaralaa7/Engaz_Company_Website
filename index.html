@@ -1572,34 +1572,6 @@
       background: var(--gold);
       flex-shrink: 0;
     }
-    .btn-watch-video {
-      align-self: flex-start;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 24px;
-      background: #dfb33b;
-      background: linear-gradient(135deg, #dfb33b 0%, #b8860b 100%);
-      color: #080d15 !important;
-      font-weight: 800;
-      font-size: 14px;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(212, 160, 23, 0.3);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-      text-decoration: none;
-    }
-    .btn-watch-video:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45);
-      color: #080d15 !important;
-    }
-    .btn-watch-video svg {
-      width: 16px;
-      height: 16px;
-      fill: #080d15;
-    }
     .btn-modal-wa {
       display: inline-flex;
       align-items: center;
@@ -2139,10 +2111,6 @@
             <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p2">تأمين وتربيط البضائع بعناية لضمان سلامة الوصول</span></li>
             <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p3">شحن مباشر من الباب للباب لكافة المحافظات</span></li>
           </ul>
-          <button class="btn-watch-video" id="openVideoActionBtn" type="button">
-            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <span data-i18n="ops_v_btn">مشاهدة الفيديو على الطريق</span>
-          </button>
         </div>
       </div>
 
@@ -2893,7 +2861,6 @@
       // ======================================================================
       const videoModal = document.getElementById('videoModal');
       const openVideoBtn = document.getElementById('openVideoBtn');
-      const openVideoActionBtn = document.getElementById('openVideoActionBtn');
       const closeVideoModal = document.getElementById('closeVideoModal');
       const opsVideoPlayer = document.getElementById('opsVideoPlayer');
 
@@ -2920,7 +2887,6 @@
       }
 
       if (openVideoBtn) openVideoBtn.addEventListener('click', openVideo);
-      if (openVideoActionBtn) openVideoActionBtn.addEventListener('click', openVideo);
       if (closeVideoModal) closeVideoModal.addEventListener('click', closeVideo);
       if (videoModal) {
         videoModal.addEventListener('click', function (e) {
