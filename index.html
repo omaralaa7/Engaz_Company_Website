@@ -153,15 +153,21 @@
 
     html {
       scroll-behavior: smooth;
+      background-color: var(--obsidian-950);
+      overflow-x: hidden;
+      max-width: 100%;
     }
 
     body {
       font-family: var(--font-text);
-      background-color: var(--slate-50);
+      background-color: var(--obsidian-950);
       color: var(--slate-700);
       line-height: 1.65;
       font-size: 15.5px;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      max-width: 100%;
+      width: 100%;
     }
 
     html[dir="ltr"] body {
@@ -620,6 +626,8 @@
     .services-wrap {
       padding: 64px 0;
       background: var(--slate-50);
+      overflow: hidden;
+      max-width: 100%;
     }
     .section-heading-row {
       margin-bottom: 36px;
@@ -810,6 +818,8 @@
       color: #ffffff;
       padding: 50px 0;
       border-bottom: 1px solid var(--obsidian-800);
+      overflow: hidden;
+      max-width: 100%;
     }
     .network-intro {
       margin-bottom: 24px;
@@ -911,6 +921,8 @@
       background: var(--slate-50);
       padding: 56px 0 90px 0;
       min-height: calc(100vh - var(--header-h));
+      overflow: hidden;
+      max-width: 100%;
     }
     .contact-grid {
       display: grid;
@@ -1395,13 +1407,16 @@
       border-top: 1px solid rgba(255, 255, 255, 0.05);
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       position: relative;
+      overflow: hidden;
+      max-width: 100%;
     }
     .operations-wrap::before {
       content: '';
       position: absolute;
       top: 0;
-      left: 15%;
-      width: 450px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(450px, 90vw);
       height: 450px;
       background: radial-gradient(circle, rgba(212, 160, 23, 0.05) 0%, transparent 70%);
       pointer-events: none;
@@ -1694,6 +1709,9 @@
     .ops-modal {
       position: fixed;
       inset: 0;
+      width: 100%;
+      max-width: 100vw;
+      height: 100%;
       background: rgba(5, 8, 14, 0.94);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -1702,9 +1720,11 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
+      box-sizing: border-box;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease;
+      overflow-x: hidden;
     }
     .ops-modal.active {
       opacity: 1;
@@ -1714,6 +1734,8 @@
       position: relative;
       max-width: 860px;
       width: 100%;
+      box-sizing: border-box;
+      margin: 0 auto;
       background: #0b111c;
       border: 1px solid rgba(212, 160, 23, 0.3);
       border-radius: 16px;
@@ -1760,9 +1782,12 @@
       align-items: center;
       justify-content: center;
       background: #000;
+      box-sizing: border-box;
+      overflow: hidden;
     }
     .ops-modal-media-wrap video {
       width: 100%;
+      max-width: 100%;
       max-height: 72vh;
       display: block;
       outline: none;
@@ -1856,9 +1881,16 @@
         scroll-snap-align: center;
         aspect-ratio: 4/5;
       }
+      .ops-modal {
+        padding: 12px;
+        box-sizing: border-box;
+      }
       .ops-modal-inner {
+        width: 100%;
         max-width: 100%;
+        margin: 0 auto;
         border-radius: 12px;
+        box-sizing: border-box;
       }
       .ops-modal-footer {
         flex-direction: column;
