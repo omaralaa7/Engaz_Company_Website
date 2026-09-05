@@ -1588,6 +1588,9 @@
       text-decoration: none;
       box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
       transition: transform 0.2s ease;
+      flex-shrink: 0;
+      white-space: nowrap;
+      box-sizing: border-box;
     }
     .btn-modal-wa:hover {
       transform: translateY(-2px);
@@ -1771,22 +1774,36 @@
       display: block;
     }
     .ops-modal-footer {
-      padding: 16px 20px;
+      padding: 14px 20px;
       background: #0d1522;
       border-top: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
+      gap: 14px;
+      box-sizing: border-box;
+      width: 100%;
+    }
+    .ops-modal-info {
+      min-width: 0;
+      flex: 1 1 auto;
     }
     .ops-modal-caption {
       font-size: 14.5px;
       color: #f1f5f9;
       font-weight: 700;
+      line-height: 1.35;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .ops-modal-sub {
       font-size: 12.5px;
       color: #94a3b8;
+      line-height: 1.35;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     /* Mobile Responsive Rules for Operations */
@@ -1840,8 +1857,25 @@
         aspect-ratio: 4/5;
       }
       .ops-modal-inner {
-        max-width: 96%;
+        max-width: 100%;
         border-radius: 12px;
+      }
+      .ops-modal-footer {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+        gap: 12px;
+        padding: 14px 16px;
+      }
+      .ops-modal-caption, .ops-modal-sub {
+        white-space: normal;
+        text-overflow: clip;
+      }
+      .btn-modal-wa {
+        width: 100%;
+        justify-content: center;
+        padding: 11px 18px;
+        font-size: 14px;
       }
       .ops-modal-close {
         width: 38px;
@@ -2195,12 +2229,12 @@
         </video>
       </div>
       <div class="ops-modal-footer">
-        <div>
-          <div class="ops-modal-caption" data-i18n="v_modal_cap">شاحنة إنجاز أثناء رحلة شحن بري على الطريق السريع</div>
-          <div class="ops-modal-sub" data-i18n="v_modal_sub">التزام تام بسلامة الحمولات ومواعيد التسليم</div>
+        <div class="ops-modal-info">
+          <div class="ops-modal-caption" data-i18n="v_modal_cap">شاحنة إنجاز على الطريق السريع</div>
+          <div class="ops-modal-sub" data-i18n="v_modal_sub">شحن بري مباشر وتأمين كامل للحمولات</div>
         </div>
         <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%B4%D8%AD%D9%86%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
-          <span data-i18n="v_modal_wa">طلب تسعير شحن</span>
+          <span data-i18n="v_modal_wa">طلب تسعير</span>
         </a>
       </div>
     </div>
@@ -2619,9 +2653,9 @@
           c_ops_b6: "خامات إنشائية",
           c_ops_t6: "نقل المواد والقطاعات الطويلة",
           c_ops_loc6: "المنطقة الصناعية — 6 أكتوبر",
-          v_modal_cap: "شاحنة إنجاز أثناء رحلة شحن بري على الطريق السريع",
-          v_modal_sub: "التزام تام بسلامة الحمولات ومواعيد التسليم",
-          v_modal_wa: "طلب تسعير شحن",
+          v_modal_cap: "شاحنة إنجاز على الطريق السريع",
+          v_modal_sub: "شحن بري مباشر وتأمين كامل للحمولات",
+          v_modal_wa: "طلب تسعير",
           foot_title: "إنجاز للتوريدات ونقل البضائع",
           foot_desc: '<span class="foot-desc-item">توريدات عمومية وخامات تشغيل</span><span class="foot-desc-item">نقل بضائع وشحن بري لكافة المحافظات</span>',
           foot_call: "هاتفياً: 01000000000",
@@ -2767,9 +2801,9 @@
           c_ops_b6: "Structural Materials",
           c_ops_t6: "Flatbed Transport for Long Structural Materials",
           c_ops_loc6: "Industrial City — 6th of October",
-          v_modal_cap: "ENJAZ Freight Truck in Highway Transit",
-          v_modal_sub: "Strict Cargo Safety & Schedule Adherence",
-          v_modal_wa: "Request Freight Quote",
+          v_modal_cap: "ENJAZ Highway Transit",
+          v_modal_sub: "Safe & Direct Road Freight",
+          v_modal_wa: "Request Quote",
           foot_title: "ENJAZ for General Supplies & Freight Transport",
           foot_desc: '<span class="foot-desc-item">Wholesale Supplies</span><span class="foot-desc-item">Domestic Road Freight Across Egypt</span>',
           foot_call: "Call: 01000000000",
