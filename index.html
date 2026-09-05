@@ -15,7 +15,7 @@
   <meta property="og:image" content="https://enjazlogistics.com/hero_fleet.jpg">
   <meta property="og:locale" content="ar_EG">
   <meta property="og:locale:alternate" content="en_US">
-  <meta property="og:site_name" content="إنجاز - Enjaz Logistics & Supplies">
+  <meta property="og:site_name" content="إنجاز - ENJAZ Logistics & Supplies">
 
   <!-- Favicon & Touch Icons -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
@@ -32,7 +32,7 @@
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "name": "إنجاز للتوريدات ونقل البضائع",
-    "alternateName": "Enjaz Logistics & Supplies",
+    "alternateName": "ENJAZ Logistics & Supplies",
     "url": "https://enjazlogistics.com",
     "logo": "https://enjazlogistics.com/enjaz_official_emblem.jpg",
     "image": "https://enjazlogistics.com/hero_fleet.jpg",
@@ -117,6 +117,8 @@
       --obsidian-800: #162233;
       --obsidian-700: #21324a;
 
+      --gold: #dfb33b;
+      --gold-dark: #b8860b;
       --gold-600: #9e7514;
       --gold-500: #c59b27;
       --gold-400: #dfb33b;
@@ -1575,25 +1577,49 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      padding: 11px 22px;
-      background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
-      color: #0c1422;
-      font-weight: 700;
+      padding: 12px 24px;
+      background: #dfb33b;
+      background: linear-gradient(135deg, #dfb33b 0%, #b8860b 100%);
+      color: #080d15 !important;
+      font-weight: 800;
       font-size: 14px;
       border-radius: 8px;
       border: none;
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(212, 160, 23, 0.3);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
     }
     .btn-watch-video:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45);
+      color: #080d15 !important;
     }
     .btn-watch-video svg {
       width: 16px;
       height: 16px;
-      fill: currentColor;
+      fill: #080d15;
+    }
+    .btn-modal-wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      background: #dfb33b;
+      background: linear-gradient(135deg, #dfb33b 0%, #b8860b 100%);
+      color: #080d15 !important;
+      font-weight: 800;
+      font-size: 13px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(212, 160, 23, 0.3);
+      transition: transform 0.2s ease;
+    }
+    .btn-modal-wa:hover {
+      transform: translateY(-2px);
+      color: #080d15 !important;
     }
 
     /* Operations Photo Cards */
@@ -1656,15 +1682,16 @@
     }
     .ops-badge-pill {
       align-self: flex-start;
-      font-size: 11px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: var(--gold);
-      background: rgba(212, 160, 23, 0.15);
-      border: 1px solid rgba(212, 160, 23, 0.3);
-      padding: 3px 9px;
+      color: #ffffff;
+      background: rgba(9, 14, 23, 0.92);
+      border: 1px solid rgba(223, 179, 59, 0.6);
+      padding: 4px 10px;
       border-radius: 4px;
       margin-bottom: 6px;
-      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
     }
     .ops-card-caption {
       font-size: 14.5px;
@@ -1922,7 +1949,7 @@
         </div>
       </div>
 
-      <!-- Commercial Logistics Fleet Visual Showcase (Honest Clean Enjaz Branding) -->
+      <!-- Commercial Logistics Fleet Visual Showcase (Honest Clean ENJAZ Branding) -->
       <div class="hero-visual-box">
         <img src="hero_fleet.jpg" alt="شاحنات أسطول شحن إنجاز في مصر" class="hero-fleet-img">
         <div class="hero-visual-overlay">
@@ -2089,101 +2116,99 @@
     <div class="container">
       <div class="ops-header">
         <div class="ops-eyebrow" data-i18n="ops_eyebrow">
-          <span>✨</span>
-          <span>واقع العمليات الميدانية • أسطول حقيقي</span>
+          <span>واقع النقل والشحن • تصوير ميداني</span>
         </div>
-        <h2 class="ops-title" data-i18n="ops_title">إنجاز على أرض الواقع: شاحناتنا وشحناتنا اليومية</h2>
-        <p class="ops-desc" data-i18n="ops_desc">توثيق ميداني حقيقي لعمليات نقل البضائع، وتأمين الحمولات، وتوريدات المستودعات في مختلف مواقع العمل بكافة محافظات مصر.</p>
+        <h2 class="ops-title" data-i18n="ops_title">شاحنات النقل أثناء التحميل والشحن على الطريق</h2>
+        <p class="ops-desc" data-i18n="ops_desc">صور وفيديو حقيقي من واقع نقل البضائع وخامات التشغيل وتأمين الحمولات بين المحافظات.</p>
       </div>
 
       <!-- Featured Highway Action Video Card -->
       <div class="ops-video-card">
         <div class="ops-video-thumb-wrap" id="openVideoBtn" role="button" aria-label="تشغيل فيديو أسطول إنجاز">
-          <img src="fleet_video_poster.jpg" alt="أسطول إنجاز على الطريق السريع" class="ops-video-poster" loading="lazy">
+          <img src="fleet_video_poster.jpg" alt="شاحنة إنجاز على الطريق السريع" class="ops-video-poster" loading="lazy">
           <div class="ops-play-btn-glow">
             <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
           </div>
-          <span class="ops-video-duration">0:23 • HD</span>
         </div>
         <div class="ops-video-info">
-          <span class="ops-video-badge" data-i18n="ops_v_badge">فيديو ميداني حصري • أسطول إنجاز على الطريق</span>
-          <h3 class="ops-video-title" data-i18n="ops_v_title">شاهد شاحنات إنجاز أثناء النقل المباشر على الطرق السريعة</h3>
-          <p class="ops-video-desc" data-i18n="ops_v_desc">لقطات واقعية لعمليات النقل والشحن البري لشاحناتنا المحملة بالبضائع الجافة وخامات التشغيل أثناء رحلات الربط بين المحافظات والمناطق الصناعية.</p>
+          <span class="ops-video-badge" data-i18n="ops_v_badge">فيديو ميداني • الشحن على الطريق السريع</span>
+          <h3 class="ops-video-title" data-i18n="ops_v_title">نقل مباشر للبضائع على الطرق الإقليمية السريعة</h3>
+          <p class="ops-video-desc" data-i18n="ops_v_desc">توثيق للشاحنة أثناء نقل حمولات البضائع التجارية وتوزيع خامات التشغيل بين المحافظات والمناطق الصناعية.</p>
           <ul class="ops-video-points">
-            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p1">شاحنات إيسوزو وشيفروليه مجهزة للحمولات التجارية الثقيلة</span></li>
-            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p2">تأمين وتربيط كامل للبضائع المشحونة وفق أعلى معايير السلامة</span></li>
-            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p3">شحن بري سريع من الباب للباب دون تفريغ وسيط</span></li>
+            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p1">شاحنات مخصصة لنقل الحمولات والطرود التجارية</span></li>
+            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p2">تأمين وتربيط البضائع بعناية لضمان سلامة الوصول</span></li>
+            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p3">شحن مباشر من الباب للباب لكافة المحافظات</span></li>
           </ul>
           <button class="btn-watch-video" id="openVideoActionBtn" type="button">
             <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-            <span data-i18n="ops_v_btn">تشغيل الفيديو الميداني (23 ثانية)</span>
+            <span data-i18n="ops_v_btn">مشاهدة الفيديو على الطريق</span>
           </button>
         </div>
       </div>
 
       <!-- Mobile Swipe Hint -->
       <div class="ops-mobile-hint">
-        <span data-i18n="ops_hint">اسحب لليمين واليسار لاستعراض عمليات الشحن ↔</span>
+        <span data-i18n="ops_hint">تصفح صور الشاحنات والحمولات ↔</span>
       </div>
 
       <!-- 6 Authentic Operations Photo Cards -->
       <div class="ops-grid">
         <!-- Card 1: Dual Trucks in Dispatch Yard -->
-        <div class="ops-card" data-full-img="fleet_dual_trucks.jpg" data-caption-ar="جاهزية أسطول الشحن • شاحنات إيسوزو وشيفروليه بمقر العمليات" data-caption-en="Fleet Readiness • Isuzu & Chevrolet trucks at dispatch yard">
+        <div class="ops-card" data-full-img="fleet_dual_trucks.jpg" data-caption-ar="جاهزية الشاحنات • شاحنات نقل مجهزة للحمولات التجارية" data-caption-en="Fleet Dispatch • Commercial Freight Transport Trucks">
           <img src="fleet_dual_trucks.jpg" alt="شاحنات إنجاز للنقل والشحن" class="ops-card-img" loading="lazy">
           <div class="ops-card-overlay">
-            <span class="ops-badge-pill" data-i18n="c_ops_b1">جاهزية الأسطول</span>
-            <h4 class="ops-card-caption" data-i18n="c_ops_t1">شاحنات إيسوزو وشيفروليه التجارية</h4>
+            <span class="ops-badge-pill" data-i18n="c_ops_b1">جاهزية الشاحنات</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t1">شاحنات نقل مجهزة للحمولات التجارية</h4>
             <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc1">ساحة التحميل والتوزيع — القاهرة</span></p>
           </div>
         </div>
 
         <!-- Card 2: Cargo Safety & Tarp Wrapping -->
-        <div class="ops-card" data-full-img="fleet_cargo_safety.jpg" data-caption-ar="تأمين وسلامة الشحنات • تغليف وحزام أمان كامل للبضائع" data-caption-en="Cargo Safety • Full protective tarping and heavy-duty strapping">
+        <div class="ops-card" data-full-img="fleet_cargo_safety.jpg" data-caption-ar="تأمين وسلامة الشحنات • تغليف وتربيط كامل للحمولات" data-caption-en="Cargo Safety • Protective strapping and weatherproofing">
           <img src="fleet_cargo_safety.jpg" alt="تأمين حمولة الشاحنة" class="ops-card-img" loading="lazy">
           <div class="ops-card-overlay">
-            <span class="ops-badge-pill" data-i18n="c_ops_b2">سلامة وتأمين</span>
-            <h4 class="ops-card-caption" data-i18n="c_ops_t2">تغليف وتربيط الشحنات العالية</h4>
+            <span class="ops-badge-pill" data-i18n="c_ops_b2">تأمين البضائع</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t2">تغليف وتربيط الحمولات العالية</h4>
             <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc2">نقطة انطلاق الشحنات — مدينة نصر</span></p>
           </div>
         </div>
 
         <!-- Card 3: Supply Sacks Transport -->
-        <div class="ops-card" data-full-img="fleet_supplies_sacks.jpg" data-caption-ar="توريدات خامات ومواد تشغيل • حمولة كاملة معبأة" data-caption-en="Bulk Sourced Materials • Full capacity bagged supplies distribution">
+        <div class="ops-card" data-full-img="fleet_supplies_sacks.jpg" data-caption-ar="خامات معبأة • نقل وتوزيع شكائر ومواد التشغيل" data-caption-en="Bulk Bagged Materials • Packaged supplies distribution">
           <img src="fleet_supplies_sacks.jpg" alt="شاحنة محملة بشكائر توريدات" class="ops-card-img" loading="lazy">
           <div class="ops-card-overlay">
-            <span class="ops-badge-pill" data-i18n="c_ops_b3">توريدات جملة</span>
-            <h4 class="ops-card-caption" data-i18n="c_ops_t3">شحن مواد وخامات تشغيل معبأة</h4>
+            <span class="ops-badge-pill" data-i18n="c_ops_b3">خامات معبأة</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t3">نقل وتوزيع شكائر ومواد التشغيل</h4>
             <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc3">طريق القاهرة — السويس</span></p>
           </div>
         </div>
 
         <!-- Card 4: Industrial Warehouse Pipes -->
-        <div class="ops-card" data-full-img="fleet_warehouse_pipes.jpg" data-caption-ar="تحميل المستودعات الكبرى • نقل قطاعات ومواسير المشاريع" data-caption-en="Industrial Warehousing • Large conduit pipes and facility supplies dispatch">
+        <div class="ops-card" data-full-img="fleet_warehouse_pipes.jpg" data-caption-ar="توريدات مستودعات • نقل قطاعات ومواسير المشاريع" data-caption-en="Warehouse Distribution • Infrastructure conduits & facility supplies">
           <img src="fleet_warehouse_pipes.jpg" alt="شاحنة داخل مستودع صناعي" class="ops-card-img" loading="lazy">
           <div class="ops-card-overlay">
-            <span class="ops-badge-pill" data-i18n="c_ops_b4">مستودعات صناعية</span>
-            <h4 class="ops-card-caption" data-i18n="c_ops_t4">توريد ونقل مستلزمات البنية التحتية</h4>
+            <span class="ops-badge-pill" data-i18n="c_ops_b4">توريدات مستودعات</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t4">نقل قطاعات ومواسير المشاريع</h4>
             <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc4">المجمع الصناعي — العاشر من رمضان</span></p>
           </div>
         </div>
 
         <!-- Card 5: Inter-city Highway Transit -->
-        <div class="ops-card" data-full-img="fleet_highway_transit.jpg" data-caption-ar="شحن بين المحافظات • رحلة شحن بري على الطريق السريع" data-caption-en="Inter-City Freight • Regional linehaul on Egyptian highway corridor">
+        <div class="ops-card" data-full-img="fleet_highway_transit.jpg" data-caption-ar="شحن محافظات • شحن مباشر بين القاهرة والأقاليم" data-caption-en="Regional Linehaul • Direct inter-governorate dispatch">
           <img src="fleet_highway_transit.jpg" alt="شاحنة إنجاز على الطريق السريع" class="ops-card-img" loading="lazy">
           <div class="ops-card-overlay">
             <span class="ops-badge-pill" data-i18n="c_ops_b5">شحن محافظات</span>
-            <h4 class="ops-card-caption" data-i18n="c_ops_t5">شحن بضائع مباشر بين الأقاليم</h4>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t5">شحن مباشر بين القاهرة والأقاليم</h4>
             <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc5">محور الطريق الإقليمي الدولي</span></p>
           </div>
         </div>
 
         <!-- Card 6: Structural Materials -->
-        <div class="ops-card" data-full-img="fleet_structural_materials.jpg" data-caption-ar="نقل مواد وقطاعات إنشائية • شاحنة نقل مسطحة للحمولات الطويلة" data-caption-en="Heavy Structural Transit • Flatbed transport for long materials">
+        <div class="ops-card" data-full-img="fleet_structural_materials.jpg" data-caption-ar="خامات إنشائية • نقل المواد والقطاعات الطويلة" data-caption-en="Structural Materials • Flatbed transport for long materials">
           <img src="fleet_structural_materials.jpg" alt="نقل خامات إنشائية" class="ops-card-img" loading="lazy">
           <div class="ops-card-overlay">
-            <span class="ops-badge-pill" data-i18n="c_ops_b6">خامات هندسية</span>
-            <h4 class="ops-card-caption" data-i18n="c_ops_t6">نقل قطاعات التشغيل والمواد الطويلة</h4>
+            <span class="ops-badge-pill" data-i18n="c_ops_b6">خامات إنشائية</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t6">نقل المواد والقطاعات الطويلة</h4>
             <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc6">المنطقة الصناعية — 6 أكتوبر</span></p>
           </div>
         </div>
@@ -2203,10 +2228,10 @@
       </div>
       <div class="ops-modal-footer">
         <div>
-          <div class="ops-modal-caption" data-i18n="v_modal_cap">أسطول إنجاز في رحلة شحن بري مباشر على الطريق السريع</div>
-          <div class="ops-modal-sub" data-i18n="v_modal_sub">توثيق ميداني حقيقي • التزام تام بالسلامة والمواعيد</div>
+          <div class="ops-modal-caption" data-i18n="v_modal_cap">شاحنة إنجاز أثناء رحلة شحن بري على الطريق السريع</div>
+          <div class="ops-modal-sub" data-i18n="v_modal_sub">التزام تام بسلامة الحمولات ومواعيد التسليم</div>
         </div>
-        <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%A3%D8%B3%D8%B7%D9%88%D9%84%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1%20%D8%B4%D8%AD%D9%86" target="_blank" rel="noopener noreferrer" class="btn-watch-video" style="padding: 8px 16px; font-size: 13px;">
+        <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%B4%D8%AD%D9%86%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
           <span data-i18n="v_modal_wa">طلب تسعير شحن</span>
         </a>
       </div>
@@ -2597,37 +2622,37 @@
           f_notes: "تفاصيل الطلب (أصناف التوريد أو نوع وحجم البضاعة) *",
           f_notes_ph: "اكتب بياناً مختصراً بالمواد المطلوبة أو وزن ونوع الحمولة وموعد التسليم...",
           f_btn: "إرسال تفاصيل الطلب عبر واتساب",
-          ops_eyebrow: "<span>✨</span><span>واقع العمليات الميدانية • أسطول حقيقي</span>",
-          ops_title: "إنجاز على أرض الواقع: شاحناتنا وشحناتنا اليومية",
-          ops_desc: "توثيق ميداني حقيقي لعمليات نقل البضائع، وتأمين الحمولات، وتوريدات المستودعات في مختلف مواقع العمل بكافة محافظات مصر.",
-          ops_v_badge: "فيديو ميداني حصري • أسطول إنجاز على الطريق",
-          ops_v_title: "شاهد شاحنات إنجاز أثناء النقل المباشر على الطرق السريعة",
-          ops_v_desc: "لقطات واقعية لعمليات النقل والشحن البري لشاحناتنا المحملة بالبضائع الجافة وخامات التشغيل أثناء رحلات الربط بين المحافظات والمناطق الصناعية.",
-          ops_v_p1: "شاحنات إيسوزو وشيفروليه مجهزة للحمولات التجارية الثقيلة",
-          ops_v_p2: "تأمين وتربيط كامل للبضائع المشحونة وفق أعلى معايير السلامة",
-          ops_v_p3: "شحن بري سريع من الباب للباب دون تفريغ وسيط",
-          ops_v_btn: "تشغيل الفيديو الميداني (23 ثانية)",
-          ops_hint: "اسحب لليمين واليسار لاستعراض عمليات الشحن ↔",
-          c_ops_b1: "جاهزية الأسطول",
-          c_ops_t1: "شاحنات إيسوزو وشيفروليه التجارية",
+          ops_eyebrow: "<span>واقع النقل والشحن • تصوير ميداني</span>",
+          ops_title: "شاحنات النقل أثناء التحميل والشحن على الطريق",
+          ops_desc: "صور وفيديو حقيقي من واقع نقل البضائع وخامات التشغيل وتأمين الحمولات بين المحافظات.",
+          ops_v_badge: "فيديو ميداني • الشحن على الطريق السريع",
+          ops_v_title: "نقل مباشر للبضائع على الطرق الإقليمية السريعة",
+          ops_v_desc: "توثيق للشاحنة أثناء نقل حمولات البضائع التجارية وتوزيع خامات التشغيل بين المحافظات والمناطق الصناعية.",
+          ops_v_p1: "شاحنات مخصصة لنقل الحمولات والطرود التجارية",
+          ops_v_p2: "تأمين وتربيط البضائع بعناية لضمان سلامة الوصول",
+          ops_v_p3: "شحن مباشر من الباب للباب لكافة المحافظات",
+          ops_v_btn: "مشاهدة الفيديو على الطريق",
+          ops_hint: "تصفح صور الشاحنات والحمولات ↔",
+          c_ops_b1: "جاهزية الشاحنات",
+          c_ops_t1: "شاحنات نقل مجهزة للحمولات التجارية",
           c_ops_loc1: "ساحة التحميل والتوزيع — القاهرة",
-          c_ops_b2: "سلامة وتأمين",
-          c_ops_t2: "تغليف وتربيط الشحنات العالية",
+          c_ops_b2: "تأمين البضائع",
+          c_ops_t2: "تغليف وتربيط الحمولات العالية",
           c_ops_loc2: "نقطة انطلاق الشحنات — مدينة نصر",
-          c_ops_b3: "توريدات جملة",
-          c_ops_t3: "شحن مواد وخامات تشغيل معبأة",
+          c_ops_b3: "خامات معبأة",
+          c_ops_t3: "نقل وتوزيع شكائر ومواد التشغيل",
           c_ops_loc3: "طريق القاهرة — السويس",
-          c_ops_b4: "مستودعات صناعية",
-          c_ops_t4: "توريد ونقل مستلزمات البنية التحتية",
+          c_ops_b4: "توريدات مستودعات",
+          c_ops_t4: "نقل قطاعات ومواسير المشاريع",
           c_ops_loc4: "المجمع الصناعي — العاشر من رمضان",
           c_ops_b5: "شحن محافظات",
-          c_ops_t5: "شحن بضائع مباشر بين الأقاليم",
+          c_ops_t5: "شحن مباشر بين القاهرة والأقاليم",
           c_ops_loc5: "محور الطريق الإقليمي الدولي",
-          c_ops_b6: "خامات هندسية",
-          c_ops_t6: "نقل قطاعات التشغيل والمواد الطويلة",
+          c_ops_b6: "خامات إنشائية",
+          c_ops_t6: "نقل المواد والقطاعات الطويلة",
           c_ops_loc6: "المنطقة الصناعية — 6 أكتوبر",
-          v_modal_cap: "أسطول إنجاز في رحلة شحن بري مباشر على الطريق السريع",
-          v_modal_sub: "توثيق ميداني حقيقي • التزام تام بالسلامة والمواعيد",
+          v_modal_cap: "شاحنة إنجاز أثناء رحلة شحن بري على الطريق السريع",
+          v_modal_sub: "التزام تام بسلامة الحمولات ومواعيد التسليم",
           v_modal_wa: "طلب تسعير شحن",
           foot_title: "إنجاز للتوريدات ونقل البضائع",
           foot_desc: '<span class="foot-desc-item">توريدات عمومية وخامات تشغيل</span><span class="foot-desc-item">نقل بضائع وشحن بري لكافة المحافظات</span>',
@@ -2745,37 +2770,37 @@
           f_notes: "Details (Items needed or Cargo weight/type) *",
           f_notes_ph: "Provide an item summary, estimated volume/tonnage, and desired delivery date...",
           f_btn: "Send Details via WhatsApp",
-          ops_eyebrow: "<span>✨</span><span>Real Field Operations • Verified Fleet</span>",
-          ops_title: "Enjaz in Action: Daily Fleet & Live Dispatches",
-          ops_desc: "Authentic field documentation of cargo transport, safety lashing, and warehouse supply distribution across Egypt's governorates.",
-          ops_v_badge: "Exclusive Field Video • Fleet in Transit",
-          ops_v_title: "Watch Enjaz Commercial Trucks in Transit on Egypt's Highways",
-          ops_v_desc: "Real footage of our road freight operations transporting packaged cargo, supplies, and operating materials between industrial cities and provincial hubs.",
-          ops_v_p1: "Heavy-duty Isuzu and Chevrolet fleet built for commercial haulage",
-          ops_v_p2: "Full cargo strapping and protective tarping under strict safety standards",
-          ops_v_p3: "Direct point-to-point dispatch from warehouse gate to delivery dock",
-          ops_v_btn: "Play Field Video (23 Seconds)",
-          ops_hint: "Swipe left and right to explore field dispatches ↔",
-          c_ops_b1: "Fleet Readiness",
-          c_ops_t1: "Commercial Isuzu & Chevrolet Trucks",
+          ops_eyebrow: "<span>Field Photography • Transport & Supplies</span>",
+          ops_title: "Commercial Freight & Supplies in Transit",
+          ops_desc: "Authentic documentation of commercial goods transport, cargo protection, and warehouse supplies delivery across Egypt.",
+          ops_v_badge: "Field Video • Freight in Transit",
+          ops_v_title: "Direct Highway Freight Transit",
+          ops_v_desc: "Field documentation of commercial goods haulage and supplies distribution across regional highways and industrial cities.",
+          ops_v_p1: "Commercial trucks equipped for packaged cargo and general supplies",
+          ops_v_p2: "Protective tarpaulin wrapping and heavy-duty strapping",
+          ops_v_p3: "Direct door-to-door transit without middle transfers",
+          ops_v_btn: "Watch Highway Video",
+          ops_hint: "Swipe to view fleet & cargo photos ↔",
+          c_ops_b1: "Fleet Dispatch",
+          c_ops_t1: "Commercial Freight Transport Trucks",
           c_ops_loc1: "Dispatch & Staging Yard — Cairo",
-          c_ops_b2: "Safety & Care",
+          c_ops_b2: "Cargo Safety",
           c_ops_t2: "Protective Strapping & Weatherproofing",
           c_ops_loc2: "Departure Hub — Nasr City",
-          c_ops_b3: "Wholesale Supplies",
-          c_ops_t3: "Packaged Raw Materials Distribution",
+          c_ops_b3: "Packaged Supplies",
+          c_ops_t3: "Bulk Bagged Materials Distribution",
           c_ops_loc3: "Cairo — Suez Highway Corridor",
-          c_ops_b4: "Industrial Warehousing",
+          c_ops_b4: "Warehouse Distribution",
           c_ops_t4: "Infrastructure Conduits & Facility Supplies",
           c_ops_loc4: "Industrial Zone — 10th of Ramadan",
-          c_ops_b5: "Regional Freight",
+          c_ops_b5: "Regional Linehaul",
           c_ops_t5: "Direct Inter-Governorate Dispatch",
           c_ops_loc5: "International Regional Ring Corridor",
-          c_ops_b6: "Heavy Materials",
-          c_ops_t6: "Structural Bars & Long Facility Materials",
+          c_ops_b6: "Structural Materials",
+          c_ops_t6: "Flatbed Transport for Long Structural Materials",
           c_ops_loc6: "Industrial City — 6th of October",
-          v_modal_cap: "Enjaz Fleet on Direct Highway Transit Corridor",
-          v_modal_sub: "Real Field Documentation • Strict Safety & Schedule Adherence",
+          v_modal_cap: "ENJAZ Freight Truck in Highway Transit",
+          v_modal_sub: "Strict Cargo Safety & Schedule Adherence",
           v_modal_wa: "Request Freight Quote",
           foot_title: "ENJAZ for General Supplies & Freight Transport",
           foot_desc: '<span class="foot-desc-item">Wholesale Supplies</span><span class="foot-desc-item">Domestic Road Freight Across Egypt</span>',
