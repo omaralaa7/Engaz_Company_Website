@@ -168,6 +168,11 @@
       overflow-x: hidden;
       max-width: 100%;
       width: 100%;
+      padding-top: var(--header-h);
+    }
+
+    section[id] {
+      scroll-margin-top: calc(var(--header-h) + 12px);
     }
 
     html[dir="ltr"] body {
@@ -195,14 +200,21 @@
        ========================================================================== */
     header.site-header {
       background: var(--obsidian-900);
+      background: rgba(10, 17, 26, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--obsidian-800);
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
       height: var(--header-h);
-      z-index: 100;
+      z-index: 1000;
       display: flex;
       align-items: center;
-      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+      box-sizing: border-box;
     }
     .header-inner {
       display: flex;
