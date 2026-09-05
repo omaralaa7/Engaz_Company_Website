@@ -1383,6 +1383,479 @@
         grid-template-columns: 1fr;
       }
     }
+
+    /* ==========================================================================
+       Operations & Real Fleet Section
+       ========================================================================== */
+    .operations-wrap {
+      padding: 85px 0 80px 0;
+      background: linear-gradient(180deg, #090e17 0%, #0c1422 50%, #080d15 100%);
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+    }
+    .operations-wrap::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 15%;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(212, 160, 23, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .ops-header {
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto 40px auto;
+    }
+    .ops-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(212, 160, 23, 0.1);
+      border: 1px solid rgba(212, 160, 23, 0.25);
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .ops-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.3;
+      margin-bottom: 14px;
+    }
+    .ops-desc {
+      font-size: 15.5px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    /* Video Featured Card */
+    .ops-video-card {
+      background: linear-gradient(135deg, rgba(17, 24, 39, 0.85) 0%, rgba(13, 20, 32, 0.95) 100%);
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 16px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 28px;
+      align-items: center;
+      margin-bottom: 42px;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5), 0 0 25px rgba(212, 160, 23, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+    .ops-video-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .ops-video-thumb-wrap {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 16/10;
+      background: #06090e;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+    }
+    .ops-video-poster {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .ops-video-thumb-wrap:hover .ops-video-poster {
+      transform: scale(1.04);
+    }
+    .ops-play-btn-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, #d4a017 0%, #b8860b 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0c1422;
+      box-shadow: 0 0 0 8px rgba(212, 160, 23, 0.25), 0 8px 20px rgba(0,0,0,0.5);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      z-index: 2;
+    }
+    .ops-video-thumb-wrap:hover .ops-play-btn-glow {
+      transform: translate(-50%, -50%) scale(1.1);
+      box-shadow: 0 0 0 12px rgba(212, 160, 23, 0.35), 0 10px 25px rgba(0,0,0,0.6);
+    }
+    .ops-play-btn-glow svg {
+      width: 24px;
+      height: 24px;
+      fill: currentColor;
+      margin-left: 2px;
+    }
+    [dir="rtl"] .ops-play-btn-glow svg {
+      margin-left: -2px;
+    }
+    .ops-video-duration {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(6, 9, 14, 0.85);
+      backdrop-filter: blur(6px);
+      color: #fff;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      z-index: 2;
+    }
+    .ops-video-info {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .ops-video-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .ops-video-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+    }
+    .ops-video-desc {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .ops-video-points {
+      list-style: none;
+      padding: 0;
+      margin: 4px 0 8px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .ops-video-points li {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ops-point-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .btn-watch-video {
+      align-self: flex-start;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 22px;
+      background: linear-gradient(135deg, var(--gold) 0%, #b8860b 100%);
+      color: #0c1422;
+      font-weight: 700;
+      font-size: 14px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(212, 160, 23, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-watch-video:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 160, 23, 0.45);
+    }
+    .btn-watch-video svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    /* Operations Photo Cards */
+    .ops-mobile-hint {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--gold);
+      font-size: 12.5px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      background: rgba(212, 160, 23, 0.07);
+      padding: 6px 14px;
+      border-radius: 20px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .ops-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .ops-card {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background: #0a0f18;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .ops-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(212, 160, 23, 0.4);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 160, 23, 0.1);
+    }
+    .ops-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      display: block;
+    }
+    .ops-card:hover .ops-card-img {
+      transform: scale(1.05);
+    }
+    .ops-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(6, 9, 14, 0.1) 0%, rgba(6, 9, 14, 0.4) 40%, rgba(6, 9, 14, 0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 20px 16px;
+      pointer-events: none;
+    }
+    .ops-badge-pill {
+      align-self: flex-start;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(212, 160, 23, 0.15);
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      padding: 3px 9px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .ops-card-caption {
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+    .ops-card-sub {
+      font-size: 12px;
+      color: #94a3b8;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ops-card-sub svg {
+      width: 13px;
+      height: 13px;
+      fill: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* Fullscreen Lightbox & Video Modal */
+    .ops-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 14, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .ops-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .ops-modal-inner {
+      position: relative;
+      max-width: 860px;
+      width: 100%;
+      background: #0b111c;
+      border: 1px solid rgba(212, 160, 23, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), 0 0 35px rgba(212, 160, 23, 0.1);
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+    }
+    .ops-modal.active .ops-modal-inner {
+      transform: scale(1);
+    }
+    .ops-modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 44px;
+      height: 44px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-size: 22px;
+      font-weight: 300;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+    [dir="rtl"] .ops-modal-close {
+      right: auto;
+      left: 14px;
+    }
+    .ops-modal-close:hover {
+      background: var(--gold);
+      color: #0c1422;
+      transform: scale(1.08);
+    }
+    .ops-modal-media-wrap {
+      width: 100%;
+      max-height: 75vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+    }
+    .ops-modal-media-wrap video {
+      width: 100%;
+      max-height: 72vh;
+      display: block;
+      outline: none;
+    }
+    .ops-modal-media-wrap img {
+      width: 100%;
+      max-height: 72vh;
+      object-fit: contain;
+      display: block;
+    }
+    .ops-modal-footer {
+      padding: 16px 20px;
+      background: #0d1522;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .ops-modal-caption {
+      font-size: 14.5px;
+      color: #f1f5f9;
+      font-weight: 700;
+    }
+    .ops-modal-sub {
+      font-size: 12.5px;
+      color: #94a3b8;
+    }
+
+    /* Mobile Responsive Rules for Operations */
+    @media (max-width: 768px) {
+      .operations-wrap {
+        padding: 60px 0;
+      }
+      .ops-title {
+        font-size: 24px;
+      }
+      .ops-desc {
+        font-size: 14px;
+      }
+      .ops-video-card {
+        grid-template-columns: 1fr;
+        gap: 18px;
+        padding: 16px;
+      }
+      .ops-video-thumb-wrap {
+        aspect-ratio: 16/10;
+      }
+      .ops-video-title {
+        font-size: 18px;
+      }
+      .ops-mobile-hint {
+        display: inline-flex;
+      }
+      /* Horizontal Swipeable Carousel: Zero Vertical Scroll Lock */
+      .ops-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 14px;
+        padding: 4px 16px 18px 16px;
+        margin: 0 -16px;
+        scrollbar-width: thin;
+        scrollbar-color: var(--gold) transparent;
+      }
+      .ops-grid::-webkit-scrollbar {
+        height: 4px;
+      }
+      .ops-grid::-webkit-scrollbar-thumb {
+        background: var(--gold);
+        border-radius: 4px;
+      }
+      .ops-card {
+        flex: 0 0 76%;
+        max-width: 290px;
+        scroll-snap-align: center;
+        aspect-ratio: 4/5;
+      }
+      .ops-modal-inner {
+        max-width: 96%;
+        border-radius: 12px;
+      }
+      .ops-modal-close {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+        top: 10px;
+        right: 10px;
+      }
+      [dir="rtl"] .ops-modal-close {
+        right: auto;
+        left: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -1407,6 +1880,7 @@
         <ul class="nav-links" id="navLinks">
           <li><a href="#about" data-i18n="n_about">عن الشركة</a></li>
           <li><a href="#services" data-i18n="n_services">مجالات العمل</a></li>
+          <li><a href="#operations" data-i18n="n_operations">الأسطول الميداني</a></li>
           <li><a href="#network" data-i18n="n_network">نطاق التغطية</a></li>
           <li><a href="#contact" data-i18n="n_contact">اتصل بنا</a></li>
         </ul>
@@ -1607,6 +2081,150 @@
       </div>
     </div>
   </section>
+
+  <!-- ========================================================================
+       Operations & Fleet Showcase (عملياتنا الميدانية)
+       ======================================================================== -->
+  <section class="operations-wrap" id="operations">
+    <div class="container">
+      <div class="ops-header">
+        <div class="ops-eyebrow" data-i18n="ops_eyebrow">
+          <span>✨</span>
+          <span>واقع العمليات الميدانية • أسطول حقيقي</span>
+        </div>
+        <h2 class="ops-title" data-i18n="ops_title">إنجاز على أرض الواقع: شاحناتنا وشحناتنا اليومية</h2>
+        <p class="ops-desc" data-i18n="ops_desc">توثيق ميداني حقيقي لعمليات نقل البضائع، وتأمين الحمولات، وتوريدات المستودعات في مختلف مواقع العمل بكافة محافظات مصر.</p>
+      </div>
+
+      <!-- Featured Highway Action Video Card -->
+      <div class="ops-video-card">
+        <div class="ops-video-thumb-wrap" id="openVideoBtn" role="button" aria-label="تشغيل فيديو أسطول إنجاز">
+          <img src="fleet_video_poster.jpg" alt="أسطول إنجاز على الطريق السريع" class="ops-video-poster" loading="lazy">
+          <div class="ops-play-btn-glow">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+          </div>
+          <span class="ops-video-duration">0:23 • HD</span>
+        </div>
+        <div class="ops-video-info">
+          <span class="ops-video-badge" data-i18n="ops_v_badge">فيديو ميداني حصري • أسطول إنجاز على الطريق</span>
+          <h3 class="ops-video-title" data-i18n="ops_v_title">شاهد شاحنات إنجاز أثناء النقل المباشر على الطرق السريعة</h3>
+          <p class="ops-video-desc" data-i18n="ops_v_desc">لقطات واقعية لعمليات النقل والشحن البري لشاحناتنا المحملة بالبضائع الجافة وخامات التشغيل أثناء رحلات الربط بين المحافظات والمناطق الصناعية.</p>
+          <ul class="ops-video-points">
+            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p1">شاحنات إيسوزو وشيفروليه مجهزة للحمولات التجارية الثقيلة</span></li>
+            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p2">تأمين وتربيط كامل للبضائع المشحونة وفق أعلى معايير السلامة</span></li>
+            <li><span class="ops-point-dot"></span><span data-i18n="ops_v_p3">شحن بري سريع من الباب للباب دون تفريغ وسيط</span></li>
+          </ul>
+          <button class="btn-watch-video" id="openVideoActionBtn" type="button">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+            <span data-i18n="ops_v_btn">تشغيل الفيديو الميداني (23 ثانية)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Swipe Hint -->
+      <div class="ops-mobile-hint">
+        <span data-i18n="ops_hint">اسحب لليمين واليسار لاستعراض عمليات الشحن ↔</span>
+      </div>
+
+      <!-- 6 Authentic Operations Photo Cards -->
+      <div class="ops-grid">
+        <!-- Card 1: Dual Trucks in Dispatch Yard -->
+        <div class="ops-card" data-full-img="fleet_dual_trucks.jpg" data-caption-ar="جاهزية أسطول الشحن • شاحنات إيسوزو وشيفروليه بمقر العمليات" data-caption-en="Fleet Readiness • Isuzu & Chevrolet trucks at dispatch yard">
+          <img src="fleet_dual_trucks.jpg" alt="شاحنات إنجاز للنقل والشحن" class="ops-card-img" loading="lazy">
+          <div class="ops-card-overlay">
+            <span class="ops-badge-pill" data-i18n="c_ops_b1">جاهزية الأسطول</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t1">شاحنات إيسوزو وشيفروليه التجارية</h4>
+            <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc1">ساحة التحميل والتوزيع — القاهرة</span></p>
+          </div>
+        </div>
+
+        <!-- Card 2: Cargo Safety & Tarp Wrapping -->
+        <div class="ops-card" data-full-img="fleet_cargo_safety.jpg" data-caption-ar="تأمين وسلامة الشحنات • تغليف وحزام أمان كامل للبضائع" data-caption-en="Cargo Safety • Full protective tarping and heavy-duty strapping">
+          <img src="fleet_cargo_safety.jpg" alt="تأمين حمولة الشاحنة" class="ops-card-img" loading="lazy">
+          <div class="ops-card-overlay">
+            <span class="ops-badge-pill" data-i18n="c_ops_b2">سلامة وتأمين</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t2">تغليف وتربيط الشحنات العالية</h4>
+            <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc2">نقطة انطلاق الشحنات — مدينة نصر</span></p>
+          </div>
+        </div>
+
+        <!-- Card 3: Supply Sacks Transport -->
+        <div class="ops-card" data-full-img="fleet_supplies_sacks.jpg" data-caption-ar="توريدات خامات ومواد تشغيل • حمولة كاملة معبأة" data-caption-en="Bulk Sourced Materials • Full capacity bagged supplies distribution">
+          <img src="fleet_supplies_sacks.jpg" alt="شاحنة محملة بشكائر توريدات" class="ops-card-img" loading="lazy">
+          <div class="ops-card-overlay">
+            <span class="ops-badge-pill" data-i18n="c_ops_b3">توريدات جملة</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t3">شحن مواد وخامات تشغيل معبأة</h4>
+            <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc3">طريق القاهرة — السويس</span></p>
+          </div>
+        </div>
+
+        <!-- Card 4: Industrial Warehouse Pipes -->
+        <div class="ops-card" data-full-img="fleet_warehouse_pipes.jpg" data-caption-ar="تحميل المستودعات الكبرى • نقل قطاعات ومواسير المشاريع" data-caption-en="Industrial Warehousing • Large conduit pipes and facility supplies dispatch">
+          <img src="fleet_warehouse_pipes.jpg" alt="شاحنة داخل مستودع صناعي" class="ops-card-img" loading="lazy">
+          <div class="ops-card-overlay">
+            <span class="ops-badge-pill" data-i18n="c_ops_b4">مستودعات صناعية</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t4">توريد ونقل مستلزمات البنية التحتية</h4>
+            <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc4">المجمع الصناعي — العاشر من رمضان</span></p>
+          </div>
+        </div>
+
+        <!-- Card 5: Inter-city Highway Transit -->
+        <div class="ops-card" data-full-img="fleet_highway_transit.jpg" data-caption-ar="شحن بين المحافظات • رحلة شحن بري على الطريق السريع" data-caption-en="Inter-City Freight • Regional linehaul on Egyptian highway corridor">
+          <img src="fleet_highway_transit.jpg" alt="شاحنة إنجاز على الطريق السريع" class="ops-card-img" loading="lazy">
+          <div class="ops-card-overlay">
+            <span class="ops-badge-pill" data-i18n="c_ops_b5">شحن محافظات</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t5">شحن بضائع مباشر بين الأقاليم</h4>
+            <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc5">محور الطريق الإقليمي الدولي</span></p>
+          </div>
+        </div>
+
+        <!-- Card 6: Structural Materials -->
+        <div class="ops-card" data-full-img="fleet_structural_materials.jpg" data-caption-ar="نقل مواد وقطاعات إنشائية • شاحنة نقل مسطحة للحمولات الطويلة" data-caption-en="Heavy Structural Transit • Flatbed transport for long materials">
+          <img src="fleet_structural_materials.jpg" alt="نقل خامات إنشائية" class="ops-card-img" loading="lazy">
+          <div class="ops-card-overlay">
+            <span class="ops-badge-pill" data-i18n="c_ops_b6">خامات هندسية</span>
+            <h4 class="ops-card-caption" data-i18n="c_ops_t6">نقل قطاعات التشغيل والمواد الطويلة</h4>
+            <p class="ops-card-sub"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg><span data-i18n="c_ops_loc6">المنطقة الصناعية — 6 أكتوبر</span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Lightbox Modal -->
+  <div class="ops-modal" id="videoModal" aria-hidden="true" role="dialog">
+    <div class="ops-modal-inner">
+      <button class="ops-modal-close" id="closeVideoModal" aria-label="إغلاق الفيديو">&times;</button>
+      <div class="ops-modal-media-wrap">
+        <video id="opsVideoPlayer" controls playsinline preload="none">
+          <source src="enjaz_fleet_transit.mp4" type="video/mp4">
+          متصفحك لا يدعم تشغيل الفيديو.
+        </video>
+      </div>
+      <div class="ops-modal-footer">
+        <div>
+          <div class="ops-modal-caption" data-i18n="v_modal_cap">أسطول إنجاز في رحلة شحن بري مباشر على الطريق السريع</div>
+          <div class="ops-modal-sub" data-i18n="v_modal_sub">توثيق ميداني حقيقي • التزام تام بالسلامة والمواعيد</div>
+        </div>
+        <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%A3%D8%B3%D8%B7%D9%88%D9%84%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1%20%D8%B4%D8%AD%D9%86" target="_blank" rel="noopener noreferrer" class="btn-watch-video" style="padding: 8px 16px; font-size: 13px;">
+          <span data-i18n="v_modal_wa">طلب تسعير شحن</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image Lightbox Modal -->
+  <div class="ops-modal" id="imageModal" aria-hidden="true" role="dialog">
+    <div class="ops-modal-inner" style="max-width: 720px;">
+      <button class="ops-modal-close" id="closeImageModal" aria-label="إغلاق الصورة">&times;</button>
+      <div class="ops-modal-media-wrap">
+        <img id="opsLightboxImg" src="" alt="عرض تفصيلي للعمليات">
+      </div>
+      <div class="ops-modal-footer">
+        <div class="ops-modal-caption" id="opsLightboxCaption"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- ========================================================================
        All Egypt Network Corridor Strip
@@ -1876,6 +2494,7 @@
           lang_btn: "English",
           n_about: "عن الشركة",
           n_services: "مجالات العمل",
+          n_operations: "الأسطول الميداني",
           n_network: "نطاق التغطية",
           n_contact: "اتصل بنا",
           h_title: '<span class="headline-lead">إنجاز</span><span class="gold-text">للتوريدات ونقل البضائع</span>',
@@ -1978,6 +2597,38 @@
           f_notes: "تفاصيل الطلب (أصناف التوريد أو نوع وحجم البضاعة) *",
           f_notes_ph: "اكتب بياناً مختصراً بالمواد المطلوبة أو وزن ونوع الحمولة وموعد التسليم...",
           f_btn: "إرسال تفاصيل الطلب عبر واتساب",
+          ops_eyebrow: "<span>✨</span><span>واقع العمليات الميدانية • أسطول حقيقي</span>",
+          ops_title: "إنجاز على أرض الواقع: شاحناتنا وشحناتنا اليومية",
+          ops_desc: "توثيق ميداني حقيقي لعمليات نقل البضائع، وتأمين الحمولات، وتوريدات المستودعات في مختلف مواقع العمل بكافة محافظات مصر.",
+          ops_v_badge: "فيديو ميداني حصري • أسطول إنجاز على الطريق",
+          ops_v_title: "شاهد شاحنات إنجاز أثناء النقل المباشر على الطرق السريعة",
+          ops_v_desc: "لقطات واقعية لعمليات النقل والشحن البري لشاحناتنا المحملة بالبضائع الجافة وخامات التشغيل أثناء رحلات الربط بين المحافظات والمناطق الصناعية.",
+          ops_v_p1: "شاحنات إيسوزو وشيفروليه مجهزة للحمولات التجارية الثقيلة",
+          ops_v_p2: "تأمين وتربيط كامل للبضائع المشحونة وفق أعلى معايير السلامة",
+          ops_v_p3: "شحن بري سريع من الباب للباب دون تفريغ وسيط",
+          ops_v_btn: "تشغيل الفيديو الميداني (23 ثانية)",
+          ops_hint: "اسحب لليمين واليسار لاستعراض عمليات الشحن ↔",
+          c_ops_b1: "جاهزية الأسطول",
+          c_ops_t1: "شاحنات إيسوزو وشيفروليه التجارية",
+          c_ops_loc1: "ساحة التحميل والتوزيع — القاهرة",
+          c_ops_b2: "سلامة وتأمين",
+          c_ops_t2: "تغليف وتربيط الشحنات العالية",
+          c_ops_loc2: "نقطة انطلاق الشحنات — مدينة نصر",
+          c_ops_b3: "توريدات جملة",
+          c_ops_t3: "شحن مواد وخامات تشغيل معبأة",
+          c_ops_loc3: "طريق القاهرة — السويس",
+          c_ops_b4: "مستودعات صناعية",
+          c_ops_t4: "توريد ونقل مستلزمات البنية التحتية",
+          c_ops_loc4: "المجمع الصناعي — العاشر من رمضان",
+          c_ops_b5: "شحن محافظات",
+          c_ops_t5: "شحن بضائع مباشر بين الأقاليم",
+          c_ops_loc5: "محور الطريق الإقليمي الدولي",
+          c_ops_b6: "خامات هندسية",
+          c_ops_t6: "نقل قطاعات التشغيل والمواد الطويلة",
+          c_ops_loc6: "المنطقة الصناعية — 6 أكتوبر",
+          v_modal_cap: "أسطول إنجاز في رحلة شحن بري مباشر على الطريق السريع",
+          v_modal_sub: "توثيق ميداني حقيقي • التزام تام بالسلامة والمواعيد",
+          v_modal_wa: "طلب تسعير شحن",
           foot_title: "إنجاز للتوريدات ونقل البضائع",
           foot_desc: '<span class="foot-desc-item">توريدات عمومية وخامات تشغيل</span><span class="foot-desc-item">نقل بضائع وشحن بري لكافة المحافظات</span>',
           foot_call: "هاتفياً: 01000000000",
@@ -1991,6 +2642,7 @@
           lang_btn: "العربية",
           n_about: "About Us",
           n_services: "Core Divisions",
+          n_operations: "Our Fleet",
           n_network: "Coverage",
           n_contact: "Contact Us",
           h_title: '<span class="headline-lead">ENJAZ</span><span class="gold-text">for General Supplies & Freight Transport</span>',
@@ -2093,6 +2745,38 @@
           f_notes: "Details (Items needed or Cargo weight/type) *",
           f_notes_ph: "Provide an item summary, estimated volume/tonnage, and desired delivery date...",
           f_btn: "Send Details via WhatsApp",
+          ops_eyebrow: "<span>✨</span><span>Real Field Operations • Verified Fleet</span>",
+          ops_title: "Enjaz in Action: Daily Fleet & Live Dispatches",
+          ops_desc: "Authentic field documentation of cargo transport, safety lashing, and warehouse supply distribution across Egypt's governorates.",
+          ops_v_badge: "Exclusive Field Video • Fleet in Transit",
+          ops_v_title: "Watch Enjaz Commercial Trucks in Transit on Egypt's Highways",
+          ops_v_desc: "Real footage of our road freight operations transporting packaged cargo, supplies, and operating materials between industrial cities and provincial hubs.",
+          ops_v_p1: "Heavy-duty Isuzu and Chevrolet fleet built for commercial haulage",
+          ops_v_p2: "Full cargo strapping and protective tarping under strict safety standards",
+          ops_v_p3: "Direct point-to-point dispatch from warehouse gate to delivery dock",
+          ops_v_btn: "Play Field Video (23 Seconds)",
+          ops_hint: "Swipe left and right to explore field dispatches ↔",
+          c_ops_b1: "Fleet Readiness",
+          c_ops_t1: "Commercial Isuzu & Chevrolet Trucks",
+          c_ops_loc1: "Dispatch & Staging Yard — Cairo",
+          c_ops_b2: "Safety & Care",
+          c_ops_t2: "Protective Strapping & Weatherproofing",
+          c_ops_loc2: "Departure Hub — Nasr City",
+          c_ops_b3: "Wholesale Supplies",
+          c_ops_t3: "Packaged Raw Materials Distribution",
+          c_ops_loc3: "Cairo — Suez Highway Corridor",
+          c_ops_b4: "Industrial Warehousing",
+          c_ops_t4: "Infrastructure Conduits & Facility Supplies",
+          c_ops_loc4: "Industrial Zone — 10th of Ramadan",
+          c_ops_b5: "Regional Freight",
+          c_ops_t5: "Direct Inter-Governorate Dispatch",
+          c_ops_loc5: "International Regional Ring Corridor",
+          c_ops_b6: "Heavy Materials",
+          c_ops_t6: "Structural Bars & Long Facility Materials",
+          c_ops_loc6: "Industrial City — 6th of October",
+          v_modal_cap: "Enjaz Fleet on Direct Highway Transit Corridor",
+          v_modal_sub: "Real Field Documentation • Strict Safety & Schedule Adherence",
+          v_modal_wa: "Request Freight Quote",
           foot_title: "ENJAZ for General Supplies & Freight Transport",
           foot_desc: '<span class="foot-desc-item">Wholesale Supplies</span><span class="foot-desc-item">Domestic Road Freight Across Egypt</span>',
           foot_call: "Call: 01000000000",
@@ -2178,6 +2862,93 @@
           window.open(waUrl, '_blank');
         });
       }
+
+      // ======================================================================
+      // Operations Modals (Video Lightbox & Photo Zoom)
+      // ======================================================================
+      const videoModal = document.getElementById('videoModal');
+      const openVideoBtn = document.getElementById('openVideoBtn');
+      const openVideoActionBtn = document.getElementById('openVideoActionBtn');
+      const closeVideoModal = document.getElementById('closeVideoModal');
+      const opsVideoPlayer = document.getElementById('opsVideoPlayer');
+
+      function openVideo() {
+        if (!videoModal || !opsVideoPlayer) return;
+        videoModal.classList.add('active');
+        videoModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        opsVideoPlayer.currentTime = 0;
+        const playPromise = opsVideoPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(function () {
+            // Autoplay with sound might need user interaction, handled gracefully
+          });
+        }
+      }
+
+      function closeVideo() {
+        if (!videoModal || !opsVideoPlayer) return;
+        videoModal.classList.remove('active');
+        videoModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        opsVideoPlayer.pause();
+      }
+
+      if (openVideoBtn) openVideoBtn.addEventListener('click', openVideo);
+      if (openVideoActionBtn) openVideoActionBtn.addEventListener('click', openVideo);
+      if (closeVideoModal) closeVideoModal.addEventListener('click', closeVideo);
+      if (videoModal) {
+        videoModal.addEventListener('click', function (e) {
+          if (e.target === videoModal) closeVideo();
+        });
+      }
+
+      // Photo Lightbox
+      const imageModal = document.getElementById('imageModal');
+      const closeImageModal = document.getElementById('closeImageModal');
+      const opsLightboxImg = document.getElementById('opsLightboxImg');
+      const opsLightboxCaption = document.getElementById('opsLightboxCaption');
+
+      function openImage(src, caption) {
+        if (!imageModal || !opsLightboxImg) return;
+        opsLightboxImg.src = src;
+        if (opsLightboxCaption) opsLightboxCaption.textContent = caption || '';
+        imageModal.classList.add('active');
+        imageModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeImage() {
+        if (!imageModal) return;
+        imageModal.classList.remove('active');
+        imageModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('.ops-card').forEach(function (card) {
+        card.addEventListener('click', function () {
+          const fullImg = this.getAttribute('data-full-img');
+          const cap = (currentLang === 'ar') 
+            ? this.getAttribute('data-caption-ar') 
+            : this.getAttribute('data-caption-en');
+          if (fullImg) openImage(fullImg, cap);
+        });
+      });
+
+      if (closeImageModal) closeImageModal.addEventListener('click', closeImage);
+      if (imageModal) {
+        imageModal.addEventListener('click', function (e) {
+          if (e.target === imageModal) closeImage();
+        });
+      }
+
+      // Universal Escape key listener
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' || e.keyCode === 27) {
+          closeVideo();
+          closeImage();
+        }
+      });
     })();
   </script>
 </body>
