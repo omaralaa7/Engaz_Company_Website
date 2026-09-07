@@ -1839,6 +1839,136 @@
       flex-shrink: 0;
     }
 
+    /* ========================================================================
+       Dynamic Promotional Ads Showcase (Managed via admin.html)
+       ======================================================================== */
+    .dynamic-ads-section {
+      padding: 60px 0;
+      background: linear-gradient(180deg, rgba(6, 9, 14, 0.98) 0%, rgba(13, 19, 31, 0.98) 100%);
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      position: relative;
+    }
+    .dynamic-ads-header {
+      text-align: center;
+      margin-bottom: 34px;
+    }
+    .dynamic-ads-badge {
+      display: inline-block;
+      padding: 5px 16px;
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      border-radius: 20px;
+      color: #dfba73;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .dynamic-ads-title {
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
+      font-weight: 800;
+      color: #fff;
+    }
+    .dynamic-ads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 26px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .dynamic-ad-card {
+      background: #0d131f;
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .dynamic-ad-card:hover {
+      transform: translateY(-5px);
+      border-color: #dfba73;
+      box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.18);
+    }
+    .dynamic-ad-media {
+      position: relative;
+      background: #000;
+      cursor: pointer;
+      overflow: hidden;
+      max-height: 400px;
+    }
+    .dynamic-ad-img {
+      width: 100%;
+      height: 100%;
+      max-height: 380px;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .dynamic-ad-media:hover .dynamic-ad-img {
+      transform: scale(1.03);
+    }
+    .dynamic-ad-zoom-hint {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(4px);
+      color: #dfba73;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .dynamic-ad-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+      gap: 14px;
+    }
+    .dynamic-ad-heading {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.4;
+    }
+    .dynamic-ad-notes {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+    .dynamic-ad-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #dfba73 0%, #c5a059 50%, #9e7a30 100%);
+      color: #06090e;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.95rem;
+      padding: 12px 18px;
+      border-radius: 8px;
+      transition: all 0.25s ease;
+    }
+    .dynamic-ad-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(212, 175, 55, 0.35);
+      color: #000;
+    }
+    .dynamic-ad-cta-btn svg {
+      width: 17px;
+      height: 17px;
+    }
+
     /* Fullscreen Lightbox & Video Modal */
     .ops-modal {
       position: fixed;
@@ -2183,6 +2313,21 @@
           <h4 data-i18n="tr4_h">تأمين وسلامة الحمولات</h4>
           <p data-i18n="tr4_p">التزام صارم بالجداول الزمنية وتأمين كامل للبضائع والمهمات أثناء النقل.</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Dynamic Promotional Ads Showcase (Managed live via admin.html)
+       ======================================================================== -->
+  <section class="dynamic-ads-section" id="engazAdsSection" style="display: none;">
+    <div class="container">
+      <div class="dynamic-ads-header">
+        <span class="dynamic-ads-badge" data-i18n="ad_badge">عروض وبوسترات حصرية</span>
+        <h2 class="dynamic-ads-title" data-i18n="ad_title">أحدث عروض التوريدات وشحن البضائع</h2>
+      </div>
+      <div class="dynamic-ads-grid" id="dynamicAdsGrid">
+        <!-- Rendered dynamically from Firebase Firestore -->
       </div>
     </div>
   </section>
@@ -2727,6 +2872,8 @@
           tr3_p: "شبكة خطوط تربط القاهرة الكبرى بكافة محافظات الوجهين البحري والقبلي.",
           tr4_h: "تأمين وسلامة الحمولات",
           tr4_p: "التزام صارم بالجداول الزمنية وتأمين كامل للبضائع والمهمات أثناء النقل.",
+          ad_badge: "عروض وبوسترات حصرية",
+          ad_title: "أحدث عروض التوريدات وشحن البضائع",
           emb_badge: "الاعتماد التجاري الرسمي",
           emb_title: "الهوية والاعتماد المؤسسي لشركة إنجاز",
           emb_desc: "كيان تجاري رسمي مسجل برقم سجل تجاري 130907، معتمد لتنفيذ التوريدات العمومية، نقل البضائع والشحن البري الداخلي، وتجهيز المواقع والمقاولات وفق أعلى معايير الجودة والالتزام في جمهورية مصر العربية.",
@@ -2879,6 +3026,8 @@
           tr3_p: "Daily linehaul connecting Cairo to lower and upper Egypt.",
           tr4_h: "Cargo Safety & Care",
           tr4_p: "Strict schedule adherence and comprehensive safety for goods and equipment in transit.",
+          ad_badge: "Exclusive Announcements & Offers",
+          ad_title: "Latest Special Offers & Operations Announcements",
           emb_badge: "Official Commercial Accreditation",
           emb_title: "Corporate Identity & Commercial Certification",
           emb_desc: "An officially registered commercial entity under Commercial Registration No. 130907, licensed for wholesale commercial supplies, domestic road freight transport, and site staging across the Arab Republic of Egypt.",
@@ -3138,6 +3287,7 @@
         imageModal.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
       }
+      window.openEnjazImage = openImage;
 
       function closeImage() {
         if (!imageModal) return;
@@ -3170,6 +3320,119 @@
           closeImage();
         }
       });
+    })();
+  </script>
+  <!-- Firebase Web SDKs (v10 compat) & Live Data Synchronization -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script>
+    (function () {
+      const firebaseConfig = {
+        apiKey: "AIzaSyDolVG3OTLUXRJXEMXXHl9KNwoi3PJWei4",
+        authDomain: "engaz-company.firebaseapp.com",
+        projectId: "engaz-company",
+        storageBucket: "engaz-company.firebasestorage.app",
+        messagingSenderId: "947243612582",
+        appId: "1:947243612582:web:254586f46e78eb08dd7767"
+      };
+
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        const db = firebase.firestore();
+
+        // 1. Live Promotional Ads Listener
+        const adsSection = document.getElementById('engazAdsSection');
+        const adsGrid = document.getElementById('dynamicAdsGrid');
+
+        db.collection('ads')
+          .where('isActive', '==', true)
+          .orderBy('createdAt', 'desc')
+          .onSnapshot(function (snapshot) {
+            if (!snapshot || snapshot.empty) {
+              if (adsSection) adsSection.style.display = 'none';
+              return;
+            }
+
+            let html = '';
+            snapshot.forEach(function (doc) {
+              const ad = doc.data();
+              const title = ad.title || 'عرض خاص من إنجاز';
+              const notes = ad.notes || '';
+              const img = ad.imageUrl;
+              const isEn = (document.documentElement.lang === 'en');
+              
+              let ctaHref = 'https://wa.me/201140347324?text=' + encodeURIComponent('مرحباً إنجاز، أود الاستفسار عن: ' + title);
+              let ctaText = isEn ? 'Direct WhatsApp Inquiry' : 'استفسار عبر واتساب';
+
+              if (ad.ctaType === 'call') {
+                ctaHref = 'tel:01140347324';
+                ctaText = isEn ? 'Call Directly' : 'اتصال مباشر';
+              } else if (ad.ctaType === 'custom' && ad.customLink) {
+                ctaHref = ad.customLink;
+                ctaText = isEn ? 'Learn More' : 'تفاصيل العرض';
+              }
+
+              const safeTitle = title.replace(/'/g, "\\'");
+              html += `
+                <div class="dynamic-ad-card">
+                  <div class="dynamic-ad-media" onclick="if(window.openEnjazImage) window.openEnjazImage('${img}', '${safeTitle}')">
+                    <img src="${img}" alt="${title}" class="dynamic-ad-img" loading="lazy">
+                    <div class="dynamic-ad-zoom-hint">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                      <span>${isEn ? 'Click to Enlarge' : 'اضغط للتكبير'}</span>
+                    </div>
+                  </div>
+                  <div class="dynamic-ad-content">
+                    <div>
+                      <h3 class="dynamic-ad-heading">${title}</h3>
+                      ${notes ? `<p class="dynamic-ad-notes">${notes}</p>` : ''}
+                    </div>
+                    <a href="${ctaHref}" target="_blank" rel="noopener noreferrer" class="dynamic-ad-cta-btn">
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                      <span>${ctaText}</span>
+                    </a>
+                  </div>
+                </div>
+              `;
+            });
+
+            if (adsGrid) adsGrid.innerHTML = html;
+            if (adsSection) adsSection.style.display = 'block';
+          }, function (err) {
+            console.warn("Firestore ads listener:", err);
+          });
+
+        // 2. Live Operations Video Settings Listener
+        db.collection('settings').doc('video').onSnapshot(function (doc) {
+          if (!doc || !doc.exists) return;
+          const data = doc.data();
+          if (data && data.videoUrl) {
+            const player = document.getElementById('opsVideoPlayer');
+            if (player) {
+              const src = player.querySelector('source');
+              if (src && src.src !== data.videoUrl) {
+                src.src = data.videoUrl;
+                player.load();
+              }
+            }
+          }
+          if (data && data.title) {
+            const titleEl = document.querySelector('.ops-video-title');
+            if (titleEl) titleEl.textContent = data.title;
+          }
+          if (data && data.desc) {
+            const descEl = document.querySelector('.ops-video-desc');
+            if (descEl) descEl.textContent = data.desc;
+          }
+        }, function (err) {
+          console.warn("Firestore video listener:", err);
+        });
+
+      } catch (e) {
+        console.warn("Firebase client init:", e);
+      }
     })();
   </script>
 </body>

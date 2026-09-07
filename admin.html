@@ -1,0 +1,1630 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابة إدارة إنجاز | ENGAZ Admin Portal</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+  <!-- Google Fonts: Tajawal & Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-base: #06090e;
+      --bg-card: #0d131f;
+      --bg-card-hover: #121a2a;
+      --bg-input: #090e17;
+      --border-color: rgba(212, 175, 55, 0.2);
+      --border-focus: #dfba73;
+      --gold-primary: #c5a059;
+      --gold-light: #dfba73;
+      --gold-gradient: linear-gradient(135deg, #dfba73 0%, #c5a059 50%, #9e7a30 100%);
+      --text-main: #f0f4fc;
+      --text-muted: #8b99b5;
+      --success: #22c55e;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--border-color);
+      --shadow-glow: 0 0 25px rgba(212, 175, 55, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(197, 160, 89, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(21, 29, 45, 0.8) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-base);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(212, 175, 55, 0.3);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-light);
+    }
+
+    /* Container */
+    .app-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+      width: 100%;
+    }
+
+    /* Loading Overlay */
+    #globalLoader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg-base);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    #globalLoader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(212, 175, 55, 0.2);
+      border-top-color: var(--gold-light);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .loader-text {
+      margin-top: 16px;
+      color: var(--gold-light);
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    /* ========================================================================
+       Login Screen
+       ======================================================================== */
+    .login-wrapper {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .login-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gold-gradient);
+    }
+    .login-logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      border: 2px solid var(--gold-light);
+      padding: 3px;
+      object-fit: cover;
+      margin: 0 auto 16px;
+      box-shadow: var(--shadow-glow);
+    }
+    .login-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .login-sub {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 28px;
+    }
+    .login-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      text-align: right;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+    .form-label {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .form-input {
+      background: var(--bg-input);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      padding: 13px 14px;
+      color: #fff;
+      font-size: 0.98rem;
+      outline: none;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+      direction: ltr;
+      text-align: left;
+    }
+    .form-input:focus {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+    }
+    .btn-login {
+      background: var(--gold-gradient);
+      color: #06090e;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 8px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+    .btn-login:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .login-alert {
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.88rem;
+      margin-top: 14px;
+      display: none;
+      text-align: right;
+    }
+    .login-alert.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      display: block;
+    }
+
+    /* ========================================================================
+       Dashboard Layout
+       ======================================================================== */
+    .dashboard-wrapper {
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Header */
+    .dash-header {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+      box-shadow: var(--shadow-card);
+    }
+    .dash-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .dash-brand img {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold-light);
+      object-fit: cover;
+    }
+    .dash-brand-titles h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dash-brand-titles p {
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      font-weight: 500;
+    }
+    .dash-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-site-preview {
+      background: rgba(255, 255, 255, 0.06);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+    }
+    .btn-site-preview:hover {
+      background: rgba(212, 175, 55, 0.15);
+      border-color: var(--gold-light);
+      color: var(--gold-light);
+    }
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: var(--radius-sm);
+      padding: 9px 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      transition: all 0.2s ease;
+    }
+    .btn-logout:hover {
+      background: rgba(239, 68, 68, 0.28);
+      color: #fff;
+    }
+
+    /* Navigation Tabs */
+    .dash-tabs {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 8px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 1.05rem;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .tab-btn.active {
+      color: #06090e;
+      background: var(--gold-gradient);
+      box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+    }
+
+    /* Tab Content Areas */
+    .tab-content {
+      display: none;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .tab-content.active {
+      display: flex;
+    }
+
+    /* Cards */
+    .dash-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-card);
+    }
+    .dash-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .dash-card-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .dash-card-title svg {
+      color: var(--gold-light);
+    }
+    .dash-card-desc {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 3px;
+    }
+
+    /* Form Styles */
+    .card-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 700px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    .input-rtl {
+      background: var(--bg-input);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      text-align: right;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .input-rtl:focus {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+    }
+    textarea.input-rtl {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Image Drop / Picker Area */
+    .dropzone {
+      border: 2px dashed rgba(212, 175, 55, 0.4);
+      background: rgba(212, 175, 55, 0.02);
+      border-radius: var(--radius-md);
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--gold-light);
+      background: rgba(212, 175, 55, 0.08);
+    }
+    .dropzone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+    .dropzone-icon {
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+    .dropzone-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+    .dropzone-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* Image Preview in Dropzone */
+    .preview-box {
+      display: none;
+      position: relative;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-top: 14px;
+      max-height: 280px;
+      border: 1px solid var(--border-color);
+      background: #000;
+    }
+    .preview-box img {
+      width: 100%;
+      height: 280px;
+      object-fit: contain;
+      display: block;
+    }
+    .preview-remove {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(239, 68, 68, 0.9);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: transform 0.2s;
+    }
+    .preview-remove:hover {
+      transform: scale(1.1);
+    }
+
+    /* Progress Bar */
+    .progress-container {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .progress-track {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gold-gradient);
+      transition: width 0.2s ease;
+    }
+    .progress-label {
+      font-size: 0.85rem;
+      color: var(--gold-light);
+      font-weight: 600;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Submit Button */
+    .btn-submit {
+      background: var(--gold-gradient);
+      color: #06090e;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 14px 24px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      align-self: flex-start;
+      margin-top: 6px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-glow);
+    }
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Ads Grid & List */
+    .ads-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .ad-card {
+      background: var(--bg-card-hover);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+    .ad-card:hover {
+      border-color: var(--gold-light);
+      transform: translateY(-3px);
+    }
+    .ad-card-thumb-wrap {
+      position: relative;
+      height: 180px;
+      background: #000;
+      overflow: hidden;
+    }
+    .ad-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .ad-card:hover .ad-card-img {
+      transform: scale(1.04);
+    }
+    .ad-status-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .ad-status-badge.active {
+      background: rgba(34, 197, 94, 0.9);
+      color: #fff;
+    }
+    .ad-status-badge.inactive {
+      background: rgba(148, 163, 184, 0.85);
+      color: #0f172a;
+    }
+    .ad-card-body {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .ad-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+    }
+    .ad-card-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .ad-card-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 12px;
+    }
+    .btn-ad-toggle {
+      flex: 1;
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+    }
+    .btn-ad-toggle.active {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.3);
+    }
+    .btn-ad-toggle.active:hover {
+      background: rgba(245, 158, 11, 0.25);
+    }
+    .btn-ad-toggle.inactive {
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ade80;
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+    .btn-ad-toggle.inactive:hover {
+      background: rgba(34, 197, 94, 0.25);
+    }
+    .btn-ad-delete {
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn-ad-delete:hover {
+      background: rgba(239, 68, 68, 0.28);
+      color: #fff;
+    }
+
+    /* Empty state */
+    .empty-box {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-md);
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+    .empty-box svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+      color: rgba(212, 175, 55, 0.4);
+    }
+
+    /* Video Manager Box */
+    .video-preview-wrapper {
+      background: #000;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      max-width: 600px;
+      margin-bottom: 20px;
+    }
+    .video-preview-wrapper video {
+      width: 100%;
+      height: auto;
+      max-height: 340px;
+      display: block;
+    }
+    .video-source-selector {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+    .video-radio-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: var(--bg-card);
+      border: 1px solid var(--gold-light);
+      border-radius: var(--radius-sm);
+      padding: 14px 24px;
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8), var(--shadow-glow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10000;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      direction: rtl;
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+    .toast.success {
+      border-color: var(--success);
+      color: #4ade80;
+    }
+    .toast.error {
+      border-color: var(--danger);
+      color: #fca5a5;
+    }
+
+    /* Helpful Instructions Box */
+    .tips-card {
+      background: rgba(212, 175, 55, 0.05);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: var(--radius-md);
+      padding: 20px;
+    }
+    .tips-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tips-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      font-size: 0.88rem;
+      color: #cbd5e1;
+    }
+    .tips-list li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tips-list li::before {
+      content: '•';
+      color: var(--gold-light);
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Global Loader -->
+  <div id="globalLoader">
+    <div class="spinner"></div>
+    <div class="loader-text">جاري الاتصال بنظام إنجاز...</div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toastMsg">تمت العملية بنجاح</span>
+  </div>
+
+  <div class="app-container">
+
+    <!-- ========================================================================
+         VIEW 1: Login Screen (Shown when signed out)
+         ======================================================================== -->
+    <div id="loginView" class="login-wrapper">
+      <div class="login-card">
+        <img src="navbar_icon.jpg" alt="شعار إنجاز" class="login-logo">
+        <h1 class="login-title">بوابة الإدارة | ENGAZ</h1>
+        <p class="login-sub">تسجيل دخول رئيس مجلس الإدارة والمسؤولين</p>
+
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <label for="loginEmail" class="form-label">البريد الإلكتروني (Email)</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="ghlabmsa@gmail.com" required autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword" class="form-label">كلمة المرور (Password)</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" id="loginBtn" class="btn-login">
+            <span>تسجيل الدخول</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          </button>
+
+          <div id="loginAlert" class="login-alert"></div>
+        </form>
+      </div>
+    </div>
+
+    <!-- ========================================================================
+         VIEW 2: Dashboard (Shown when authenticated)
+         ======================================================================== -->
+    <div id="dashboardView" class="dashboard-wrapper">
+      
+      <!-- Top Navigation Header -->
+      <header class="dash-header">
+        <div class="dash-brand">
+          <img src="navbar_icon.jpg" alt="إنجاز">
+          <div class="dash-brand-titles">
+            <h1>لوحة تحكم إنجاز <span>•</span> الإدارة</h1>
+            <p id="userEmailDisplay">مرحباً بك، أ. محمد غلاب</p>
+          </div>
+        </div>
+
+        <div class="dash-actions">
+          <a href="index.html" target="_blank" class="btn-site-preview" title="معاينة الموقع الرئيسي">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span>معاينة الموقع</span>
+          </a>
+          <button id="logoutBtn" class="btn-logout" title="تسجيل الخروج">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <span>خروج</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Section Navigation Tabs -->
+      <nav class="dash-tabs">
+        <button class="tab-btn active" data-tab="adsTab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+          <span>الإعلانات والبوسترات</span>
+        </button>
+        <button class="tab-btn" data-tab="videoTab">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          <span>فيديو العمليات</span>
+        </button>
+      </nav>
+
+      <!-- ====================================================================
+           TAB 1: Ad Posters Manager
+           ==================================================================== -->
+      <div id="adsTab" class="tab-content active">
+
+        <!-- Form: Add New Ad -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <h2 class="dash-card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                <span>إضافة بوستر إعلاني جديد</span>
+              </h2>
+              <p class="dash-card-desc">ارفع صورة العرض أو البوستر ليظهر مباشرة على الصفحة الرئيسية لجميع الزوار.</p>
+            </div>
+          </div>
+
+          <form id="newAdForm" class="card-form">
+            <!-- Dropzone / File Picker -->
+            <div class="dropzone" id="adDropzone">
+              <input type="file" id="adFileInput" accept="image/*">
+              <div class="dropzone-icon">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              </div>
+              <div class="dropzone-title">اضغط هنا لاختيار صورة البوستر أو اسحبها إلى هنا</div>
+              <div class="dropzone-sub">يدعم صور الهاتف والكمبيوتر (JPG, PNG, WebP) بأي مقاس</div>
+            </div>
+
+            <!-- Preview Box -->
+            <div id="adPreviewBox" class="preview-box">
+              <img id="adPreviewImg" src="" alt="معاينة الصورة">
+              <button type="button" id="removeAdPreviewBtn" class="preview-remove" title="إزالة الصورة">&times;</button>
+            </div>
+
+            <!-- Text Fields -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="adTitle" class="form-label">عنوان البوستر / العرض (اختياري)</label>
+                <input type="text" id="adTitle" class="input-rtl" placeholder="مثال: عروض خاصة على توريدات المشاريع الإنشائية">
+              </div>
+              <div class="form-group">
+                <label for="adCtaType" class="form-label">إجراء الزر عند الضغط على الإعلان</label>
+                <select id="adCtaType" class="input-rtl">
+                  <option value="whatsapp">محادثة واتساب مباشرة (موصى به)</option>
+                  <option value="call">اتصال هاتفي مباشر</option>
+                  <option value="custom">رابط مخصص أو صفحة فيسبوك</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" id="adCustomLinkGroup" style="display: none;">
+              <label for="adCustomLink" class="form-label">الرابط المخصص</label>
+              <input type="url" id="adCustomLink" class="input-rtl" dir="ltr" placeholder="https://www.facebook.com/share/14vgs4k5ors/">
+            </div>
+
+            <div class="form-group">
+              <label for="adNotes" class="form-label">تفاصيل إضافية للبوستر (اختياري)</label>
+              <textarea id="adNotes" class="input-rtl" rows="2" placeholder="توضيح مختصر عن البضائع أو المناطق المشمولة بالعرض..."></textarea>
+            </div>
+
+            <!-- Upload Progress -->
+            <div id="adUploadProgress" class="progress-container">
+              <div class="progress-label">
+                <span>جاري رفع البوستر وحفظه...</span>
+                <span id="adProgressPercent">0%</span>
+              </div>
+              <div class="progress-track">
+                <div id="adProgressFill" class="progress-fill"></div>
+              </div>
+            </div>
+
+            <button type="submit" id="submitAdBtn" class="btn-submit">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              <span>نشر البوستر على الموقع الآن</span>
+            </button>
+          </form>
+        </div>
+
+        <!-- Active / Existing Ads List -->
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <h2 class="dash-card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span>البوسترات والإعلانات الحالية</span>
+              </h2>
+              <p class="dash-card-desc">يمكنك إيقاف ظهور أي بوستر مؤقتاً أو حذفه نهائياً بضغطة زر واحدة.</p>
+            </div>
+            <span id="adsCountBadge" style="background: rgba(212, 175, 55, 0.15); color: var(--gold-light); padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 700;">0 إعلان</span>
+          </div>
+
+          <div id="adsListGrid" class="ads-grid">
+            <!-- Dynamic Ad Cards loaded from Firestore -->
+            <div class="empty-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+              <p>جاري تحميل الإعلانات من قاعدة البيانات...</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Helpful Director Tips -->
+        <div class="tips-card">
+          <div class="tips-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>نصائح سريعة لسيادتك:</span>
+          </div>
+          <ul class="tips-list">
+            <li>بمجرد الضغط على <strong>نشر البوستر</strong>، سيظهر فوراً في قسم العروض على الموقع الرئيسي لكل الزوار.</li>
+            <li>زر <strong>إيقاف مؤقت</strong> يتيح لك إخفاء الإعلان دون حذفه، ويمكنك إعادة تفعيله في أي وقت.</li>
+            <li>إذا أردت وضع فيديو بدلاً من صورة، يمكنك التبديل إلى تبويب <strong>فيديو العمليات</strong> بالأعلى.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- ====================================================================
+           TAB 2: Operations Video Manager
+           ==================================================================== -->
+      <div id="videoTab" class="tab-content">
+        
+        <div class="dash-card">
+          <div class="dash-card-header">
+            <div>
+              <h2 class="dash-card-title">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                <span>تحديث فيديو العمليات والأسطول</span>
+              </h2>
+              <p class="dash-card-desc">هذا الفيديو يظهر في بطاقة "فيديو ميداني" ونافذة التشغيل على الصفحة الرئيسية.</p>
+            </div>
+          </div>
+
+          <!-- Current Video Live Preview -->
+          <div style="margin-bottom: 24px;">
+            <label class="form-label" style="margin-bottom: 10px; display: block;">الفيديو الحالي النشط على الموقع:</label>
+            <div class="video-preview-wrapper">
+              <video id="currentLiveVideo" controls playsinline poster="fleet_video_poster.jpg">
+                <source id="currentLiveVideoSrc" src="enjaz_fleet_transit.mp4" type="video/mp4">
+                المتصفح لا يدعم مشغل الفيديو.
+              </video>
+            </div>
+          </div>
+
+          <form id="updateVideoForm" class="card-form">
+            
+            <div class="video-source-selector">
+              <label class="video-radio-label">
+                <input type="radio" name="videoSourceType" value="upload" checked>
+                <span>رفع ملف فيديو من الهاتف/الكمبيوتر (MP4)</span>
+              </label>
+              <label class="video-radio-label">
+                <input type="radio" name="videoSourceType" value="url">
+                <span>إدخال رابط فيديو مباشر (URL)</span>
+              </label>
+            </div>
+
+            <!-- Upload File Input -->
+            <div id="videoUploadBox" class="dropzone">
+              <input type="file" id="videoFileInput" accept="video/mp4,video/webm,video/quicktime">
+              <div class="dropzone-icon">
+                <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+              </div>
+              <div class="dropzone-title" id="videoDropzoneTitle">اضغط لاختيار ملف الفيديو (MP4)</div>
+              <div class="dropzone-sub">يُفضل ملفات الفيديو المصورة بالشاحنات أو العمليات بحجم مناسب</div>
+            </div>
+
+            <!-- Video URL Input -->
+            <div id="videoUrlBox" class="form-group" style="display: none;">
+              <label for="videoUrlInput" class="form-label">رابط الفيديو المباشر</label>
+              <input type="url" id="videoUrlInput" class="input-rtl" dir="ltr" placeholder="https://example.com/video.mp4">
+            </div>
+
+            <!-- Video Captions -->
+            <div class="form-row">
+              <div class="form-group">
+                <label for="videoTitleInput" class="form-label">عنوان بطاقة الفيديو</label>
+                <input type="text" id="videoTitleInput" class="input-rtl" value="نقل مباشر للبضائع على الطرق الإقليمية السريعة">
+              </div>
+              <div class="form-group">
+                <label for="videoDescInput" class="form-label">الوصف المختصر</label>
+                <input type="text" id="videoDescInput" class="input-rtl" value="توثيق للشاحنة أثناء نقل حمولات البضائع التجارية وتوزيع خامات التشغيل بين المحافظات.">
+              </div>
+            </div>
+
+            <!-- Video Upload Progress -->
+            <div id="videoUploadProgress" class="progress-container">
+              <div class="progress-label">
+                <span>جاري رفع الفيديو وحفظه...</span>
+                <span id="videoProgressPercent">0%</span>
+              </div>
+              <div class="progress-track">
+                <div id="videoProgressFill" class="progress-fill"></div>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+              <button type="submit" id="submitVideoBtn" class="btn-submit">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                <span>حفظ وتحديث الفيديو على الموقع</span>
+              </button>
+
+              <button type="button" id="resetDefaultVideoBtn" class="btn-ad-toggle active" style="margin-top: 6px; padding: 12px 18px;">
+                <span>استعادة الفيديو الأصلي الافتراضي</span>
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- ========================================================================
+       Firebase Compat SDKs (v10)
+       ======================================================================== -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-storage-compat.js"></script>
+
+  <script>
+    // ========================================================================
+    // 1. Firebase Initialization with Director's Project Credentials
+    // ========================================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyDolVG3OTLUXRJXEMXXHl9KNwoi3PJWei4",
+      authDomain: "engaz-company.firebaseapp.com",
+      projectId: "engaz-company",
+      storageBucket: "engaz-company.firebasestorage.app",
+      messagingSenderId: "947243612582",
+      appId: "1:947243612582:web:254586f46e78eb08dd7767"
+    };
+
+    let app, auth, db, storage;
+    try {
+      app = firebase.initializeApp(firebaseConfig);
+      auth = firebase.auth();
+      db = firebase.firestore();
+      storage = firebase.storage();
+    } catch (err) {
+      console.error("Firebase Init Error:", err);
+    }
+
+    // UI Elements
+    const globalLoader = document.getElementById('globalLoader');
+    const loginView = document.getElementById('loginView');
+    const dashboardView = document.getElementById('dashboardView');
+    const loginForm = document.getElementById('loginForm');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
+    const loginBtn = document.getElementById('loginBtn');
+    const loginAlert = document.getElementById('loginAlert');
+    const logoutBtn = document.getElementById('logoutBtn');
+    const userEmailDisplay = document.getElementById('userEmailDisplay');
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+
+    // Toast Utility
+    let toastTimeout;
+    function showToast(msg, type = 'success') {
+      clearTimeout(toastTimeout);
+      toastMsg.textContent = msg;
+      toast.className = `toast show ${type}`;
+      toastTimeout = setTimeout(() => {
+        toast.className = 'toast';
+      }, 4000);
+    }
+
+    // ========================================================================
+    // 2. Authentication State Management
+    // ========================================================================
+    if (auth) {
+      auth.onAuthStateChanged((user) => {
+        globalLoader.classList.add('hidden');
+        if (user) {
+          // Logged In
+          loginView.style.display = 'none';
+          dashboardView.style.display = 'flex';
+          userEmailDisplay.textContent = `مرحباً بك، أ. محمد غلاب (${user.email})`;
+          initDashboardListeners();
+        } else {
+          // Signed Out
+          dashboardView.style.display = 'none';
+          loginView.style.display = 'flex';
+        }
+      });
+    } else {
+      globalLoader.classList.add('hidden');
+      loginAlert.textContent = 'تعذر الاتصال بخوادم Firebase. يرجى التحقق من اتصال الإنترنت.';
+      loginAlert.className = 'login-alert error';
+    }
+
+    // Handle Login Submit
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      loginAlert.style.display = 'none';
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<span>جاري التحقق...</span>';
+
+      try {
+        await auth.signInWithEmailAndPassword(loginEmail.value.trim(), loginPassword.value);
+        showToast('تم تسجيل الدخول بنجاح');
+      } catch (error) {
+        console.error("Login Error:", error);
+        loginAlert.className = 'login-alert error';
+        if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+          loginAlert.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة.';
+        } else if (error.code === 'auth/too-many-requests') {
+          loginAlert.textContent = 'تم تجاوز عدد المحاولات المسموح بها، يرجى المحاولة لاحقاً.';
+        } else {
+          loginAlert.textContent = 'حدث خطأ أثناء تسجيل الدخول: ' + (error.message || 'يرجى مراجعة بيانات الاعتماد');
+        }
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<span>تسجيل الدخول</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>';
+      }
+    });
+
+    // Handle Logout
+    logoutBtn.addEventListener('click', async () => {
+      if (confirm('هل ترغب في تسجيل الخروج من لوحة التحكم؟')) {
+        await auth.signOut();
+        showToast('تم تسجيل الخروج');
+      }
+    });
+
+    // Tab Navigation
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabContents.forEach(c => c.classList.remove('active'));
+        btn.classList.add('active');
+        const target = document.getElementById(btn.dataset.tab);
+        if (target) target.classList.add('active');
+      });
+    });
+
+    // ========================================================================
+    // 3. Ad Posters Management (Upload / Toggle / Delete)
+    // ========================================================================
+    let selectedAdFile = null;
+    const adDropzone = document.getElementById('adDropzone');
+    const adFileInput = document.getElementById('adFileInput');
+    const adPreviewBox = document.getElementById('adPreviewBox');
+    const adPreviewImg = document.getElementById('adPreviewImg');
+    const removeAdPreviewBtn = document.getElementById('removeAdPreviewBtn');
+    const newAdForm = document.getElementById('newAdForm');
+    const adTitle = document.getElementById('adTitle');
+    const adCtaType = document.getElementById('adCtaType');
+    const adCustomLinkGroup = document.getElementById('adCustomLinkGroup');
+    const adCustomLink = document.getElementById('adCustomLink');
+    const adNotes = document.getElementById('adNotes');
+    const adUploadProgress = document.getElementById('adUploadProgress');
+    const adProgressPercent = document.getElementById('adProgressPercent');
+    const adProgressFill = document.getElementById('adProgressFill');
+    const submitAdBtn = document.getElementById('submitAdBtn');
+    const adsListGrid = document.getElementById('adsListGrid');
+    const adsCountBadge = document.getElementById('adsCountBadge');
+
+    // Toggle custom link input
+    adCtaType.addEventListener('change', () => {
+      adCustomLinkGroup.style.display = (adCtaType.value === 'custom') ? 'block' : 'none';
+    });
+
+    // File selection handler
+    function handleAdFileSelection(file) {
+      if (!file || !file.type.startsWith('image/')) {
+        alert('يرجى اختيار ملف صورة صالح (JPG, PNG, WebP)');
+        return;
+      }
+      selectedAdFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        adPreviewImg.src = e.target.result;
+        adPreviewBox.style.display = 'block';
+        adDropzone.style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    adFileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        handleAdFileSelection(e.target.files[0]);
+      }
+    });
+
+    // Drag and drop support
+    adDropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      adDropzone.classList.add('dragover');
+    });
+    adDropzone.addEventListener('dragleave', () => {
+      adDropzone.classList.remove('dragover');
+    });
+    adDropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      adDropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleAdFileSelection(e.dataTransfer.files[0]);
+      }
+    });
+
+    // Remove preview
+    removeAdPreviewBtn.addEventListener('click', () => {
+      selectedAdFile = null;
+      adFileInput.value = '';
+      adPreviewImg.src = '';
+      adPreviewBox.style.display = 'none';
+      adDropzone.style.display = 'block';
+    });
+
+    // Add New Ad Submit
+    newAdForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!selectedAdFile) {
+        alert('يرجى اختيار صورة البوستر أولاً.');
+        return;
+      }
+
+      submitAdBtn.disabled = true;
+      adUploadProgress.style.display = 'flex';
+      adProgressFill.style.width = '0%';
+      adProgressPercent.textContent = '0%';
+
+      try {
+        const fileExt = selectedAdFile.name.split('.').pop() || 'jpg';
+        const fileName = `ads/${Date.now()}_${Math.random().toString(36).substring(2, 8)}.${fileExt}`;
+        const fileRef = storage.ref().child(fileName);
+
+        // Upload Task with Progress Monitoring
+        const uploadTask = fileRef.put(selectedAdFile);
+
+        uploadTask.on('state_changed', 
+          (snapshot) => {
+            const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            adProgressFill.style.width = `${progress}%`;
+            adProgressPercent.textContent = `${Math.round(progress)}%`;
+          },
+          (error) => {
+            console.error("Storage Upload Error:", error);
+            throw error;
+          },
+          async () => {
+            // Upload Completed
+            const downloadUrl = await uploadTask.snapshot.ref.getDownloadURL();
+
+            // Save Document to Firestore
+            await db.collection('ads').add({
+              title: adTitle.value.trim() || 'عرض خاص من إنجاز',
+              notes: adNotes.value.trim() || '',
+              imageUrl: downloadUrl,
+              storagePath: fileName,
+              ctaType: adCtaType.value,
+              customLink: adCustomLink.value.trim() || '',
+              isActive: true,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+
+            // Reset form
+            selectedAdFile = null;
+            adFileInput.value = '';
+            adTitle.value = '';
+            adNotes.value = '';
+            adCustomLink.value = '';
+            adPreviewBox.style.display = 'none';
+            adDropzone.style.display = 'block';
+            adUploadProgress.style.display = 'none';
+            submitAdBtn.disabled = false;
+
+            showToast('تم نشر البوستر بنجاح على الموقع الرئيسي');
+          }
+        );
+
+      } catch (err) {
+        console.error("Error creating ad:", err);
+        alert('حدث خطأ أثناء حفظ الإعلان: ' + err.message);
+        submitAdBtn.disabled = false;
+        adUploadProgress.style.display = 'none';
+      }
+    });
+
+    // Real-time listener for Ads Collection
+    let adsUnsubscribe = null;
+    function initDashboardListeners() {
+      if (adsUnsubscribe) adsUnsubscribe();
+
+      // Listen to Ads
+      adsUnsubscribe = db.collection('ads').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+        adsCountBadge.textContent = `${snapshot.size} إعلان`;
+        if (snapshot.empty) {
+          adsListGrid.innerHTML = `
+            <div class="empty-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <p style="font-weight: 700; font-size: 1.05rem; color: #fff; margin-bottom: 4px;">لا توجد بوسترات منشورة حالياً</p>
+              <p>قم باختيار صورة من النموذج بالأعلى واضغط "نشر البوستر على الموقع" لتظهر هنا مباشرة.</p>
+            </div>
+          `;
+          return;
+        }
+
+        let html = '';
+        snapshot.forEach((doc) => {
+          const ad = doc.data();
+          const adId = doc.id;
+          const isActive = ad.isActive !== false;
+          const dateStr = ad.createdAt && ad.createdAt.toDate ? ad.createdAt.toDate().toLocaleDateString('ar-EG') : 'الآن';
+
+          html += `
+            <div class="ad-card" id="card-${adId}">
+              <div class="ad-card-thumb-wrap">
+                <img src="${ad.imageUrl}" alt="${ad.title || 'بوستر إنجاز'}" class="ad-card-img" loading="lazy">
+                <span class="ad-status-badge ${isActive ? 'active' : 'inactive'}">
+                  ${isActive ? '🟢 نشط على الموقع' : '⚪ متوقف مؤقتاً'}
+                </span>
+              </div>
+              <div class="ad-card-body">
+                <div>
+                  <h3 class="ad-card-title">${ad.title || 'إعلان بدون عنوان'}</h3>
+                  <div class="ad-card-meta">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    <span>نُشر بتاريخ: ${dateStr}</span>
+                  </div>
+                </div>
+                <div class="ad-card-actions">
+                  <button class="btn-ad-toggle ${isActive ? 'active' : 'inactive'}" onclick="toggleAdStatus('${adId}', ${isActive})">
+                    ${isActive ? 'إيقاف مؤقت' : 'تفعيل العرض'}
+                  </button>
+                  <button class="btn-ad-delete" onclick="deleteAd('${adId}', '${ad.storagePath || ''}')">
+                    حذف
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        adsListGrid.innerHTML = html;
+      }, (err) => {
+        console.error("Ads listener error:", err);
+      });
+
+      // Listen to Video Settings
+      db.collection('settings').doc('video').onSnapshot((doc) => {
+        if (doc.exists) {
+          const data = doc.data();
+          const videoUrl = data.videoUrl || 'enjaz_fleet_transit.mp4';
+          const videoTitle = data.title || 'نقل مباشر للبضائع على الطرق الإقليمية السريعة';
+          const videoDesc = data.desc || 'توثيق للشاحنة أثناء نقل حمولات البضائع التجارية وتوزيع خامات التشغيل بين المحافظات والمناطق الصناعية.';
+
+          document.getElementById('currentLiveVideoSrc').src = videoUrl;
+          document.getElementById('currentLiveVideo').load();
+          document.getElementById('videoTitleInput').value = videoTitle;
+          document.getElementById('videoDescInput').value = videoDesc;
+        }
+      });
+    }
+
+    // Toggle Ad Status Window Function
+    window.toggleAdStatus = async (adId, currentStatus) => {
+      try {
+        await db.collection('ads').doc(adId).update({
+          isActive: !currentStatus
+        });
+        showToast(currentStatus ? 'تم إيقاف ظهور الإعلان مؤقتاً' : 'تم تفعيل الإعلان على الموقع');
+      } catch (err) {
+        console.error("Toggle error:", err);
+        alert('حدث خطأ: ' + err.message);
+      }
+    };
+
+    // Delete Ad Window Function
+    window.deleteAd = async (adId, storagePath) => {
+      if (!confirm('هل أنت متأكد من حذف هذا البوستر الإعلاني نهائياً؟ لا يمكن التراجع عن هذا الإجراء.')) {
+        return;
+      }
+
+      try {
+        await db.collection('ads').doc(adId).delete();
+        if (storagePath) {
+          try {
+            await storage.ref().child(storagePath).delete();
+          } catch (storageErr) {
+            console.warn("Storage delete warn:", storageErr);
+          }
+        }
+        showToast('تم حذف البوستر بنجاح');
+      } catch (err) {
+        console.error("Delete error:", err);
+        alert('حدث خطأ أثناء الحذف: ' + err.message);
+      }
+    };
+
+    // ========================================================================
+    // 4. Operations Video Management
+    // ========================================================================
+    const updateVideoForm = document.getElementById('updateVideoForm');
+    const videoSourceRadios = document.querySelectorAll('input[name="videoSourceType"]');
+    const videoUploadBox = document.getElementById('videoUploadBox');
+    const videoUrlBox = document.getElementById('videoUrlBox');
+    const videoFileInput = document.getElementById('videoFileInput');
+    const videoDropzoneTitle = document.getElementById('videoDropzoneTitle');
+    const videoUrlInput = document.getElementById('videoUrlInput');
+    const videoTitleInput = document.getElementById('videoTitleInput');
+    const videoDescInput = document.getElementById('videoDescInput');
+    const videoUploadProgress = document.getElementById('videoUploadProgress');
+    const videoProgressPercent = document.getElementById('videoProgressPercent');
+    const videoProgressFill = document.getElementById('videoProgressFill');
+    const submitVideoBtn = document.getElementById('submitVideoBtn');
+    const resetDefaultVideoBtn = document.getElementById('resetDefaultVideoBtn');
+
+    let selectedVideoFile = null;
+
+    videoSourceRadios.forEach(radio => {
+      radio.addEventListener('change', () => {
+        if (radio.value === 'upload') {
+          videoUploadBox.style.display = 'block';
+          videoUrlBox.style.display = 'none';
+        } else {
+          videoUploadBox.style.display = 'none';
+          videoUrlBox.style.display = 'block';
+        }
+      });
+    });
+
+    videoFileInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files[0]) {
+        selectedVideoFile = e.target.files[0];
+        videoDropzoneTitle.textContent = `تم اختيار: ${selectedVideoFile.name} (${(selectedVideoFile.size / (1024*1024)).toFixed(1)} MB)`;
+      }
+    });
+
+    // Save Video Settings
+    updateVideoForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const sourceType = document.querySelector('input[name="videoSourceType"]:checked').value;
+
+      submitVideoBtn.disabled = true;
+
+      try {
+        let finalVideoUrl = '';
+
+        if (sourceType === 'upload') {
+          if (!selectedVideoFile) {
+            // Keep current video if no new file picked, just update text
+            const currentDoc = await db.collection('settings').doc('video').get();
+            finalVideoUrl = (currentDoc.exists && currentDoc.data().videoUrl) ? currentDoc.data().videoUrl : 'enjaz_fleet_transit.mp4';
+          } else {
+            videoUploadProgress.style.display = 'flex';
+            const fileExt = selectedVideoFile.name.split('.').pop() || 'mp4';
+            const fileName = `videos/ops_video_${Date.now()}.${fileExt}`;
+            const fileRef = storage.ref().child(fileName);
+
+            const uploadTask = fileRef.put(selectedVideoFile);
+            await new Promise((resolve, reject) => {
+              uploadTask.on('state_changed',
+                (snapshot) => {
+                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  videoProgressFill.style.width = `${progress}%`;
+                  videoProgressPercent.textContent = `${Math.round(progress)}%`;
+                },
+                reject,
+                async () => {
+                  finalVideoUrl = await uploadTask.snapshot.ref.getDownloadURL();
+                  resolve();
+                }
+              );
+            });
+          }
+        } else {
+          finalVideoUrl = videoUrlInput.value.trim();
+          if (!finalVideoUrl) {
+            alert('يرجى إدخال رابط الفيديو.');
+            submitVideoBtn.disabled = false;
+            return;
+          }
+        }
+
+        // Save to Firestore
+        await db.collection('settings').doc('video').set({
+          videoUrl: finalVideoUrl,
+          title: videoTitleInput.value.trim(),
+          desc: videoDescInput.value.trim(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+
+        videoUploadProgress.style.display = 'none';
+        submitVideoBtn.disabled = false;
+        showToast('تم تحديث فيديو العمليات بنجاح على الموقع الرئيسي');
+
+      } catch (err) {
+        console.error("Video save error:", err);
+        alert('حدث خطأ أثناء تحديث الفيديو: ' + err.message);
+        submitVideoBtn.disabled = false;
+        videoUploadProgress.style.display = 'none';
+      }
+    });
+
+    // Reset default video
+    resetDefaultVideoBtn.addEventListener('click', async () => {
+      if (confirm('هل ترغب في استعادة الفيديو الافتراضي الأصلي للشاحنة؟')) {
+        try {
+          await db.collection('settings').doc('video').set({
+            videoUrl: 'enjaz_fleet_transit.mp4',
+            title: 'نقل مباشر للبضائع على الطرق الإقليمية السريعة',
+            desc: 'توثيق للشاحنة أثناء نقل حمولات البضائع التجارية وتوزيع خامات التشغيل بين المحافظات والمناطق الصناعية.',
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
+          showToast('تمت استعادة الفيديو الافتراضي');
+        } catch (err) {
+          alert('حدث خطأ: ' + err.message);
+        }
+      }
+    });
+
+  </script>
+</body>
+</html>
