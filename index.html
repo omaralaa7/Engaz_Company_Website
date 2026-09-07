@@ -3375,6 +3375,7 @@
           const activeAds = [];
           snapshot.forEach(function (doc) {
             const ad = doc.data();
+            ad.id = doc.id;
             if (ad.isActive !== false) {
               activeAds.push(ad);
             }
@@ -3413,7 +3414,20 @@
               let mediaHtml = '';
               if (mediaType === 'video') {
                 const vUrl = ad.videoUrl || ad.imageUrl || '';
-                if (vUrl.includes('youtube.com') || vUrl.includes('youtu.be')) {
+                const adDocId = ad.id || ('ad-' + Math.random().toString(36).substring(2, 7));
+                
+                if (ad.hasChunks) {
+                  mediaHtml = `
+                    <div class="dynamic-ad-media" style="cursor: default;">
+                      <video class="dynamic-ad-video" id="video-stream-${adDocId}" controls playsinline preload="metadata">
+                        متصفحك لا يدعم مشغل الفيديو.
+                      </video>
+                    </div>`;
+                  // Stream chunks asynchronously
+                  setTimeout(() => {
+                    loadAdVideoChunks(adDocId, document.getElementById('video-stream-' + adDocId));
+                  }, 50);
+                } else if (vUrl.includes('youtube.com') || vUrl.includes('youtu.be')) {
                   let ytId = '';
                   if (vUrl.includes('youtu.be/')) {
                     ytId = vUrl.split('youtu.be/')[1].split('?')[0];
@@ -3465,6 +3479,29 @@
           }, function (err) {
             console.warn("Firestore ads listener:", err);
           });
+
+        // Helper to assemble chunked video from Firestore
+        async function loadAdVideoChunks(adId, videoEl) {
+          if (!videoEl) return;
+          try {
+            const snap = await db.collection('ads').doc(adId).collection('chunks').orderBy('index', 'asc').get();
+            if (snap.empty) return;
+            const binaryChunks = [];
+            snap.forEach(function (doc) {
+              const b64 = doc.data().data.split(',')[1];
+              const binStr = atob(b64);
+              const bytes = new Uint8Array(binStr.length);
+              for (let i = 0; i < binStr.length; i++) {
+                bytes[i] = binStr.charCodeAt(i);
+              }
+              binaryChunks.push(bytes);
+            });
+            const blob = new Blob(binaryChunks, { type: 'video/mp4' });
+            videoEl.src = URL.createObjectURL(blob);
+          } catch (err) {
+            console.warn("Stream video error:", err);
+          }
+        }
 
         // 2. Live Operations Video Settings Listener
         db.collection('settings').doc('video').onSnapshot(function (doc) {

@@ -1471,41 +1471,117 @@
         if (isVideo) {
           if (videoLink) {
             finalMediaUrl = videoLink;
-          } else if (selectedAdFile) {
-            // Check size: if file is under 1MB, can store base64, otherwise alert to use link
-            if (selectedAdFile.size > 1048576) {
-              alert('حجم ملف الفيديو أكبر من 1 ميجابايت. الأفضل والأنسب هو وضع رابط الفيديو (من يوتيوب أو جوجل درايف أو رابط مباشر) ليعمل بأعلى سرعة.');
-              submitAdBtn.disabled = false;
-              adUploadProgress.style.display = 'none';
-              return;
-            }
-            finalMediaUrl = await new Promise((resolve) => {
-              const r = new FileReader();
-              r.onload = () => resolve(r.target.result);
-              r.readAsDataURL(selectedAdFile);
+            adProgressFill.style.width = '90%';
+            adProgressPercent.textContent = '90%';
+            await db.collection('ads').add({
+              title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+              notes: adNotes.value.trim() || '',
+              mediaType: 'video',
+              videoUrl: finalMediaUrl,
+              hasChunks: false,
+              ctaType: adCtaType.value,
+              customLink: adCustomLink.value.trim() || '',
+              isActive: true,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
+          } else if (selectedAdFile) {
+            // Upload video file: Try Firebase Storage first, fallback to Firestore chunking
+            let storageSuccess = false;
+            try {
+              if (storage) {
+                const fileExt = selectedAdFile.name.split('.').pop() || 'mp4';
+                const fileName = `ads_videos/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+                const fileRef = storage.ref().child(fileName);
+                const uploadTask = fileRef.put(selectedAdFile);
+                
+                await new Promise((resolve, reject) => {
+                  uploadTask.on('state_changed', (snap) => {
+                    const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+                    adProgressFill.style.width = `${pct}%`;
+                    adProgressPercent.textContent = `${pct}%`;
+                  }, reject, async () => {
+                    finalMediaUrl = await uploadTask.snapshot.ref.getDownloadURL();
+                    storageSuccess = true;
+                    resolve();
+                  });
+                });
+
+                await db.collection('ads').add({
+                  title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+                  notes: adNotes.value.trim() || '',
+                  mediaType: 'video',
+                  videoUrl: finalMediaUrl,
+                  hasChunks: false,
+                  ctaType: adCtaType.value,
+                  customLink: adCustomLink.value.trim() || '',
+                  isActive: true,
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+              }
+            } catch (storageErr) {
+              console.warn("Storage upload not available, saving via database stream...", storageErr);
+            }
+
+            // Fallback to Firestore chunking if Storage is not enabled
+            if (!storageSuccess) {
+              const CHUNK_SIZE = 600 * 1024; // 600 KB
+              const totalChunks = Math.ceil(selectedAdFile.size / CHUNK_SIZE);
+              
+              const newAdRef = await db.collection('ads').add({
+                title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+                notes: adNotes.value.trim() || '',
+                mediaType: 'video',
+                hasChunks: true,
+                totalChunks: totalChunks,
+                mimeType: selectedAdFile.type || 'video/mp4',
+                ctaType: adCtaType.value,
+                customLink: adCustomLink.value.trim() || '',
+                isActive: true,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              });
+
+              for (let i = 0; i < totalChunks; i++) {
+                const start = i * CHUNK_SIZE;
+                const end = Math.min(start + CHUNK_SIZE, selectedAdFile.size);
+                const slice = selectedAdFile.slice(start, end);
+                const chunkData = await new Promise((resolve) => {
+                  const r = new FileReader();
+                  r.onload = () => resolve(r.target.result);
+                  r.readAsDataURL(slice);
+                });
+
+                await newAdRef.collection('chunks').doc(String(i).padStart(4, '0')).set({
+                  index: i,
+                  data: chunkData
+                });
+
+                const pct = Math.round(((i + 1) / totalChunks) * 100);
+                adProgressFill.style.width = `${pct}%`;
+                adProgressPercent.textContent = `${pct}%`;
+              }
+            }
           }
         } else {
           // Optimize image client-side to ensure high quality and zero billing
           adProgressFill.style.width = '70%';
           adProgressPercent.textContent = '70%';
           finalMediaUrl = await compressImage(selectedAdFile);
+
+          adProgressFill.style.width = '90%';
+          adProgressPercent.textContent = '90%';
+
+          await db.collection('ads').add({
+            title: adTitle.value.trim() || 'عرض خاص من إنجاز',
+            notes: adNotes.value.trim() || '',
+            mediaType: 'image',
+            imageUrl: finalMediaUrl,
+            hasChunks: false,
+            ctaType: adCtaType.value,
+            customLink: adCustomLink.value.trim() || '',
+            isActive: true,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
         }
-
-        adProgressFill.style.width = '90%';
-        adProgressPercent.textContent = '90%';
-
-        await db.collection('ads').add({
-          title: adTitle.value.trim() || (isVideo ? 'فيديو إعلاني من إنجاز' : 'عرض خاص من إنجاز'),
-          notes: adNotes.value.trim() || '',
-          mediaType: mediaType,
-          imageUrl: finalMediaUrl,
-          videoUrl: isVideo ? finalMediaUrl : '',
-          ctaType: adCtaType.value,
-          customLink: adCustomLink.value.trim() || '',
-          isActive: true,
-          createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        });
 
         adProgressFill.style.width = '100%';
         adProgressPercent.textContent = '100%';
@@ -1635,13 +1711,19 @@
 
     // Delete Ad Window Function
     window.deleteAd = async (adId) => {
-      if (!confirm('هل أنت متأكد من حذف هذا البوستر الإعلاني نهائياً؟ لا يمكن التراجع عن هذا الإجراء.')) {
+      if (!confirm('هل أنت متأكد من حذف هذا الإعلان نهائياً؟ لا يمكن التراجع عن هذا الإجراء.')) {
         return;
       }
 
       try {
+        const chunks = await db.collection('ads').doc(adId).collection('chunks').get();
+        if (!chunks.empty) {
+          const batch = db.batch();
+          chunks.forEach(c => batch.delete(c.ref));
+          await batch.commit();
+        }
         await db.collection('ads').doc(adId).delete();
-        showToast('تم حذف البوستر بنجاح');
+        showToast('تم حذف الإعلان بنجاح');
       } catch (err) {
         console.error("Delete error:", err);
         alert('حدث خطأ أثناء الحذف: ' + err.message);
