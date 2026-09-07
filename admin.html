@@ -1485,80 +1485,45 @@
               createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
           } else if (selectedAdFile) {
-            // Upload video file: Try Firebase Storage first, fallback to Firestore chunking
-            let storageSuccess = false;
-            try {
-              if (storage) {
-                const fileExt = selectedAdFile.name.split('.').pop() || 'mp4';
-                const fileName = `ads_videos/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
-                const fileRef = storage.ref().child(fileName);
-                const uploadTask = fileRef.put(selectedAdFile);
-                
-                await new Promise((resolve, reject) => {
-                  uploadTask.on('state_changed', (snap) => {
-                    const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-                    adProgressFill.style.width = `${pct}%`;
-                    adProgressPercent.textContent = `${pct}%`;
-                  }, reject, async () => {
-                    finalMediaUrl = await uploadTask.snapshot.ref.getDownloadURL();
-                    storageSuccess = true;
-                    resolve();
-                  });
-                });
+            // Direct chunked upload to Firestore (starts immediately, 0% to 100% progress, zero hangs)
+            adProgressFill.style.width = '10%';
+            adProgressPercent.textContent = '10%';
+            document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري معالجة ورفع الفيديو...';
 
-                await db.collection('ads').add({
-                  title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
-                  notes: adNotes.value.trim() || '',
-                  mediaType: 'video',
-                  videoUrl: finalMediaUrl,
-                  hasChunks: false,
-                  ctaType: adCtaType.value,
-                  customLink: adCustomLink.value.trim() || '',
-                  isActive: true,
-                  createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-              }
-            } catch (storageErr) {
-              console.warn("Storage upload not available, saving via database stream...", storageErr);
-            }
+            const CHUNK_SIZE = 500 * 1024; // 500 KB per chunk
+            const totalChunks = Math.ceil(selectedAdFile.size / CHUNK_SIZE);
+            
+            const newAdRef = await db.collection('ads').add({
+              title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+              notes: adNotes.value.trim() || '',
+              mediaType: 'video',
+              hasChunks: true,
+              totalChunks: totalChunks,
+              mimeType: selectedAdFile.type || 'video/mp4',
+              ctaType: adCtaType.value,
+              customLink: adCustomLink.value.trim() || '',
+              isActive: true,
+              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
 
-            // Fallback to Firestore chunking if Storage is not enabled
-            if (!storageSuccess) {
-              const CHUNK_SIZE = 600 * 1024; // 600 KB
-              const totalChunks = Math.ceil(selectedAdFile.size / CHUNK_SIZE);
-              
-              const newAdRef = await db.collection('ads').add({
-                title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
-                notes: adNotes.value.trim() || '',
-                mediaType: 'video',
-                hasChunks: true,
-                totalChunks: totalChunks,
-                mimeType: selectedAdFile.type || 'video/mp4',
-                ctaType: adCtaType.value,
-                customLink: adCustomLink.value.trim() || '',
-                isActive: true,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            for (let i = 0; i < totalChunks; i++) {
+              const start = i * CHUNK_SIZE;
+              const end = Math.min(start + CHUNK_SIZE, selectedAdFile.size);
+              const slice = selectedAdFile.slice(start, end);
+              const chunkData = await new Promise((resolve) => {
+                const r = new FileReader();
+                r.onload = () => resolve(r.target.result);
+                r.readAsDataURL(slice);
               });
 
-              for (let i = 0; i < totalChunks; i++) {
-                const start = i * CHUNK_SIZE;
-                const end = Math.min(start + CHUNK_SIZE, selectedAdFile.size);
-                const slice = selectedAdFile.slice(start, end);
-                const chunkData = await new Promise((resolve) => {
-                  const r = new FileReader();
-                  r.onload = () => resolve(r.target.result);
-                  r.readAsDataURL(slice);
-                });
+              await newAdRef.collection('chunks').doc(String(i).padStart(4, '0')).set({
+                index: i,
+                data: chunkData
+              });
 
-                await newAdRef.collection('chunks').doc(String(i).padStart(4, '0')).set({
-                  index: i,
-                  data: chunkData
-                });
-
-                const pct = Math.round(((i + 1) / totalChunks) * 100);
-                adProgressFill.style.width = `${pct}%`;
-                adProgressPercent.textContent = `${pct}%`;
-              }
+              const pct = 10 + Math.round(((i + 1) / totalChunks) * 85);
+              adProgressFill.style.width = `${pct}%`;
+              adProgressPercent.textContent = `${pct}%`;
             }
           }
         } else {
