@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>إنجاز | للتوريدات ونقل البضائع - القاهرة</title>
-  <meta name="description" content="إنجاز للتوريدات ونقل البضائع — رئيس مجلس الإدارة: محمد غلاب. حلول متكاملة في التوريدات العمومية وخامات التشغيل، وشحن البضائع الداخلي لكافة محافظات مصر. تواصل: 01000000000">
+  <meta name="description" content="إنجاز للتوريدات ونقل البضائع — رئيس مجلس الإدارة: محمد غلاب. حلول متكاملة في التوريدات العمومية وخامات التشغيل، وشحن البضائع الداخلي لكافة محافظات مصر. تواصل: 01140347324 - 01299980327">
   <link rel="canonical" href="https://enjazlogistics.com/">
 
   <!-- Open Graph & Social Media -->
@@ -37,7 +37,13 @@
     "logo": "https://enjazlogistics.com/enjaz_official_emblem.jpg",
     "image": "https://enjazlogistics.com/hero_fleet.jpg",
     "description": "شركة إنجاز للتوريدات العمومية وخامات التشغيل ونقل البضائع والشحن البري الداخلي لكافة محافظات جمهورية مصر العربية. رئيس مجلس الإدارة: أ. محمد غلاب - سجل تجاري: 130907.",
-    "telephone": "+201000000000",
+    "telephone": [
+      "+201140347324",
+      "+201299980327"
+    ],
+    "sameAs": [
+      "https://www.facebook.com/share/14vgs4k5ors/"
+    ],
     "email": "ghlabmsa@gmail.com",
     "priceRange": "$$",
     "address": {
@@ -310,6 +316,43 @@
     .btn-lang:hover {
       background: var(--gold-500);
       color: var(--obsidian-950);
+    }
+
+    .btn-fb-header {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background: rgba(24, 119, 242, 0.12);
+      border: 1px solid rgba(24, 119, 242, 0.35);
+      color: #1877f2;
+      transition: all var(--transition);
+      text-decoration: none;
+    }
+    .btn-fb-header:hover {
+      background: #1877f2;
+      color: #ffffff;
+      border-color: #1877f2;
+      transform: translateY(-1px);
+    }
+    .nav-fb-mobile {
+      display: none;
+    }
+    @media (max-width: 680px) {
+      .nav-fb-mobile {
+        display: block;
+        margin-top: 4px;
+        padding-top: 8px;
+        border-top: 1px solid var(--obsidian-800);
+      }
+      .nav-fb-mobile a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #1877f2;
+      }
     }
 
     .menu-btn {
@@ -982,27 +1025,136 @@
       padding: 26px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
-    .direct-channels-strip {
+    .phone-channel-row {
       display: flex;
-      gap: 12px;
-      margin-bottom: 18px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
       flex-wrap: wrap;
     }
-    .btn-direct-contact {
-      flex: 1;
-      min-width: 180px;
-      height: 46px;
-      padding: 0 16px;
+    .phone-channel-info {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .phone-tag {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(197, 155, 39, 0.15);
+      border: 1px solid var(--gold-500);
+      color: var(--gold-600);
+      padding: 1px 7px;
+      border-radius: 4px;
+    }
+    .phone-number {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--obsidian-950);
+      letter-spacing: 0.5px;
+    }
+    .phone-channel-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .btn-micro-channel {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .btn-micro-channel.call {
+      background: var(--obsidian-900);
+      color: var(--gold-400);
+    }
+    .btn-micro-channel.call:hover {
+      background: var(--obsidian-950);
+      color: #ffffff;
+    }
+    .btn-micro-channel.wa {
+      background: var(--wa-green);
+      color: #ffffff;
+    }
+    .btn-micro-channel.wa:hover {
+      background: var(--wa-hover);
+    }
+    .btn-fb-page {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #1877f2;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .btn-fb-page:hover {
+      text-decoration: underline;
+      color: #145dbf;
+    }
+
+    .direct-channels-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    @media (max-width: 640px) {
+      .direct-channels-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .direct-line-card {
+      background: var(--slate-100);
+      border: 1px solid var(--slate-200);
+      border-radius: 6px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .direct-line-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .direct-line-badge {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--slate-600);
+      background: #ffffff;
+      padding: 1px 7px;
+      border-radius: 4px;
+      border: 1px solid var(--slate-200);
+    }
+    .direct-line-num {
       font-size: 14px;
+      font-weight: 800;
+      color: var(--obsidian-950);
+    }
+    .direct-line-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .btn-direct-contact {
+      height: 38px;
+      padding: 0 10px;
+      font-size: 13px;
       font-weight: 700;
       border-radius: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       text-align: center;
       transition: background var(--transition);
       box-sizing: border-box;
+      text-decoration: none;
     }
     .btn-direct-contact.wa {
       background: var(--wa-green);
@@ -1136,11 +1288,13 @@
     /* ==========================================================================
        Single Discreet Floating WhatsApp Icon
        ========================================================================= */
-    .float-wa-icon {
+    .float-wa-container {
       position: fixed;
       bottom: 24px;
       inset-inline-end: 24px;
       z-index: 999;
+    }
+    .float-wa-toggle {
       width: 50px;
       height: 50px;
       border-radius: 50%;
@@ -1148,17 +1302,178 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 14px rgba(37, 211, 102, 0.45);
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.45);
+      border: none;
+      cursor: pointer;
       transition: transform var(--transition), background var(--transition);
     }
-    .float-wa-icon:hover {
+    .float-wa-toggle:hover {
       transform: scale(1.06);
       background: var(--wa-hover);
     }
-    .float-wa-icon svg {
+    .float-wa-toggle svg {
       width: 26px;
       height: 26px;
       fill: #ffffff;
+    }
+    .float-wa-card {
+      position: absolute;
+      bottom: 60px;
+      inset-inline-end: 0;
+      width: 280px;
+      background: #ffffff;
+      border: 1px solid var(--slate-300);
+      border-radius: 8px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+      padding: 14px;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      animation: floatWaFade 0.18s ease-out;
+      z-index: 1000;
+      text-align: start;
+    }
+    @keyframes floatWaFade {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .float-wa-card.active {
+      display: flex;
+    }
+    .float-wa-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--slate-200);
+      padding-bottom: 8px;
+    }
+    .float-wa-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--obsidian-950);
+    }
+    .float-wa-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--wa-green);
+      display: inline-block;
+      box-shadow: 0 0 0 2px rgba(37, 211, 102, 0.25);
+    }
+    .float-wa-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--slate-400);
+      cursor: pointer;
+      line-height: 1;
+      padding: 0 4px;
+    }
+    .float-wa-close:hover {
+      color: var(--obsidian-950);
+    }
+    .float-wa-hint {
+      font-size: 12px;
+      color: var(--slate-600);
+      margin: 0;
+      line-height: 1.4;
+    }
+    .float-wa-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .float-wa-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: var(--slate-50);
+      border: 1px solid var(--slate-200);
+      text-decoration: none;
+      transition: all var(--transition);
+    }
+    .float-wa-item:hover {
+      background: #f0fdf4;
+      border-color: #86efac;
+    }
+    .float-wa-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--wa-green);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .float-wa-text {
+      display: flex;
+      flex-direction: column;
+    }
+    .float-wa-line-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--obsidian-950);
+    }
+    .float-wa-status {
+      font-size: 10.5px;
+      color: var(--slate-500);
+    }
+
+    .footer-links {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+    .footer-contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .footer-contact-item a {
+      color: var(--slate-200);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .footer-contact-item a:hover {
+      color: var(--gold-400);
+    }
+    .foot-wa-pill {
+      font-size: 10.5px;
+      background: var(--wa-green);
+      color: #ffffff !important;
+      padding: 2px 7px;
+      border-radius: 3px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: background var(--transition);
+    }
+    .foot-wa-pill:hover {
+      background: var(--wa-hover);
+    }
+    .footer-fb-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #1877f2;
+      font-weight: 700;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all var(--transition);
+    }
+    .footer-fb-link:hover {
+      color: #4292f7;
+      text-decoration: underline;
     }
 
     /* ==========================================================================
@@ -1960,7 +2275,12 @@
           <li><a href="#operations" data-i18n="n_operations">الأسطول الميداني</a></li>
           <li><a href="#network" data-i18n="n_network">نطاق التغطية</a></li>
           <li><a href="#contact" data-i18n="n_contact">اتصل بنا</a></li>
+          <li class="nav-fb-mobile"><a href="https://www.facebook.com/share/14vgs4k5ors/" target="_blank" rel="noopener noreferrer"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg><span data-i18n="n_fb">فيسبوك</span></a></li>
         </ul>
+
+        <a href="https://www.facebook.com/share/14vgs4k5ors/" target="_blank" rel="noopener noreferrer" class="btn-fb-header" aria-label="Official Facebook Page" title="Facebook">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
 
         <button id="langToggle" class="btn-lang" type="button">
           <span id="langText">English</span>
@@ -1990,7 +2310,7 @@
           <a href="#contact" class="btn-primary-action" data-i18n="h_btn_quote">
             طلب تسعير مباشر
           </a>
-          <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%D8%A7%D8%AA%20%D8%A3%D9%88%20%D8%A7%D9%84%D8%B4%D8%AD%D9%86" target="_blank" rel="noopener noreferrer" class="btn-wa-action">
+          <a href="https://wa.me/201140347324?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%A7%D8%B3%D8%AA%D9%81%D8%B3%D8%A7%D8%B1%20%D8%B9%D9%86%20%D8%AE%D8%AF%D9%85%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%D8%A7%D8%AA%20%D8%A3%D9%88%20%D8%A7%D9%84%D8%B4%D8%AD%D9%86" target="_blank" rel="noopener noreferrer" class="btn-wa-action">
             <svg viewBox="0 0 24 24">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
             </svg>
@@ -2121,7 +2441,7 @@
               <li data-i18n="p2_f2">مستلزمات التجهيز العام لمقرات العمل والشركات والمخازن</li>
               <li data-i18n="p2_f3">مواد التعبئة والتغليف، الكراتين، ومستلزمات حفظ البضائع</li>
             </ul>
-            <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B1%D8%B6%20%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1%20%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%D8%A7%D8%AA%20%D8%B9%D9%85%D9%88%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer" class="btn-service-rfq">
+            <a href="https://wa.me/201140347324?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%B9%D8%B1%D8%B6%20%D8%A3%D8%B3%D8%B9%D8%A7%D8%B1%20%D8%AA%D9%88%D8%B1%D9%8A%D8%AF%D8%A7%D8%AA%20%D8%B9%D9%85%D9%88%D9%85%D9%8A%D8%A9" target="_blank" rel="noopener noreferrer" class="btn-service-rfq">
               <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
               <span data-i18n="p2_btn">طلب تسعير توريدات عبر واتساب</span>
             </a>
@@ -2149,7 +2469,7 @@
               <li data-i18n="p3_f2">نقل وتوزيع البضائع الجافة، المعدات، ومستلزمات الإنتاج للمصانع</li>
               <li data-i18n="p3_f3">ربط القاهرة بالمناطق الصناعية: العاشر من رمضان، 6 أكتوبر، وبدر</li>
             </ul>
-            <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1%20%D8%B4%D8%AD%D9%86%20%D8%A8%D8%B6%D8%A7%D8%A6%D8%B9" target="_blank" rel="noopener noreferrer" class="btn-service-rfq">
+            <a href="https://wa.me/201299980327?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1%20%D8%B4%D8%AD%D9%86%20%D8%A8%D8%B6%D8%A7%D8%A6%D8%B9" target="_blank" rel="noopener noreferrer" class="btn-service-rfq">
               <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
               <span data-i18n="p3_btn">طلب تسعير شحن عبر واتساب</span>
             </a>
@@ -2277,7 +2597,7 @@
           <div class="ops-modal-caption" data-i18n="v_modal_cap">شاحنة إنجاز على الطريق السريع</div>
           <div class="ops-modal-sub" data-i18n="v_modal_sub">شحن بري مباشر وتأمين كامل للحمولات</div>
         </div>
-        <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%B4%D8%AD%D9%86%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
+        <a href="https://wa.me/201140347324?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%B4%D8%A7%D9%87%D8%AF%D8%AA%20%D9%81%D9%8A%D8%AF%D9%8A%D9%88%20%D8%A7%D9%84%D8%B4%D8%AD%D9%86%20%D9%88%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-modal-wa">
           <span data-i18n="v_modal_wa">طلب تسعير</span>
         </a>
       </div>
@@ -2390,11 +2710,41 @@
           </div>
 
           <div class="contact-box">
-            <h4 data-i18n="c_ph_h">الاتصال الهاتفي والمحادثة المباشرة</h4>
-            <div class="val-text">
-              <a href="tel:01000000000" dir="ltr">01000000000</a>
+            <h4 data-i18n="c_ph_h">خطوط الاتصال والمحادثة المباشرة</h4>
+            <div class="phone-channel-row">
+              <div class="phone-channel-info">
+                <span class="phone-tag" data-i18n="line_1_tag">خط 1</span>
+                <span class="phone-number" dir="ltr">01140347324</span>
+              </div>
+              <div class="phone-channel-actions">
+                <a href="tel:01140347324" class="btn-micro-channel call" title="اتصال هاتفي">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span data-i18n="c_action_call">اتصال</span>
+                </a>
+                <a href="https://wa.me/201140347324?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2" target="_blank" rel="noopener noreferrer" class="btn-micro-channel wa" title="واتساب">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  <span data-i18n="c_action_wa">واتساب</span>
+                </a>
+              </div>
             </div>
-            <p data-i18n="c_ph_p">متاح من السبت إلى الخميس (9:00 ص - 6:00 م) لاستقبال أوامر الشحن والتوريد.</p>
+
+            <div class="phone-channel-row" style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--slate-200);">
+              <div class="phone-channel-info">
+                <span class="phone-tag" data-i18n="line_2_tag">خط 2</span>
+                <span class="phone-number" dir="ltr">01299980327</span>
+              </div>
+              <div class="phone-channel-actions">
+                <a href="tel:01299980327" class="btn-micro-channel call" title="اتصال هاتفي">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span data-i18n="c_action_call">اتصال</span>
+                </a>
+                <a href="https://wa.me/201299980327?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2" target="_blank" rel="noopener noreferrer" class="btn-micro-channel wa" title="واتساب">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  <span data-i18n="c_action_wa">واتساب</span>
+                </a>
+              </div>
+            </div>
+            <p data-i18n="c_ph_p" style="margin-top: 8px;">متاحان هاتفياً وعبر واتساب من السبت إلى الخميس (9:00 ص - 6:00 م).</p>
           </div>
 
           <div class="contact-box">
@@ -2404,17 +2754,56 @@
             </div>
             <p data-i18n="c_mail_p">لاستقبال كراسات الشروط والمناقصات وعروض الأسعار الرسمية.</p>
           </div>
+
+          <div class="contact-box">
+            <h4 data-i18n="c_fb_h">الصفحة الرسمية على فيسبوك</h4>
+            <div class="val-text" style="display: flex; align-items: center; gap: 8px;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="#1877f2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              <a href="https://www.facebook.com/share/14vgs4k5ors/" target="_blank" rel="noopener noreferrer">Enjaz Logistics</a>
+            </div>
+            <p data-i18n="c_fb_p">متابعة أحدث أخبار أسطول الشحن وتوريدات الشركات وسير العمليات الميدانية أولاً بأول.</p>
+            <div style="margin-top: 8px;">
+              <a href="https://www.facebook.com/share/14vgs4k5ors/" target="_blank" rel="noopener noreferrer" class="btn-fb-page" data-i18n="c_fb_btn">زيارة صفحة فيسبوك الرسمية ←</a>
+            </div>
+          </div>
         </div>
 
         <!-- RFQ & Contact Action Panel -->
         <div class="form-panel">
-          <div class="direct-channels-strip">
-            <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B4%D8%B1%20%D9%84%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-direct-contact wa" data-i18n="fast_wa">
-              محادثة واتساب فورية
-            </a>
-            <a href="tel:01000000000" class="btn-direct-contact phone" data-i18n="fast_phone">
-              اتصال هاتفي مباشر
-            </a>
+          <div class="direct-channels-grid">
+            <div class="direct-line-card">
+              <div class="direct-line-header">
+                <span class="direct-line-badge" data-i18n="line_1_badge">الخط الأول</span>
+                <span class="direct-line-num" dir="ltr">01140347324</span>
+              </div>
+              <div class="direct-line-actions">
+                <a href="https://wa.me/201140347324?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B4%D8%B1%20%D9%84%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-direct-contact wa" data-i18n="fast_wa_1">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  <span>واتساب</span>
+                </a>
+                <a href="tel:01140347324" class="btn-direct-contact phone" data-i18n="fast_phone_1">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span>اتصال</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="direct-line-card">
+              <div class="direct-line-header">
+                <span class="direct-line-badge" data-i18n="line_2_badge">الخط الثاني</span>
+                <span class="direct-line-num" dir="ltr">01299980327</span>
+              </div>
+              <div class="direct-line-actions">
+                <a href="https://wa.me/201299980327?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B4%D8%B1%20%D9%84%D8%B7%D9%84%D8%A8%20%D8%AA%D8%B3%D8%B9%D9%8A%D8%B1" target="_blank" rel="noopener noreferrer" class="btn-direct-contact wa" data-i18n="fast_wa_2">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                  <span>واتساب</span>
+                </a>
+                <a href="tel:01299980327" class="btn-direct-contact phone" data-i18n="fast_phone_2">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                  <span>اتصال</span>
+                </a>
+              </div>
+            </div>
           </div>
 
           <div class="form-divider">
@@ -2422,7 +2811,7 @@
           </div>
 
           <div class="form-info-note" data-i18n="rfq_destination_note">
-            💡 يتم تحويل تفاصيل طلبك مباشرة إلى محادثة واتساب الرسمية (01000000000) لمراجعتها وتزويدكم بعرض السعر فوراً.
+            💡 يتم تحويل تفاصيل طلبك مباشرة إلى محادثة واتساب الرسمية (01140347324 / 01299980327) لمراجعتها وتزويدكم بعرض السعر فوراً.
           </div>
 
           <form id="rfqMainForm">
@@ -2457,6 +2846,14 @@
               <textarea id="rfqNotes" required placeholder="اكتب بياناً مختصراً بالمواد المطلوبة أو وزن ونوع الحمولة وموعد التسليم..." data-i18n-placeholder="f_notes_ph"></textarea>
             </div>
 
+            <div class="field-wrap">
+              <label for="rfqTargetLine" data-i18n="f_line">الخط المستلم للطلب عبر واتساب *</label>
+              <select id="rfqTargetLine" required>
+                <option value="201140347324" data-i18n="f_line1_opt">الخط الأول: 01140347324 (متاح الآن)</option>
+                <option value="201299980327" data-i18n="f_line2_opt">الخط الثاني: 01299980327 (متاح الآن)</option>
+              </select>
+            </div>
+
             <button type="submit" class="btn-submit-rfq" data-i18n="f_btn">
               <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
               <span>إرسال تفاصيل الطلب عبر واتساب</span>
@@ -2468,13 +2865,41 @@
   </section>
 
   <!-- ========================================================================
-       Single Discreet Floating WhatsApp Icon
+       Dual-Line Floating WhatsApp Widget
        ======================================================================== -->
-  <a href="https://wa.me/201000000000?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B4%D8%B1" class="float-wa-icon" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp">
-    <svg viewBox="0 0 24 24">
-      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-    </svg>
-  </a>
+  <div class="float-wa-container" id="floatWaContainer">
+    <div class="float-wa-card" id="floatWaCard" aria-hidden="true">
+      <div class="float-wa-card-header">
+        <div class="float-wa-title-row">
+          <span class="float-wa-dot"></span>
+          <span data-i18n="float_wa_title">خدمة عملاء إنجاز</span>
+        </div>
+        <button type="button" class="float-wa-close" id="floatWaClose" aria-label="إغلاق">&times;</button>
+      </div>
+      <p class="float-wa-hint" data-i18n="float_wa_hint">تواصل فوري عبر واتساب مع أحد خطوطنا المعتمدة:</p>
+      <div class="float-wa-lines">
+        <a href="https://wa.me/201140347324?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B4%D8%B1" target="_blank" rel="noopener noreferrer" class="float-wa-item">
+          <div class="float-wa-avatar">011</div>
+          <div class="float-wa-text">
+            <span class="float-wa-line-name" data-i18n="float_line_1">الخط الأول (01140347324)</span>
+            <span class="float-wa-status" data-i18n="float_status">متصل ومتاح للرد الفوري</span>
+          </div>
+        </a>
+        <a href="https://wa.me/201299980327?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%A5%D9%86%D8%AC%D8%A7%D8%B2%D8%8C%20%D8%A3%D8%B1%D8%BA%D8%A8%20%D9%81%D9%8A%20%D8%A7%D9%84%D8%AA%D9%88%D8%A7%D8%B5%D9%84%20%D8%A7%D9%84%D9%85%D8%A8%D8%A7%D8%B4%D8%B1" target="_blank" rel="noopener noreferrer" class="float-wa-item">
+          <div class="float-wa-avatar">012</div>
+          <div class="float-wa-text">
+            <span class="float-wa-line-name" data-i18n="float_line_2">الخط الثاني (01299980327)</span>
+            <span class="float-wa-status" data-i18n="float_status">متصل ومتاح للرد الفوري</span>
+          </div>
+        </a>
+      </div>
+    </div>
+    <button type="button" class="float-wa-toggle" id="floatWaToggle" aria-label="تواصل عبر واتساب" title="WhatsApp">
+      <svg viewBox="0 0 24 24">
+        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+      </svg>
+    </button>
+  </div>
 
   <!-- ========================================================================
        Executive Consolidated Footer (Zero Duplication)
@@ -2493,9 +2918,22 @@
           </div>
         </div>
         <div class="footer-links">
-          <a href="tel:01000000000" data-i18n="foot_call">هاتفياً: 01000000000</a>
+          <div class="footer-contact-item">
+            <span class="footer-label" data-i18n="foot_line1">خط 1:</span>
+            <a href="tel:01140347324" dir="ltr">01140347324</a>
+            <a href="https://wa.me/201140347324" target="_blank" rel="noopener noreferrer" class="foot-wa-pill" title="WhatsApp 01140347324">واتساب</a>
+          </div>
           <span class="foot-sep" style="color: #475569;">|</span>
-          <a href="https://wa.me/201000000000" target="_blank" rel="noopener noreferrer" data-i18n="foot_wa">محادثة واتساب</a>
+          <div class="footer-contact-item">
+            <span class="footer-label" data-i18n="foot_line2">خط 2:</span>
+            <a href="tel:01299980327" dir="ltr">01299980327</a>
+            <a href="https://wa.me/201299980327" target="_blank" rel="noopener noreferrer" class="foot-wa-pill" title="WhatsApp 01299980327">واتساب</a>
+          </div>
+          <span class="foot-sep" style="color: #475569;">|</span>
+          <a href="https://www.facebook.com/share/14vgs4k5ors/" target="_blank" rel="noopener noreferrer" class="footer-fb-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span data-i18n="foot_fb">صفحة فيسبوك</span>
+          </a>
         </div>
       </div>
 
@@ -2636,10 +3074,25 @@
           c_ph_p: "متاح من السبت إلى الخميس (9:00 ص - 6:00 م) لاستقبال أوامر الشحن والتوريد.",
           c_mail_h: "البريد الإلكتروني المعتمد",
           c_mail_p: "لاستقبال كراسات الشروط والمناقصات وعروض الأسعار الرسمية.",
-          fast_wa: "محادثة واتساب فورية",
-          fast_phone: "اتصال هاتفي مباشر",
+          n_fb: "فيسبوك",
+          line_1_tag: "خط 1",
+          line_2_tag: "خط 2",
+          line_1_badge: "الخط الأول",
+          line_2_badge: "الخط الثاني",
+          c_action_call: "اتصال",
+          c_action_wa: "واتساب",
+          c_fb_h: "الصفحة الرسمية على فيسبوك",
+          c_fb_p: "متابعة أحدث أخبار أسطول الشحن وتوريدات الشركات وسير العمليات الميدانية أولاً بأول.",
+          c_fb_btn: "زيارة صفحة فيسبوك الرسمية ←",
+          fast_wa_1: "واتساب",
+          fast_phone_1: "اتصال",
+          fast_wa_2: "واتساب",
+          fast_phone_2: "اتصال",
+          f_line: "الخط المستلم للطلب عبر واتساب *",
+          f_line1_opt: "الخط الأول: 01140347324 (متاح الآن)",
+          f_line2_opt: "الخط الثاني: 01299980327 (متاح الآن)",
           or_rfq: "أو إرسال تفاصيل الطلب كتابياً",
-          rfq_destination_note: "💡 يتم تحويل تفاصيل طلبك مباشرة إلى محادثة واتساب الرسمية (01000000000) لمراجعتها وتزويدكم بعرض السعر فوراً.",
+          rfq_destination_note: "💡 يتم تحويل تفاصيل طلبك مباشرة إلى محادثة واتساب الرسمية (01140347324 / 01299980327) لمراجعتها وتزويدكم بعرض السعر فوراً.",
           f_name: "اسم الجهة أو العميل *",
           f_name_ph: "مثال: شركة النيل للتجارة أو المصنع",
           f_phone: "رقم الهاتف أو واتساب *",
@@ -2702,8 +3155,14 @@
           v_modal_wa: "طلب تسعير",
           foot_title: "إنجاز للتوريدات ونقل البضائع",
           foot_desc: '<span class="foot-desc-item">توريدات عمومية وخامات تشغيل</span><span class="foot-desc-item">نقل بضائع وشحن بري لكافة المحافظات</span>',
-          foot_call: "هاتفياً: 01000000000",
-          foot_wa: "محادثة واتساب",
+          float_wa_title: "خدمة عملاء إنجاز",
+          float_wa_hint: "تواصل فوري عبر واتساب مع أحد خطوطنا المعتمدة:",
+          float_line_1: "الخط الأول (01140347324)",
+          float_line_2: "الخط الثاني (01299980327)",
+          float_status: "متصل ومتاح للرد الفوري",
+          foot_line1: "خط 1:",
+          foot_line2: "خط 2:",
+          foot_fb: "صفحة فيسبوك",
           foot_legal_lead: "رئيس مجلس الإدارة: أ. محمد غلاب — سجل تجاري رقم: 130907",
           foot_legal_addr: "4 شارع الطيران، مدينة نصر، القاهرة.",
           foot_copy: "إنجاز. جميع الحقوق محفوظة."
@@ -2784,10 +3243,25 @@
           c_ph_p: "Available Saturday - Thursday (9:00 AM - 6:00 PM) for bookings and inquiries.",
           c_mail_h: "Official Inquiries Email",
           c_mail_p: "For tender documents, formal specifications, and corporate RFQs.",
-          fast_wa: "Direct WhatsApp Chat",
-          fast_phone: "Direct Phone Call",
+          n_fb: "Facebook",
+          line_1_tag: "Line 1",
+          line_2_tag: "Line 2",
+          line_1_badge: "Line 1",
+          line_2_badge: "Line 2",
+          c_action_call: "Call",
+          c_action_wa: "WhatsApp",
+          c_fb_h: "Official Facebook Page",
+          c_fb_p: "Follow the latest news on our commercial fleet, supplies operations, and active domestic freight.",
+          c_fb_btn: "Visit Official Facebook Page →",
+          fast_wa_1: "WhatsApp",
+          fast_phone_1: "Call",
+          fast_wa_2: "WhatsApp",
+          fast_phone_2: "Call",
+          f_line: "Target WhatsApp Line *",
+          f_line1_opt: "Line 1: 01140347324 (Active Now)",
+          f_line2_opt: "Line 2: 01299980327 (Active Now)",
           or_rfq: "Or Send Request Details in Writing",
-          rfq_destination_note: "💡 Your request details will be sent directly to our official WhatsApp (01000000000) for immediate quotation.",
+          rfq_destination_note: "💡 Your request details will be formatted directly to our official WhatsApp (01140347324 / 01299980327) for immediate quotation.",
           f_name: "Company or Client Name *",
           f_name_ph: "e.g. Nile Trading Co. or Factory",
           f_phone: "Phone or WhatsApp *",
@@ -2850,8 +3324,14 @@
           v_modal_wa: "Request Quote",
           foot_title: "ENJAZ for General Supplies & Freight Transport",
           foot_desc: '<span class="foot-desc-item">Wholesale Supplies</span><span class="foot-desc-item">Domestic Road Freight Across Egypt</span>',
-          foot_call: "Call: 01000000000",
-          foot_wa: "Chat on WhatsApp",
+          float_wa_title: "ENJAZ Customer Support",
+          float_wa_hint: "Instant WhatsApp chat with our verified lines:",
+          float_line_1: "Line 1 (01140347324)",
+          float_line_2: "Line 2 (01299980327)",
+          float_status: "Online & Ready to Help",
+          foot_line1: "Line 1:",
+          foot_line2: "Line 2:",
+          foot_fb: "Facebook",
           foot_legal_lead: "Chairman: Mohamed Ghlab — Commercial Reg: 130907",
           foot_legal_addr: "4 El-Tayaran St., Nasr City, Cairo.",
           foot_copy: "ENJAZ. All rights reserved."
@@ -2929,8 +3409,32 @@
               `• Destination: ${city || 'Unspecified'}\n` +
               `• Details: ${notes}`;
 
-          const waUrl = `https://wa.me/201000000000?text=${encodeURIComponent(msg)}`;
+          const targetLine = document.getElementById('rfqTargetLine') ? document.getElementById('rfqTargetLine').value : '201140347324';
+          const waUrl = `https://wa.me/${targetLine}?text=${encodeURIComponent(msg)}`;
           window.open(waUrl, '_blank');
+        });
+      }
+
+      // Floating WhatsApp Widget Toggle
+      const floatWaToggle = document.getElementById('floatWaToggle');
+      const floatWaCard = document.getElementById('floatWaCard');
+      const floatWaClose = document.getElementById('floatWaClose');
+
+      if (floatWaToggle && floatWaCard) {
+        floatWaToggle.addEventListener('click', function (e) {
+          e.stopPropagation();
+          floatWaCard.classList.toggle('active');
+        });
+        if (floatWaClose) {
+          floatWaClose.addEventListener('click', function (e) {
+            e.stopPropagation();
+            floatWaCard.classList.remove('active');
+          });
+        }
+        document.addEventListener('click', function (e) {
+          if (!e.target.closest('#floatWaContainer')) {
+            floatWaCard.classList.remove('active');
+          }
         });
       }
 
