@@ -3346,18 +3346,34 @@
         const adsSection = document.getElementById('engazAdsSection');
         const adsGrid = document.getElementById('dynamicAdsGrid');
 
-        db.collection('ads')
-          .where('isActive', '==', true)
-          .orderBy('createdAt', 'desc')
-          .onSnapshot(function (snapshot) {
-            if (!snapshot || snapshot.empty) {
-              if (adsSection) adsSection.style.display = 'none';
-              return;
-            }
+        db.collection('ads').onSnapshot(function (snapshot) {
+          if (!snapshot || snapshot.empty) {
+            if (adsSection) adsSection.style.display = 'none';
+            return;
+          }
 
-            let html = '';
-            snapshot.forEach(function (doc) {
-              const ad = doc.data();
+          const activeAds = [];
+          snapshot.forEach(function (doc) {
+            const ad = doc.data();
+            if (ad.isActive !== false) {
+              activeAds.push(ad);
+            }
+          });
+
+          if (activeAds.length === 0) {
+            if (adsSection) adsSection.style.display = 'none';
+            return;
+          }
+
+          // Sort by creation time descending
+          activeAds.sort(function (a, b) {
+            const tA = (a.createdAt && a.createdAt.toMillis) ? a.createdAt.toMillis() : 0;
+            const tB = (b.createdAt && b.createdAt.toMillis) ? b.createdAt.toMillis() : 0;
+            return tB - tA;
+          });
+
+          let html = '';
+          activeAds.forEach(function (ad) {
               const title = ad.title || 'عرض خاص من إنجاز';
               const notes = ad.notes || '';
               const img = ad.imageUrl;
