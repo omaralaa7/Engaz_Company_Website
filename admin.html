@@ -1506,6 +1506,52 @@
       });
     }
 
+    // Cloudinary Media Configuration for Mobile Video Uploads (Free & Cardless)
+    const CLOUDINARY_CLOUD_NAME = 'jgl8ouae';
+    const CLOUDINARY_UPLOAD_PRESET = 'b5v035po';
+
+    function uploadVideoToCloudinary(file, onProgress) {
+      return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        formData.append('folder', 'engaz_company_videos');
+
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/auto/upload`);
+
+        xhr.upload.onprogress = (e) => {
+          if (e.lengthComputable && onProgress) {
+            const pct = Math.round((e.loaded / e.total) * 92);
+            onProgress(pct);
+          }
+        };
+
+        xhr.onload = () => {
+          if (xhr.status === 200) {
+            try {
+              const resp = JSON.parse(xhr.responseText);
+              resolve(resp.secure_url);
+            } catch (err) {
+              reject(new Error("فشل معالجة استجابة سيرفر الفيديو"));
+            }
+          } else {
+            try {
+              const errResp = JSON.parse(xhr.responseText);
+              reject(new Error(errResp.error ? errResp.error.message : "فشل رفع الفيديو إلى السحابة"));
+            } catch (e) {
+              reject(new Error("حدث خطأ أثناء رفع الفيديو"));
+            }
+          }
+        };
+
+        xhr.onerror = () => reject(new Error("فشل الاتصال بالإنترنت أثناء رفع الفيديو"));
+        xhr.ontimeout = () => reject(new Error("انتهت مهلة رفع الفيديو"));
+
+        xhr.send(formData);
+      });
+    }
+
     // Add New Ad Submit (Supports both Image Posters and Video Ads)
     newAdForm.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -1518,103 +1564,48 @@
         return;
       }
       if (isVideo && !videoLink && !selectedAdFile) {
-        alert('يرجى إدخال رابط الفيديو (مثل رابط YouTube أو فيسبوك) أو اختيار ملف فيديو.');
+        alert('يرجى اختيار ملف فيديو من الهاتف أو إدخال رابط فيديو.');
         return;
       }
 
       submitAdBtn.disabled = true;
       adUploadProgress.style.display = 'flex';
-      adProgressFill.style.width = '20%';
-      adProgressPercent.textContent = '20%';
+      adProgressFill.style.width = '10%';
+      adProgressPercent.textContent = '10%';
 
       try {
         let finalMediaUrl = '';
 
         if (isVideo) {
-          if (videoLink) {
-            finalMediaUrl = videoLink;
-            adProgressFill.style.width = '85%';
-            adProgressPercent.textContent = '85%';
-
-            // Publish directly to Firestore
-            await db.collection('ads').add({
-              title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
-              notes: adNotes.value.trim() || '',
-              mediaType: 'video',
-              videoUrl: finalMediaUrl,
-              ctaType: adCtaType.value,
-              customLink: adCustomLink.value.trim() || '',
-              isActive: true,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          if (selectedAdFile) {
+            // Direct video file uploaded from phone/computer via Cloudinary CDN
+            document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري رفع ومعالجة الفيديو...';
+            finalMediaUrl = await uploadVideoToCloudinary(selectedAdFile, (pct) => {
+              adProgressFill.style.width = `${pct}%`;
+              adProgressPercent.textContent = `${pct}%`;
             });
-          } else if (selectedAdFile) {
-            // Direct video file selected
-            if (selectedAdFile.size <= 800 * 1024) {
-              // Direct DataURL in Firestore doc (zero external dependencies)
-              document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري معالجة الفيديو المباشر...';
-              adProgressFill.style.width = '60%';
-              adProgressPercent.textContent = '60%';
-              finalMediaUrl = await new Promise((resolve, reject) => {
-                const r = new FileReader();
-                r.onload = () => resolve(r.target.result);
-                r.onerror = reject;
-                r.readAsDataURL(selectedAdFile);
-              });
-              adProgressFill.style.width = '90%';
-              adProgressPercent.textContent = '90%';
-
-              await db.collection('ads').add({
-                title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
-                notes: adNotes.value.trim() || '',
-                mediaType: 'video',
-                videoUrl: finalMediaUrl,
-                ctaType: adCtaType.value,
-                customLink: adCustomLink.value.trim() || '',
-                isActive: true,
-                createdAt: firebase.firestore.FieldValue.serverTimestamp()
-              });
-            } else {
-              // Larger video file: Try Firebase Storage if Blaze plan is active
-              document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري رفع ملف الفيديو...';
-              try {
-                if (!storage) throw new Error("Storage service is not enabled");
-                const fileExt = selectedAdFile.name.split('.').pop() || 'mp4';
-                const fileName = `ads_videos/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
-                const fileRef = storage.ref().child(fileName);
-                const uploadTask = fileRef.put(selectedAdFile);
-                
-                await new Promise((resolve, reject) => {
-                  uploadTask.on('state_changed', (snap) => {
-                    const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-                    adProgressFill.style.width = `${pct}%`;
-                    adProgressPercent.textContent = `${pct}%`;
-                  }, reject, async () => {
-                    finalMediaUrl = await uploadTask.snapshot.ref.getDownloadURL();
-                    resolve();
-                  });
-                });
-
-                await db.collection('ads').add({
-                  title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
-                  notes: adNotes.value.trim() || '',
-                  mediaType: 'video',
-                  videoUrl: finalMediaUrl,
-                  ctaType: adCtaType.value,
-                  customLink: adCustomLink.value.trim() || '',
-                  isActive: true,
-                  createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-              } catch (storageErr) {
-                console.warn("Storage upload failed (Spark plan):", storageErr);
-                adUploadProgress.style.display = 'none';
-                submitAdBtn.disabled = false;
-                openVideoGuidanceModal(selectedAdFile.name);
-                return;
-              }
-            }
+            adProgressFill.style.width = '96%';
+            adProgressPercent.textContent = '96%';
+          } else if (videoLink) {
+            finalMediaUrl = videoLink;
+            adProgressFill.style.width = '90%';
+            adProgressPercent.textContent = '90%';
           }
+
+          // Save Ad Document to Firestore
+          await db.collection('ads').add({
+            title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+            notes: adNotes.value.trim() || '',
+            mediaType: 'video',
+            videoUrl: finalMediaUrl,
+            ctaType: adCtaType.value,
+            customLink: adCustomLink.value.trim() || '',
+            isActive: true,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+          });
         } else {
-          // Optimize image client-side to ensure high quality and zero billing
+          // Poster Image: Client-side compression
+          document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري معالجة ورفع البوستر...';
           adProgressFill.style.width = '60%';
           adProgressPercent.textContent = '60%';
           finalMediaUrl = await compressImage(selectedAdFile);
@@ -1654,7 +1645,7 @@
         }, 500);
         submitAdBtn.disabled = false;
 
-        showToast(isVideo ? 'تم نشر الفيديو الإعلاني بنجاح على الموقع!' : 'تم نشر البوستر بنجاح على الموقع الرئيسي!');
+        showToast(isVideo ? 'تم رفع ونشر الفيديو الإعلاني بنجاح على الموقع!' : 'تم نشر البوستر بنجاح على الموقع الرئيسي!');
 
       } catch (err) {
         console.error("Error creating ad:", err);
@@ -1848,30 +1839,17 @@
 
         if (sourceType === 'upload') {
           if (!selectedVideoFile) {
-            // Keep current video if no new file picked, just update text
             const currentDoc = await db.collection('settings').doc('video').get();
             finalVideoUrl = (currentDoc.exists && currentDoc.data().videoUrl) ? currentDoc.data().videoUrl : 'enjaz_fleet_transit.mp4';
           } else {
             videoUploadProgress.style.display = 'flex';
-            const fileExt = selectedVideoFile.name.split('.').pop() || 'mp4';
-            const fileName = `videos/ops_video_${Date.now()}.${fileExt}`;
-            const fileRef = storage.ref().child(fileName);
-
-            const uploadTask = fileRef.put(selectedVideoFile);
-            await new Promise((resolve, reject) => {
-              uploadTask.on('state_changed',
-                (snapshot) => {
-                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                  videoProgressFill.style.width = `${progress}%`;
-                  videoProgressPercent.textContent = `${Math.round(progress)}%`;
-                },
-                reject,
-                async () => {
-                  finalVideoUrl = await uploadTask.snapshot.ref.getDownloadURL();
-                  resolve();
-                }
-              );
+            document.querySelector('#videoUploadProgress .progress-label span').textContent = 'جاري رفع فيديو العمليات إلى السحابة...';
+            finalVideoUrl = await uploadVideoToCloudinary(selectedVideoFile, (pct) => {
+              videoProgressFill.style.width = `${pct}%`;
+              videoProgressPercent.textContent = `${pct}%`;
             });
+            videoProgressFill.style.width = '100%';
+            videoProgressPercent.textContent = '100%';
           }
         } else {
           finalVideoUrl = videoUrlInput.value.trim();
