@@ -3425,9 +3425,9 @@
               if (!hasArabic && titleAr) {
                 // Director typed directly in English
                 titleEn = titleAr;
-              } else if (titleAr === 'فيديو إعلاني من إنجاز' || titleAr === 'فيديو إعلاني' || !rawTitle) {
+              } else if (titleAr === 'فيديو إعلاني من إنجاز' || titleAr === 'فيديو إعلاني' || (mediaType === 'video' && !rawTitle)) {
                 titleEn = 'Engaz Promotional Video';
-              } else if (titleAr === 'عرض خاص من إنجاز' || titleAr === 'عرض خاص') {
+              } else if (titleAr === 'عرض خاص من إنجاز' || titleAr === 'عرض خاص' || (mediaType === 'image' && !rawTitle)) {
                 titleEn = 'Special Offer from Engaz';
               } else {
                 // Custom Arabic text typed by director -> Smart English Fallback
