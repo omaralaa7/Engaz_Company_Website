@@ -973,10 +973,13 @@
             </div>
 
             <!-- Video Ad URL Input (Shown when Video is chosen) -->
-            <div class="form-group" id="adVideoUrlGroup" style="display: none; margin-bottom: 8px;">
+            <div class="form-group" id="adVideoUrlGroup" style="display: none; margin-bottom: 12px;">
               <label for="adVideoUrl" class="form-label">رابط الفيديو (YouTube أو فيسبوك أو Drive أو رابط مباشر MP4)</label>
-              <input type="url" id="adVideoUrl" class="input-rtl" dir="ltr" placeholder="https://www.youtube.com/watch?v=... أو https://example.com/video.mp4">
-              <span style="font-size: 0.8rem; color: var(--gold-light); margin-top: 4px; display: block;">ملاحظة: وضع رابط فيديو يضمن تشغيل الفيديو بأعلى جودة وسرعة للزوار دون أي حدود للمساحة.</span>
+              <input type="url" id="adVideoUrl" class="input-rtl" dir="ltr" placeholder="https://www.youtube.com/watch?v=... أو https://youtu.be/... أو https://example.com/video.mp4">
+              <div id="adVideoLivePreview" style="display: none; margin-top: 10px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(212,175,55,0.3); background: #000; max-width: 480px;"></div>
+              <span style="font-size: 0.82rem; color: var(--gold-light); margin-top: 6px; display: block;">
+                💡 <strong>الخيار الأسرع والموصى به:</strong> وضع رابط فيديو من <strong>يوتيوب (YouTube / Shorts)</strong> أو <strong>فيسبوك</strong> أو <strong>درايف</strong> يضمن تشغيل الفيديو بدقة 1080p فوراً للزوار دون أي استهلاك لمساحة الموقع وبدون أي حدود للحجم.
+              </span>
             </div>
 
             <!-- Dropzone / File Picker -->
@@ -1337,22 +1340,82 @@
     const adVideoUrl = document.getElementById('adVideoUrl');
     let currentAdMediaType = 'image';
 
+    const adVideoLivePreview = document.getElementById('adVideoLivePreview');
+
     adOptImage.addEventListener('click', () => {
       adOptImage.classList.add('active');
       adOptVideo.classList.remove('active');
       adVideoUrlGroup.style.display = 'none';
+      if (adVideoLivePreview) adVideoLivePreview.style.display = 'none';
       adDropzone.style.display = selectedAdFile ? 'none' : 'block';
+      adDropzone.querySelector('.dropzone-title').textContent = 'اضغط هنا لاختيار صورة البوستر أو اسحبها إلى هنا';
+      adDropzone.querySelector('.dropzone-sub').textContent = 'يدعم صور الهاتف والكمبيوتر (JPG, PNG, WebP) بأي مقاس';
       adFileInput.accept = 'image/*';
       currentAdMediaType = 'image';
+      submitAdBtn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        <span>نشر البوستر على الموقع الآن</span>
+      `;
     });
 
     adOptVideo.addEventListener('click', () => {
       adOptVideo.classList.add('active');
       adOptImage.classList.remove('active');
       adVideoUrlGroup.style.display = 'block';
-      adFileInput.accept = 'video/mp4,video/webm,video/quicktime,image/*';
+      adDropzone.style.display = 'block';
+      adDropzone.querySelector('.dropzone-title').textContent = 'أو اضغط هنا لاختيار ملف فيديو من جهازك (MP4 / WebM)';
+      adDropzone.querySelector('.dropzone-sub').textContent = '💡 يُفضل الرفع برابط يوتيوب/درايف بالأعلى، أو اختيار ملف فيديو MP4';
+      adFileInput.accept = 'video/mp4,video/webm,video/quicktime';
       currentAdMediaType = 'video';
+      submitAdBtn.innerHTML = `
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        <span>نشر الفيديو الإعلاني على الموقع الآن</span>
+      `;
+      updateVideoLivePreview();
     });
+
+    // Live Video URL Preview
+    adVideoUrl.addEventListener('input', updateVideoLivePreview);
+    adVideoUrl.addEventListener('paste', () => setTimeout(updateVideoLivePreview, 100));
+
+    function updateVideoLivePreview() {
+      const val = adVideoUrl.value.trim();
+      if (!val || currentAdMediaType !== 'video') {
+        if (adVideoLivePreview) adVideoLivePreview.style.display = 'none';
+        return;
+      }
+      
+      let previewHtml = '';
+      if (val.includes('youtube.com') || val.includes('youtu.be')) {
+        let ytId = '';
+        if (val.includes('youtu.be/')) ytId = val.split('youtu.be/')[1].split(/[?#&]/)[0];
+        else if (val.includes('/shorts/')) ytId = val.split('/shorts/')[1].split(/[?#&]/)[0];
+        else if (val.includes('v=')) ytId = val.split('v=')[1].split('&')[0];
+        else if (val.includes('/embed/')) ytId = val.split('/embed/')[1].split(/[?#&]/)[0];
+        if (ytId) {
+          previewHtml = `<iframe style="width:100%; height:250px; border:none; display:block;" src="https://www.youtube.com/embed/${ytId}?rel=0" allowfullscreen></iframe>`;
+        }
+      } else if (val.includes('drive.google.com')) {
+        const m = val.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        if (m && m[1]) {
+          previewHtml = `<iframe style="width:100%; height:250px; border:none; display:block;" src="https://drive.google.com/file/d/${m[1]}/preview" allowfullscreen></iframe>`;
+        }
+      } else if (val.endsWith('.mp4') || val.endsWith('.webm') || val.startsWith('data:video/')) {
+        previewHtml = `<video style="width:100%; max-height:250px; display:block;" controls playsinline src="${val}"></video>`;
+      }
+
+      if (previewHtml && adVideoLivePreview) {
+        adVideoLivePreview.innerHTML = `
+          <div style="padding:6px 12px; background:rgba(212,175,55,0.15); color:var(--gold-light); font-size:0.75rem; font-weight:700; border-bottom:1px solid rgba(212,175,55,0.2);">
+            ▶ معاينة فورية للفيديو قبل النشر:
+          </div>
+          ${previewHtml}
+        `;
+        adVideoLivePreview.style.display = 'block';
+      } else if (adVideoLivePreview) {
+        adVideoLivePreview.style.display = 'none';
+      }
+    }
 
     // File selection handler
     function handleAdFileSelection(file) {
@@ -1448,88 +1511,112 @@
       e.preventDefault();
 
       const videoLink = adVideoUrl.value.trim();
-      const isVideo = (currentAdMediaType === 'video' || !!videoLink || (selectedAdFile && selectedAdFile.type.startsWith('video/')));
+      const isVideo = (currentAdMediaType === 'video');
 
       if (!isVideo && !selectedAdFile) {
-        alert('يرجى اختيار صورة البوستر أو إدخال رابط الفيديو أولاً.');
+        alert('يرجى اختيار صورة البوستر أولاً.');
         return;
       }
       if (isVideo && !videoLink && !selectedAdFile) {
-        alert('يرجى إدخال رابط الفيديو (مثال: رابط يوتيوب) أو اختيار ملف فيديو.');
+        alert('يرجى إدخال رابط الفيديو (مثل رابط YouTube أو فيسبوك) أو اختيار ملف فيديو.');
         return;
       }
 
       submitAdBtn.disabled = true;
       adUploadProgress.style.display = 'flex';
-      adProgressFill.style.width = '30%';
-      adProgressPercent.textContent = '30%';
+      adProgressFill.style.width = '20%';
+      adProgressPercent.textContent = '20%';
 
       try {
         let finalMediaUrl = '';
-        let mediaType = isVideo ? 'video' : 'image';
 
         if (isVideo) {
           if (videoLink) {
             finalMediaUrl = videoLink;
-            adProgressFill.style.width = '90%';
-            adProgressPercent.textContent = '90%';
+            adProgressFill.style.width = '85%';
+            adProgressPercent.textContent = '85%';
+
+            // Publish directly to Firestore
             await db.collection('ads').add({
               title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
               notes: adNotes.value.trim() || '',
               mediaType: 'video',
               videoUrl: finalMediaUrl,
-              hasChunks: false,
               ctaType: adCtaType.value,
               customLink: adCustomLink.value.trim() || '',
               isActive: true,
               createdAt: firebase.firestore.FieldValue.serverTimestamp()
             });
           } else if (selectedAdFile) {
-            // Direct chunked upload to Firestore (starts immediately, 0% to 100% progress, zero hangs)
-            adProgressFill.style.width = '10%';
-            adProgressPercent.textContent = '10%';
-            document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري معالجة ورفع الفيديو...';
-
-            const CHUNK_SIZE = 500 * 1024; // 500 KB per chunk
-            const totalChunks = Math.ceil(selectedAdFile.size / CHUNK_SIZE);
-            
-            const newAdRef = await db.collection('ads').add({
-              title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
-              notes: adNotes.value.trim() || '',
-              mediaType: 'video',
-              hasChunks: true,
-              totalChunks: totalChunks,
-              mimeType: selectedAdFile.type || 'video/mp4',
-              ctaType: adCtaType.value,
-              customLink: adCustomLink.value.trim() || '',
-              isActive: true,
-              createdAt: firebase.firestore.FieldValue.serverTimestamp()
-            });
-
-            for (let i = 0; i < totalChunks; i++) {
-              const start = i * CHUNK_SIZE;
-              const end = Math.min(start + CHUNK_SIZE, selectedAdFile.size);
-              const slice = selectedAdFile.slice(start, end);
-              const chunkData = await new Promise((resolve) => {
+            // Direct video file selected
+            if (selectedAdFile.size <= 800 * 1024) {
+              // Direct DataURL in Firestore doc (zero external dependencies)
+              document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري معالجة الفيديو المباشر...';
+              adProgressFill.style.width = '60%';
+              adProgressPercent.textContent = '60%';
+              finalMediaUrl = await new Promise((resolve, reject) => {
                 const r = new FileReader();
                 r.onload = () => resolve(r.target.result);
-                r.readAsDataURL(slice);
+                r.onerror = reject;
+                r.readAsDataURL(selectedAdFile);
               });
+              adProgressFill.style.width = '90%';
+              adProgressPercent.textContent = '90%';
 
-              await newAdRef.collection('chunks').doc(String(i).padStart(4, '0')).set({
-                index: i,
-                data: chunkData
+              await db.collection('ads').add({
+                title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+                notes: adNotes.value.trim() || '',
+                mediaType: 'video',
+                videoUrl: finalMediaUrl,
+                ctaType: adCtaType.value,
+                customLink: adCustomLink.value.trim() || '',
+                isActive: true,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
               });
+            } else {
+              // Larger video file: Try Firebase Storage if Blaze plan is active
+              document.querySelector('#adUploadProgress .progress-label span').textContent = 'جاري رفع ملف الفيديو...';
+              try {
+                if (!storage) throw new Error("Storage service is not enabled");
+                const fileExt = selectedAdFile.name.split('.').pop() || 'mp4';
+                const fileName = `ads_videos/${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExt}`;
+                const fileRef = storage.ref().child(fileName);
+                const uploadTask = fileRef.put(selectedAdFile);
+                
+                await new Promise((resolve, reject) => {
+                  uploadTask.on('state_changed', (snap) => {
+                    const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
+                    adProgressFill.style.width = `${pct}%`;
+                    adProgressPercent.textContent = `${pct}%`;
+                  }, reject, async () => {
+                    finalMediaUrl = await uploadTask.snapshot.ref.getDownloadURL();
+                    resolve();
+                  });
+                });
 
-              const pct = 10 + Math.round(((i + 1) / totalChunks) * 85);
-              adProgressFill.style.width = `${pct}%`;
-              adProgressPercent.textContent = `${pct}%`;
+                await db.collection('ads').add({
+                  title: adTitle.value.trim() || 'فيديو إعلاني من إنجاز',
+                  notes: adNotes.value.trim() || '',
+                  mediaType: 'video',
+                  videoUrl: finalMediaUrl,
+                  ctaType: adCtaType.value,
+                  customLink: adCustomLink.value.trim() || '',
+                  isActive: true,
+                  createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+              } catch (storageErr) {
+                console.warn("Storage upload failed (Spark plan):", storageErr);
+                adUploadProgress.style.display = 'none';
+                submitAdBtn.disabled = false;
+                openVideoGuidanceModal(selectedAdFile.name);
+                return;
+              }
             }
           }
         } else {
           // Optimize image client-side to ensure high quality and zero billing
-          adProgressFill.style.width = '70%';
-          adProgressPercent.textContent = '70%';
+          adProgressFill.style.width = '60%';
+          adProgressPercent.textContent = '60%';
           finalMediaUrl = await compressImage(selectedAdFile);
 
           adProgressFill.style.width = '90%';
@@ -1540,7 +1627,6 @@
             notes: adNotes.value.trim() || '',
             mediaType: 'image',
             imageUrl: finalMediaUrl,
-            hasChunks: false,
             ctaType: adCtaType.value,
             customLink: adCustomLink.value.trim() || '',
             isActive: true,
@@ -1559,8 +1645,8 @@
         adNotes.value = '';
         adCustomLink.value = '';
         adPreviewBox.style.display = 'none';
+        if (adVideoLivePreview) adVideoLivePreview.style.display = 'none';
         adDropzone.style.display = 'block';
-        adDropzone.querySelector('.dropzone-title').textContent = 'اضغط هنا لاختيار صورة البوستر أو اسحبها إلى هنا';
         adOptImage.click();
 
         setTimeout(() => {
@@ -1568,7 +1654,7 @@
         }, 500);
         submitAdBtn.disabled = false;
 
-        showToast(isVideo ? 'تم نشر الفيديو الإعلاني بنجاح!' : 'تم نشر البوستر بنجاح على الموقع الرئيسي!');
+        showToast(isVideo ? 'تم نشر الفيديو الإعلاني بنجاح على الموقع!' : 'تم نشر البوستر بنجاح على الموقع الرئيسي!');
 
       } catch (err) {
         console.error("Error creating ad:", err);
@@ -1605,11 +1691,33 @@
           const dateStr = ad.createdAt && ad.createdAt.toDate ? ad.createdAt.toDate().toLocaleDateString('ar-EG') : 'الآن';
 
           const isVideoAd = (ad.mediaType === 'video');
-          const thumbHtml = isVideoAd 
-            ? `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#000;color:var(--gold-light);">
-                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
-               </div>`
-            : `<img src="${ad.imageUrl}" alt="${ad.title || 'بوستر إنجاز'}" class="ad-card-img" loading="lazy">`;
+          let thumbHtml = '';
+          if (isVideoAd) {
+            const vUrl = ad.videoUrl || '';
+            let ytId = '';
+            if (vUrl.includes('youtu.be/')) ytId = vUrl.split('youtu.be/')[1].split(/[?#&]/)[0];
+            else if (vUrl.includes('/shorts/')) ytId = vUrl.split('/shorts/')[1].split(/[?#&]/)[0];
+            else if (vUrl.includes('v=')) ytId = vUrl.split('v=')[1].split('&')[0];
+            else if (vUrl.includes('/embed/')) ytId = vUrl.split('/embed/')[1].split(/[?#&]/)[0];
+            
+            if (ytId) {
+              thumbHtml = `
+                <div style="width:100%;height:100%;position:relative;background:#000;">
+                  <img src="https://img.youtube.com/vi/${ytId}/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;opacity:0.9;" alt="${ad.title}">
+                  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--gold-light);background:rgba(0,0,0,0.25);">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                  </div>
+                </div>`;
+            } else {
+              thumbHtml = `
+                <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0d1117;color:var(--gold-light);gap:8px;">
+                  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                  <span style="font-size:0.75rem;color:#94a3b8;">فيديو إعلاني نشط</span>
+                </div>`;
+            }
+          } else {
+            thumbHtml = `<img src="${ad.imageUrl}" alt="${ad.title || 'بوستر إنجاز'}" class="ad-card-img" loading="lazy">`;
+          }
 
           html += `
             <div class="ad-card" id="card-${adId}">
@@ -1681,14 +1789,8 @@
       }
 
       try {
-        const chunks = await db.collection('ads').doc(adId).collection('chunks').get();
-        if (!chunks.empty) {
-          const batch = db.batch();
-          chunks.forEach(c => batch.delete(c.ref));
-          await batch.commit();
-        }
         await db.collection('ads').doc(adId).delete();
-        showToast('تم حذف الإعلان بنجاح');
+        showToast('تم حذف الإعلان بنجاح من الموقع');
       } catch (err) {
         console.error("Delete error:", err);
         alert('حدث خطأ أثناء الحذف: ' + err.message);
@@ -1817,6 +1919,56 @@
       }
     });
 
+    // Video Guidance Modal Handlers
+    window.openVideoGuidanceModal = (fileName) => {
+      const m = document.getElementById('videoGuidanceModal');
+      if (m) {
+        const fn = document.getElementById('guidanceFileName');
+        if (fn && fileName) fn.textContent = `الملف المختار: ${fileName}`;
+        m.style.display = 'flex';
+      } else {
+        alert("تنبيه: لرفع ملفات الفيديو الكبيرة مباشرة يتطلب مشروع Firebase تفعيل خطة Blaze، أو يمكنك ببساطة وضع رابط يوتيوب أو فيسبوك وسيعمل فوراً بأعلى جودة!");
+      }
+    };
+    window.closeVideoGuidanceModal = () => {
+      const m = document.getElementById('videoGuidanceModal');
+      if (m) m.style.display = 'none';
+    };
+
   </script>
+
+  <!-- Video Guidance Modal (Shown when video file upload is blocked by Spark plan) -->
+  <div id="videoGuidanceModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; align-items:center; justify-content:center; padding:16px; backdrop-filter:blur(5px);">
+    <div style="background:#151c28; border:1px solid rgba(212,175,55,0.45); border-radius:16px; max-width:540px; width:100%; padding:26px; text-align:right; color:#fff; box-shadow:0 20px 50px rgba(0,0,0,0.8); position:relative; font-family:'Cairo',sans-serif;">
+      
+      <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+        <div style="width:44px; height:44px; border-radius:12px; background:rgba(212,175,55,0.18); display:flex; align-items:center; justify-content:center; color:var(--gold-light); flex-shrink:0;">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <div>
+          <h3 style="margin:0; font-size:1.15rem; color:#fff; font-weight:700;">تنبيه بشأن رفع ملف الفيديو المباشر</h3>
+          <p style="margin:2px 0 0 0; font-size:0.8rem; color:var(--gold-light);" id="guidanceFileName"></p>
+        </div>
+      </div>
+
+      <p style="color:#cbd5e1; font-size:0.92rem; line-height:1.75; margin-bottom:16px;">
+        حساب <strong>Google Firebase</strong> الحالي يعمل على الخطة المجانية (Spark). وقامت شركة Google بتحديث سياساتها، حيث أصبح رفع ملفات الفيديو الضخمة مباشرة إلى سيرفر التخزين يتطلب تفعيل خطة <strong>Blaze</strong> في لوحة تحكم Firebase.
+      </p>
+
+      <div style="background:rgba(212,175,55,0.08); border-right:4px solid var(--gold-light); padding:14px 16px; border-radius:8px; margin-bottom:20px;">
+        <p style="color:var(--gold-light); font-weight:800; font-size:0.95rem; margin:0 0 8px 0;">🚀 الحل الأسرع والأفضل 100% (يعمل فوراً):</p>
+        <p style="color:#e2e8f0; font-size:0.88rem; margin:0; line-height:1.7;">
+          قم ببساطة بنسخ رابط الفيديو من <strong>يوتيوب (YouTube أو Shorts)</strong> أو <strong>فيسبوك</strong> أو <strong>جوجل درايف</strong> ولصقه في خانة <strong>"رابط الفيديو"</strong> بالأعلى، واضغط نشر.<br>
+          سيعمل الفيديو فوراً على الموقع بأعلى دقة 1080p وبدون أي حدود للمساحة!
+        </p>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px;">
+        <button type="button" onclick="closeVideoGuidanceModal()" class="btn-submit" style="width:auto; padding:10px 24px; font-size:0.92rem; border-radius:8px;">
+          فهمت ذلك، سأستخدم الرابط
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

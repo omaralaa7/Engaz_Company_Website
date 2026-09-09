@@ -3413,28 +3413,34 @@
 
               let mediaHtml = '';
               if (mediaType === 'video') {
-                const vUrl = ad.videoUrl || ad.imageUrl || '';
-                const adDocId = ad.id || ('ad-' + Math.random().toString(36).substring(2, 7));
-                
-                if (ad.hasChunks) {
-                  mediaHtml = `
-                    <div class="dynamic-ad-media" style="cursor: default;">
-                      <video class="dynamic-ad-video" id="video-stream-${adDocId}" controls playsinline preload="metadata">
-                        متصفحك لا يدعم مشغل الفيديو.
-                      </video>
-                    </div>`;
-                  // Stream chunks asynchronously
-                  setTimeout(() => {
-                    loadAdVideoChunks(adDocId, document.getElementById('video-stream-' + adDocId));
-                  }, 50);
+                const vUrl = (ad.videoUrl || ad.imageUrl || '').trim();
+                if (!vUrl) {
+                  mediaHtml = '';
                 } else if (vUrl.includes('youtube.com') || vUrl.includes('youtu.be')) {
                   let ytId = '';
                   if (vUrl.includes('youtu.be/')) {
-                    ytId = vUrl.split('youtu.be/')[1].split('?')[0];
+                    ytId = vUrl.split('youtu.be/')[1].split(/[?#&]/)[0];
+                  } else if (vUrl.includes('/shorts/')) {
+                    ytId = vUrl.split('/shorts/')[1].split(/[?#&]/)[0];
                   } else if (vUrl.includes('v=')) {
                     ytId = vUrl.split('v=')[1].split('&')[0];
+                  } else if (vUrl.includes('/embed/')) {
+                    ytId = vUrl.split('/embed/')[1].split(/[?#&]/)[0];
                   }
-                  mediaHtml = `<iframe class="dynamic-ad-iframe" src="https://www.youtube.com/embed/${ytId}" allowfullscreen loading="lazy"></iframe>`;
+                  if (ytId) {
+                    mediaHtml = `
+                      <div class="dynamic-ad-media" style="cursor: default;">
+                        <iframe class="dynamic-ad-iframe" src="https://www.youtube.com/embed/${ytId}?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+                      </div>`;
+                  }
+                } else if (vUrl.includes('drive.google.com')) {
+                  const driveMatch = vUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                  if (driveMatch && driveMatch[1]) {
+                    mediaHtml = `
+                      <div class="dynamic-ad-media" style="cursor: default;">
+                        <iframe class="dynamic-ad-iframe" src="https://drive.google.com/file/d/${driveMatch[1]}/preview" allowfullscreen loading="lazy"></iframe>
+                      </div>`;
+                  }
                 } else {
                   mediaHtml = `
                     <div class="dynamic-ad-media" style="cursor: default;">
@@ -3446,15 +3452,17 @@
                 }
               } else {
                 const img = ad.imageUrl;
-                const safeTitle = title.replace(/'/g, "\\'");
-                mediaHtml = `
-                  <div class="dynamic-ad-media" onclick="if(window.openEnjazImage) window.openEnjazImage('${img}', '${safeTitle}')">
-                    <img src="${img}" alt="${title}" class="dynamic-ad-img" loading="lazy">
-                    <div class="dynamic-ad-zoom-hint">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                      <span>${isEn ? 'Click to Enlarge' : 'اضغط للتكبير'}</span>
-                    </div>
-                  </div>`;
+                if (img) {
+                  const safeTitle = title.replace(/'/g, "\\'");
+                  mediaHtml = `
+                    <div class="dynamic-ad-media" onclick="if(window.openEnjazImage) window.openEnjazImage('${img}', '${safeTitle}')">
+                      <img src="${img}" alt="${title}" class="dynamic-ad-img" loading="lazy">
+                      <div class="dynamic-ad-zoom-hint">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+                        <span>${isEn ? 'Click to Enlarge' : 'اضغط للتكبير'}</span>
+                      </div>
+                    </div>`;
+                }
               }
 
               html += `
@@ -3479,29 +3487,6 @@
           }, function (err) {
             console.warn("Firestore ads listener:", err);
           });
-
-        // Helper to assemble chunked video from Firestore
-        async function loadAdVideoChunks(adId, videoEl) {
-          if (!videoEl) return;
-          try {
-            const snap = await db.collection('ads').doc(adId).collection('chunks').orderBy('index', 'asc').get();
-            if (snap.empty) return;
-            const binaryChunks = [];
-            snap.forEach(function (doc) {
-              const b64 = doc.data().data.split(',')[1];
-              const binStr = atob(b64);
-              const bytes = new Uint8Array(binStr.length);
-              for (let i = 0; i < binStr.length; i++) {
-                bytes[i] = binStr.charCodeAt(i);
-              }
-              binaryChunks.push(bytes);
-            });
-            const blob = new Blob(binaryChunks, { type: 'video/mp4' });
-            videoEl.src = URL.createObjectURL(blob);
-          } catch (err) {
-            console.warn("Stream video error:", err);
-          }
-        }
 
         // 2. Live Operations Video Settings Listener
         db.collection('settings').doc('video').onSnapshot(function (doc) {
