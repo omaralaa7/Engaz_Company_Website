@@ -3213,6 +3213,14 @@
           const k = el.getAttribute('data-i18n-placeholder');
           if (dict[k]) el.setAttribute('placeholder', dict[k]);
         });
+
+        // Dynamic Ad elements translation (Smart Fallback)
+        document.querySelectorAll('[data-ad-ar][data-ad-en]').forEach(function (el) {
+          el.textContent = (lang === 'en') ? el.getAttribute('data-ad-en') : el.getAttribute('data-ad-ar');
+        });
+        document.querySelectorAll('[data-cta-ar][data-cta-en]').forEach(function (el) {
+          el.href = (lang === 'en') ? el.getAttribute('data-cta-en') : el.getAttribute('data-cta-ar');
+        });
       }
 
       // Language button toggle
@@ -3394,22 +3402,78 @@
           });
 
           let html = '';
+          function escapeHtml(s) {
+            if (!s) return '';
+            return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+          }
+
           activeAds.forEach(function (ad) {
-              const title = ad.title || 'عرض خاص من إنجاز';
-              const notes = ad.notes || '';
+              const rawTitle = (ad.title || '').trim();
+              const rawNotes = (ad.notes || '').trim();
               const mediaType = ad.mediaType || 'image';
               const isEn = (document.documentElement.lang === 'en');
-              
-              let ctaHref = 'https://wa.me/201140347324?text=' + encodeURIComponent('مرحباً إنجاز، أود الاستفسار عن: ' + title);
-              let ctaText = isEn ? 'Direct WhatsApp Inquiry' : 'استفسار عبر واتساب';
+
+              // Determine Arabic title
+              let titleAr = rawTitle;
+              if (!titleAr) {
+                titleAr = (mediaType === 'video') ? 'فيديو إعلاني من إنجاز' : 'عرض خاص من إنجاز';
+              }
+
+              // Determine Smart English Fallback title
+              let titleEn = '';
+              const hasArabic = /[\u0600-\u06FF]/.test(titleAr);
+              if (!hasArabic && titleAr) {
+                // Director typed directly in English
+                titleEn = titleAr;
+              } else if (titleAr === 'فيديو إعلاني من إنجاز' || titleAr === 'فيديو إعلاني' || !rawTitle) {
+                titleEn = 'Engaz Promotional Video';
+              } else if (titleAr === 'عرض خاص من إنجاز' || titleAr === 'عرض خاص') {
+                titleEn = 'Special Offer from Engaz';
+              } else {
+                // Custom Arabic text typed by director -> Smart English Fallback
+                titleEn = (mediaType === 'video')
+                  ? 'Special Offer & Fleet Announcement from Engaz'
+                  : 'Special Offer & Logistics Announcement from Engaz';
+              }
+
+              const displayTitle = isEn ? titleEn : titleAr;
+
+              // Notes translation with Smart Fallback
+              let notesAr = rawNotes;
+              let notesEn = '';
+              if (rawNotes) {
+                const notesHasArabic = /[\u0600-\u06FF]/.test(rawNotes);
+                if (!notesHasArabic) {
+                  notesEn = rawNotes;
+                } else {
+                  notesEn = (mediaType === 'video')
+                    ? 'Official commercial freight & operational video announcement from Engaz.'
+                    : 'Exclusive commercial supplies and freight transport solutions across Egypt.';
+                }
+              }
+              const displayNotes = isEn ? notesEn : notesAr;
+
+              // Action buttons & links
+              let ctaTextAr = 'استفسار عبر واتساب';
+              let ctaTextEn = 'Direct WhatsApp Inquiry';
+              let ctaHrefAr = 'https://wa.me/201140347324?text=' + encodeURIComponent('مرحباً إنجاز، أود الاستفسار عن: ' + titleAr);
+              let ctaHrefEn = 'https://wa.me/201140347324?text=' + encodeURIComponent('Hello Engaz, I would like to inquire about: ' + titleEn);
 
               if (ad.ctaType === 'call') {
-                ctaHref = 'tel:01140347324';
-                ctaText = isEn ? 'Call Directly' : 'اتصال مباشر';
+                ctaHrefAr = 'tel:01140347324';
+                ctaHrefEn = 'tel:01140347324';
+                ctaTextAr = 'اتصال مباشر';
+                ctaTextEn = 'Call Directly';
               } else if (ad.ctaType === 'custom' && ad.customLink) {
-                ctaHref = ad.customLink;
-                ctaText = isEn ? 'Learn More' : 'تفاصيل العرض';
+                ctaHrefAr = ad.customLink;
+                ctaHrefEn = ad.customLink;
+                ctaTextAr = 'تفاصيل العرض';
+                ctaTextEn = 'Learn More';
               }
+
+              const displayCtaText = isEn ? ctaTextEn : ctaTextAr;
+              const displayCtaHref = isEn ? ctaHrefEn : ctaHrefAr;
+              const zoomHintText = isEn ? 'Click to Enlarge' : 'اضغط للتكبير';
 
               let mediaHtml = '';
               if (mediaType === 'video') {
@@ -3453,13 +3517,13 @@
               } else {
                 const img = ad.imageUrl;
                 if (img) {
-                  const safeTitle = title.replace(/'/g, "\\'");
+                  const safeTitle = displayTitle.replace(/'/g, "\\'");
                   mediaHtml = `
                     <div class="dynamic-ad-media" onclick="if(window.openEnjazImage) window.openEnjazImage('${img}', '${safeTitle}')">
-                      <img src="${img}" alt="${title}" class="dynamic-ad-img" loading="lazy">
+                      <img src="${img}" alt="${escapeHtml(displayTitle)}" class="dynamic-ad-img" loading="lazy">
                       <div class="dynamic-ad-zoom-hint">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
-                        <span>${isEn ? 'Click to Enlarge' : 'اضغط للتكبير'}</span>
+                        <span data-ad-ar="اضغط للتكبير" data-ad-en="Click to Enlarge">${zoomHintText}</span>
                       </div>
                     </div>`;
                 }
@@ -3470,12 +3534,12 @@
                   ${mediaHtml}
                   <div class="dynamic-ad-content">
                     <div>
-                      <h3 class="dynamic-ad-heading">${title}</h3>
-                      ${notes ? `<p class="dynamic-ad-notes">${notes}</p>` : ''}
+                      <h3 class="dynamic-ad-heading" data-ad-ar="${escapeHtml(titleAr)}" data-ad-en="${escapeHtml(titleEn)}">${escapeHtml(displayTitle)}</h3>
+                      ${rawNotes ? `<p class="dynamic-ad-notes" data-ad-ar="${escapeHtml(notesAr)}" data-ad-en="${escapeHtml(notesEn)}">${escapeHtml(displayNotes)}</p>` : ''}
                     </div>
-                    <a href="${ctaHref}" target="_blank" rel="noopener noreferrer" class="dynamic-ad-cta-btn">
+                    <a href="${displayCtaHref}" target="_blank" rel="noopener noreferrer" class="dynamic-ad-cta-btn" data-cta-ar="${ctaHrefAr}" data-cta-en="${ctaHrefEn}">
                       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-                      <span>${ctaText}</span>
+                      <span data-ad-ar="${ctaTextAr}" data-ad-en="${ctaTextEn}">${displayCtaText}</span>
                     </a>
                   </div>
                 </div>
